@@ -1,18 +1,23 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-    <title>Your first Spring application</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Video</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<p><a href="/hello">Greet the world!</a></p>
+<video id="introVideo" autoplay muted>
+    <source src="loading_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<p>Loading ...</p>
 
-<form action="/hello" method="GET" id="nameForm">
-    <div>
-        <label for="nameField">How should the app call you?</label>
-        <input name="myName" id="nameField">
-        <button>Greet me!</button>
-    </div>
-</form>
+<script>
+    const video = document.getElementById('introVideo');
+    video.addEventListener('ended', function () {
+        window.location.href = "/hello";
+    });
+</script>
 </body>
 </html>
