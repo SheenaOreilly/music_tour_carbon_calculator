@@ -15,14 +15,26 @@ public class MusicTourCarbonCalculatorApplication {
         SpringApplication.run(MusicTourCarbonCalculatorApplication.class, args);
     }
 
-    @GetMapping("/hello")
-    public String showForm() {
+    @GetMapping("/main")
+    public String showMain() {
+        return "main";
+    }
+
+    @GetMapping("/calculateCarbon")
+    public String calculateCarbon(
+            @RequestParam(value = "distance", defaultValue = "0") double distance,
+            @RequestParam(value = "fuel", defaultValue = "petrol") String vehicleFuel,
+            @RequestParam(value = "consumption", defaultValue = "0") double consumption,
+            Model model) {
+
+        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, vehicleFuel, consumption);
+
+        model.addAttribute("distance", distance);
+        model.addAttribute("vehicleFuel", vehicleFuel);
+        model.addAttribute("consumption", consumption);
+        model.addAttribute("carbonEmissions", carbonEmissions);
+
         return "form";
     }
 
-    @GetMapping("/greet")
-    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greet";
-    }
 }
