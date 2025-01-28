@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 @SpringBootApplication
 @Controller
 public class MusicTourCarbonCalculatorApplication {
@@ -22,11 +24,14 @@ public class MusicTourCarbonCalculatorApplication {
 
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
-            @RequestParam(value = "distance", defaultValue = "0") double distance,
+            @RequestParam(value = "origin", defaultValue = "dublin") String origin,
+            @RequestParam(value = "destination", defaultValue = "dublin") String destination,
+            @RequestParam(value = "mode", defaultValue = "driving") String mode,
             @RequestParam(value = "fuel", defaultValue = "petrol") String vehicleFuel,
             @RequestParam(value = "consumption", defaultValue = "0") double consumption,
-            Model model) {
+            Model model) throws IOException {
 
+        double distance = Distance.calculateDistance(origin, destination, mode);
         double carbonEmissions = Calculator.calculateCarbonEmissions(distance, vehicleFuel, consumption);
 
         model.addAttribute("distance", distance);
