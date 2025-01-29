@@ -37,6 +37,12 @@
     <button type="submit">Get Fuel Info</button>
 </form>
 
+<div th:if="${vehicleFuel != null}">
+    <h2>Fuel Information Results</h2>
+    <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
+    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100Km </p>
+</div>
+
 <script>
     // AJAX to handle year input and fetch makes
     $('#yearForm').on('submit', function(e) {
@@ -70,15 +76,18 @@
     // AJAX to handle make selection and fetch models
     $('#modelForm').on('submit', function(e) {
         e.preventDefault();
-        var year = $('#yearHidden').val();
-        var make = $('#makeHidden').val();
+        var year = $('#year').val();
+        var make = $('#make').val();
         var model = $('#model').val();
-        $.get('/getFuelSize', { year: year, make: make, model:model }, function(data) {
-            // Update models dropdown
+
+        $.get('/getFuelSize', { year: year, make: make, model: model }, function(data) {
+            // Clear existing options
             $('#tank').html('');
             $('#tank').append('<option value="">-- Choose a Tank Size --</option>');
-            data.forEach(function(model) {
-                $('#tank').append('<option value="' + tank + '">' + tank + '</option>');
+
+            // Iterate through the map and set the label as the key and the value as the value
+            $.each(data, function(label, value) {
+                $('#tank').append('<option value="' + value + '">' + label + '</option>');
             });
         });
     });

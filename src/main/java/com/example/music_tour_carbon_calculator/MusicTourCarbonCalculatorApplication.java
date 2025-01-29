@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -51,9 +52,19 @@ public class MusicTourCarbonCalculatorApplication {
 
     @GetMapping("/getFuelSize")
     @ResponseBody
-    public List getFuelSize( @RequestParam("model") String model) throws IOException, ParserConfigurationException, SAXException {
+    public Map<String, String> getFuelSize(@RequestParam("model") String model) throws IOException, ParserConfigurationException, SAXException {
         thisModel = model;
         return CarInfo.getFuelSize(thisYear, thisMake, model);
+    }
+
+    @GetMapping("/getFuelInfo")
+    public String getFuelInfo(@RequestParam("tank") String tank, Model model) throws IOException, ParserConfigurationException, SAXException {
+        List carInfo = CarInfo.getFuelInfo(tank);
+        String vehicleFuel = (String) carInfo.get(0);
+        String consumption = (String) carInfo.get(1);
+        model.addAttribute("vehicleFuel", vehicleFuel);
+        model.addAttribute("consumption", consumption);
+        return "car";
     }
 
     @GetMapping("/calculateCarbon")
