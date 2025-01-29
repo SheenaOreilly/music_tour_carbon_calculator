@@ -93,11 +93,15 @@ public class CarInfo {
         getBasicXML(urlString);
         NodeList fuelNodes = doc.getElementsByTagName("fuelType1");
         NodeList consumptionNodes = doc.getElementsByTagName("comb08U");
+        NodeList consumptionNodesBackup = doc.getElementsByTagName("comb08");
 
         for (int i = 0; i < fuelNodes.getLength(); i++) {
             String fuel = fuelNodes.item(i).getTextContent();
             String consumption = consumptionNodes.item(i).getTextContent();
             double conversion = Double.parseDouble(consumption);
+            if(conversion <= 0.0){
+                conversion = Double.parseDouble(consumptionNodesBackup.item(i).getTextContent());
+            }
             conversion = 235.2145 / conversion;
             consumption = String.format("%.2f", conversion);
             vehicleTexts.add(fuel);

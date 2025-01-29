@@ -21,6 +21,8 @@ public class MusicTourCarbonCalculatorApplication {
     public String thisYear;
     public String thisMake;
     public String thisModel;
+    public String thisFuel;
+    public String thisConsumption;
 
     public static void main(String[] args) {
         SpringApplication.run(MusicTourCarbonCalculatorApplication.class, args);
@@ -29,11 +31,6 @@ public class MusicTourCarbonCalculatorApplication {
     @GetMapping("/main")
     public String showMain() {
         return "main";
-    }
-
-    @GetMapping("/car")
-    public String showCar() {
-        return "car";
     }
 
     @GetMapping("/getMakes")
@@ -62,9 +59,16 @@ public class MusicTourCarbonCalculatorApplication {
         List carInfo = CarInfo.getFuelInfo(tank);
         String vehicleFuel = (String) carInfo.get(0);
         String consumption = (String) carInfo.get(1);
+        thisFuel = vehicleFuel.toLowerCase();
+        thisConsumption = consumption;
         model.addAttribute("vehicleFuel", vehicleFuel);
         model.addAttribute("consumption", consumption);
-        return "car";
+        return "carbon";
+    }
+
+    @GetMapping("/carbon")
+    public String showCarbon() {
+        return "carbon";
     }
 
     @GetMapping("/calculateCarbon")
@@ -72,20 +76,18 @@ public class MusicTourCarbonCalculatorApplication {
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
-            @RequestParam(value = "fuel", defaultValue = "petrol") String vehicleFuel,
-            @RequestParam(value = "consumption", defaultValue = "0") double consumption,
             Model model) throws IOException {
 
         double distance = Distance.calculateDistance(origin, destination, mode);
 
-        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, vehicleFuel, consumption);
+        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, thisFuel, Double.parseDouble(thisConsumption));
 
         model.addAttribute("distance", distance);
-        model.addAttribute("vehicleFuel", vehicleFuel);
-        model.addAttribute("consumption", consumption);
+        model.addAttribute("vehicleFuel", thisFuel);
+        model.addAttribute("consumption", thisConsumption);
         model.addAttribute("carbonEmissions", carbonEmissions);
 
-        return "form";
+        return "carbon";
     }
 
 }

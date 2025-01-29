@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Car Information</title>
+    <title>Carbon Emission Calculator</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<h1>Car Information</h1>
+<h1>Calculate Carbon Emissions</h1>
 
 <form id="yearForm" action="/getMakes" method="get">
     <label for="year">Enter Year:</label>
     <input type="text" id="year" name="year" required>
     <button type="submit">Get Makes</button>
 </form>
+<br><br>
 
 <form id="makeForm" action="/getModels" method="get">
     <label for="make">Select Make:</label>
@@ -20,6 +21,7 @@
     </select>
     <button type="submit">Get Models</button>
 </form>
+<br><br>
 
 <form id="modelForm" action="/getFuelSize" method="get">
     <label for="model">Select Model:</label>
@@ -28,19 +30,42 @@
     </select>
     <button type="submit">Get Tank Size</button>
 </form>
+<br><br>
 
 <form id="tankForm" action="/getFuelInfo" method="get">
     <label for="tank">Select Tank Size:</label>
     <select id="tank" name="tank" required>
         <option value="">-- Choose a Tank Size --</option>
     </select>
-    <button type="submit">Get Fuel Info</button>
+    <button type="submit">Submit</button>
+</form>
+<br><br>
+
+<form action="/calculateCarbon" method="get">
+    <label for="origin">Origin :</label>
+    <input type="text" id="origin" name="origin" required>
+    <br><br>
+
+    <label for="destination">Destination :</label>
+    <input type="text" id="destination" name="destination" required>
+    <br><br>
+
+    <label for="mode">Mode of Transport:</label>
+    <select id="mode" name="mode" required>
+        <option value="driving">Driving</option>
+        <option value="transit">Public Transport</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Calculate</button>
 </form>
 
-<div th:if="${vehicleFuel != null}">
-    <h2>Fuel Information Results</h2>
+<div th:if="${carbonEmissions != null}">
+    <h2>Carbon Emission Results</h2>
+    <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
     <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
-    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100Km </p>
+    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km</p>
+    <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
 </div>
 
 <script>
