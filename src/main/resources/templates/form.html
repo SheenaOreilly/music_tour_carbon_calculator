@@ -1,16 +1,48 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Greeting Form</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Carbon Emission Calculator</title>
 </head>
 <body>
-<form action="/greet" method="GET" id="nameForm">
-    <div>
-        <label for="nameField">What should the app call you?</label>
-        <input name="myName" id="nameField">
-        <button type="submit">Greet me!</button>
-    </div>
+<h1>Calculate Carbon Emissions</h1>
+
+<form action="/calculateCarbon" method="get">
+    <label for="origin">Origin :</label>
+    <input type="text" id="origin" name="origin" required>
+    <br><br>
+
+    <label for="destination">Destination :</label>
+    <input type="text" id="destination" name="destination" required>
+    <br><br>
+
+    <label for="mode">Mode of Transport:</label>
+    <select id="mode" name="mode" required>
+        <option value="driving">Driving</option>
+        <option value="transit">Public Transport</option>
+    </select>
+    <br><br>
+
+    <label for="fuel">Fuel Type:</label>
+    <select id="fuel" name="fuel" required>
+        <option value="petrol">Petrol</option>
+        <option value="diesel">Diesel</option>
+    </select>
+    <br><br>
+
+    <label for="consumption">Fuel Consumption (L/100km):</label>
+    <input type="number" id="consumption" name="consumption" step="0.01" required>
+    <br><br>
+
+    <button type="submit">Calculate</button>
 </form>
+
+<div th:if="${carbonEmissions != null}">
+    <h2>Carbon Emission Results</h2>
+    <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
+    <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
+    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km</p>
+    <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
+</div>
+
 </body>
 </html>
