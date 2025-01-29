@@ -49,9 +49,11 @@ public class CarInfo {
                 model.replace(" ", "%20")
         );
 
+        // TODO : need to get the value as well as the text and need to fix the text
         return getJson(urlString, vehicleTexts);
     }
 
+    //TODO : create method to get the fuel type and the consumption based on the value from getFuelSize
 
     private static List getJson(String urlString, List vehicleTexts) throws IOException, ParserConfigurationException, SAXException {
         URL url = new URL(urlString);
