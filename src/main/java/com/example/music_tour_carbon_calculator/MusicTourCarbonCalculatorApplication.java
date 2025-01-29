@@ -6,8 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootApplication
 @Controller
@@ -22,22 +25,29 @@ public class MusicTourCarbonCalculatorApplication {
         return "main";
     }
 
+
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
-            @RequestParam(value = "fuel", defaultValue = "petrol") String vehicleFuel,
-            @RequestParam(value = "consumption", defaultValue = "0") double consumption,
-            Model model) throws IOException {
+            @RequestParam(value = "year", defaultValue = "2025") String year,
+            @RequestParam(value = "make", defaultValue = "toyota") String make,
+            @RequestParam(value = "caramodel", defaultValue = "corolla") String carmodel,
+//            @RequestParam(value = "fuel", defaultValue = "petrol") String vehicleFuel,
+//            @RequestParam(value = "consumption", defaultValue = "0") double consumption,
+            Model model) throws IOException, ParserConfigurationException, SAXException {
 
         double distance = Distance.calculateDistance(origin, destination, mode);
-        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, vehicleFuel, consumption);
+        List carInfo = CarInfo.getCarID(year, make, carmodel);
+
+//        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, vehicleFuel, consumption);
 
         model.addAttribute("distance", distance);
-        model.addAttribute("vehicleFuel", vehicleFuel);
-        model.addAttribute("consumption", consumption);
-        model.addAttribute("carbonEmissions", carbonEmissions);
+        model.addAttribute("carInfo", carInfo);
+//        model.addAttribute("vehicleFuel", vehicleFuel);
+//        model.addAttribute("consumption", consumption);
+//        model.addAttribute("carbonEmissions", carbonEmissions);
 
         return "form";
     }

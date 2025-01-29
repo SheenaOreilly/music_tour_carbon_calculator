@@ -48,7 +48,6 @@ public class Distance {
         }
         in.close();
 
-        JSONObject jsonObject = new JSONObject(response.toString());
-        return jsonObject;
+        return new JSONObject(response.toString());
     }
 }
