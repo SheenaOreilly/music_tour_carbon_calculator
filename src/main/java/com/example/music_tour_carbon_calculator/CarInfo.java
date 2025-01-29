@@ -20,7 +20,27 @@ import org.xml.sax.SAXException;
 @Service
 public class CarInfo {
 
-    public static List getCarID(String year, String make, String model) throws IOException, ParserConfigurationException, SAXException {
+    public static List getMakes(String year) throws IOException, ParserConfigurationException, SAXException {
+        List<String> vehicleTexts = new ArrayList<>();
+        String urlString = String.format(
+                "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make?year=%s",
+                year.replace(" ", "%20")
+        );
+
+        return getJson(urlString, vehicleTexts);
+    }
+
+    public static List getModels(String year, String make) throws IOException, ParserConfigurationException, SAXException {
+        List<String> vehicleTexts = new ArrayList<>();
+        String urlString = String.format(
+                "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model?year=%s&make=%s",
+                year.replace(" ", "%20"),
+                make.replace(" ", "%20")
+        );
+
+        return getJson(urlString, vehicleTexts);
+    }
+    public static List getFuelSize(String year, String make, String model) throws IOException, ParserConfigurationException, SAXException {
         List<String> vehicleTexts = new ArrayList<>();
         String urlString = String.format(
                 "https://www.fueleconomy.gov/ws/rest/vehicle/menu/options?year=%s&make=%s&model=%s",
@@ -31,6 +51,7 @@ public class CarInfo {
 
         return getJson(urlString, vehicleTexts);
     }
+
 
     private static List getJson(String urlString, List vehicleTexts) throws IOException, ParserConfigurationException, SAXException {
         URL url = new URL(urlString);

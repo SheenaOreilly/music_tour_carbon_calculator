@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Car Information</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Car Information</h1>
+
+<form id="yearForm" action="/getMakes" method="get">
+    <label for="year">Enter Year:</label>
+    <input type="text" id="year" name="year" required>
+    <button type="submit">Get Makes</button>
+</form>
+
+<form id="makeForm" action="/getModels" method="get">
+    <label for="make">Select Make:</label>
+    <select id="make" name="make" required>
+        <option value="">-- Choose a Make --</option>
+    </select>
+    <button type="submit">Get Models</button>
+</form>
+
+<form id="modelForm" action="/getFuelSize" method="get">
+    <label for="model">Select Model:</label>
+    <select id="model" name="model" required>
+        <option value="">-- Choose a Model --</option>
+    </select>
+    <button type="submit">Get Tank Size</button>
+</form>
+
+<form id="tankForm" action="/getFuelInfo" method="get">
+    <label for="tank">Select Tank Size:</label>
+    <select id="tank" name="tank" required>
+        <option value="">-- Choose a Tank Size --</option>
+    </select>
+    <button type="submit">Get Fuel Info</button>
+</form>
+
+<script>
+    // AJAX to handle year input and fetch makes
+    $('#yearForm').on('submit', function(e) {
+        e.preventDefault();
+        var year = $('#year').val();
+        $.get('/getMakes', { year: year }, function(data) {
+            // Update makes dropdown
+            $('#make').html('');
+            $('#make').append('<option value="">-- Choose a Make --</option>');
+            data.forEach(function(make) {
+                $('#make').append('<option value="' + make + '">' + make + '</option>');
+            });
+        });
+    });
+
+    // AJAX to handle make selection and fetch models
+    $('#makeForm').on('submit', function(e) {
+        e.preventDefault();
+        var year = $('#yearHidden').val();
+        var make = $('#make').val();
+        $.get('/getModels', { year: year, make: make }, function(data) {
+            // Update models dropdown
+            $('#model').html('');
+            $('#model').append('<option value="">-- Choose a Model --</option>');
+            data.forEach(function(model) {
+                $('#model').append('<option value="' + model + '">' + model + '</option>');
+            });
+        });
+    });
+
+    // AJAX to handle make selection and fetch models
+    $('#modelForm').on('submit', function(e) {
+        e.preventDefault();
+        var year = $('#yearHidden').val();
+        var make = $('#makeHidden').val();
+        var model = $('#model').val();
+        $.get('/getFuelSize', { year: year, make: make, model:model }, function(data) {
+            // Update models dropdown
+            $('#tank').html('');
+            $('#tank').append('<option value="">-- Choose a Tank Size --</option>');
+            data.forEach(function(model) {
+                $('#tank').append('<option value="' + tank + '">' + tank + '</option>');
+            });
+        });
+    });
+</script>
+</body>
+</html>
