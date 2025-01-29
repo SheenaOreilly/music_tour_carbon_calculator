@@ -7,7 +7,7 @@ public class Calculator {
     public static double calculateCarbonEmissions(double distance, String fuel, double consumption){
         double emissionFactor = switch (fuel.toLowerCase()) {
             case "diesel" -> 2.683;
-            case "petrol" -> 2.311;
+            case "petrol", "premium gasoline", "regular gasoline" -> 2.311;
             default -> 0;
         };
 
