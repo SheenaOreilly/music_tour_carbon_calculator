@@ -7,48 +7,63 @@
 <body>
 <h1>Calculate Carbon Emissions</h1>
 
-<label for="mode">Vehicle : </label>
-<select id="mode" name="mode" required>
-    <option value="car">Driving</option>
-    <option value="bus">Public Transport</option>
-    <option value="train">Driving</option>
-    <option value="plane">Public Transport</option>
+<label for="vehicle">Vehicle : </label>
+<select id="vehicle" name="vehicle" required>
+    <option value="car">Car</option>
+    <option value="bus">Bus</option>
+    <option value="train">Train</option>
+    <option value="plane">Plane</option>
 </select>
 <br><br>
 
-<form id="yearForm" action="/getMakes" method="get">
-    <label for="year">Enter Year:</label>
-    <input type="text" id="year" name="year" required>
-    <button type="submit">Get Makes</button>
-</form>
-<br><br>
+<div id="carForms" style="display:none;">
+    <form id="yearForm" action="/getMakes" method="get">
+        <label for="year">Enter Year:</label>
+        <input type="text" id="year" name="year" required>
+        <button type="submit">Get Makes</button>
+    </form>
+    <br><br>
 
-<form id="makeForm" action="/getModels" method="get">
-    <label for="make">Select Make:</label>
-    <select id="make" name="make" required>
-        <option value="">-- Choose a Make --</option>
-    </select>
-    <button type="submit">Get Models</button>
-</form>
-<br><br>
+    <form id="makeForm" action="/getModels" method="get">
+        <label for="make">Select Make:</label>
+        <select id="make" name="make" required>
+            <option value="">-- Choose a Make --</option>
+        </select>
+        <button type="submit">Get Models</button>
+    </form>
+    <br><br>
 
-<form id="modelForm" action="/getFuelSize" method="get">
-    <label for="model">Select Model:</label>
-    <select id="model" name="model" required>
-        <option value="">-- Choose a Model --</option>
-    </select>
-    <button type="submit">Get Tank Size</button>
-</form>
-<br><br>
+    <form id="modelForm" action="/getFuelSize" method="get">
+        <label for="model">Select Model:</label>
+        <select id="model" name="model" required>
+            <option value="">-- Choose a Model --</option>
+        </select>
+        <button type="submit">Get Tank Size</button>
+    </form>
+    <br><br>
 
-<form id="tankForm" action="/getFuelInfo" method="get">
-    <label for="tank">Select Tank Size:</label>
-    <select id="tank" name="tank" required>
-        <option value="">-- Choose a Tank Size --</option>
-    </select>
-    <button type="submit">Submit</button>
-</form>
-<br><br>
+    <form id="tankForm" action="/getFuelInfo" method="get">
+        <label for="tank">Select Tank Size:</label>
+        <select id="tank" name="tank" required>
+            <option value="">-- Choose a Tank Size --</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <br><br>
+</div>
+
+<div id="busForms" style="display:none;">
+    <form id="busForm" action="/getBusInfo" method="get">
+        <label for="bus">Select Bus Type:</label>
+        <select id="bus" name="bus" required>
+            <option value="mini_bus"> Mini Bus </option>
+            <option value="camper_van"> Camper Van </option>
+            <option value="coach"> Coach </option>
+            <option value="double_decker"> Double Decker Bus </option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
 <form action="/calculateCarbon" method="get">
     <label for="origin">Origin :</label>
@@ -78,6 +93,18 @@
 </div>
 
 <script>
+    $('#vehicle').on('change', function() {
+        var selectedVehicle = $(this).val();
+
+        if (selectedVehicle === 'car') {
+            $('#carForms').show();
+        } else if (selectedVehicle === 'bus') {
+            $('#busForms').show();
+        }else{
+            $('#carForms').hide();
+        }
+    });
+
     $('#yearForm').on('submit', function(e) {
         e.preventDefault();
         var year = $('#year').val();

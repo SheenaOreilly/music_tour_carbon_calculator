@@ -66,6 +66,13 @@ public class MusicTourCarbonCalculatorApplication {
         return "carbon";
     }
 
+    @GetMapping("/getBusInfo")
+    public String getBusInfo(@RequestParam("bus") String bus){
+        thisConsumption = BusInfo.getBusEmissions(bus);
+        thisFuel = "diesel";
+        return "carbon";
+    }
+
     @GetMapping("/carbon")
     public String showCarbon() {
         return "carbon";
