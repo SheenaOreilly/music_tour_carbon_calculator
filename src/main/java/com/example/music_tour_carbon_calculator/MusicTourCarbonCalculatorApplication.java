@@ -80,7 +80,7 @@ public class MusicTourCarbonCalculatorApplication {
 
         double distance = Distance.calculateDistance(origin, destination, mode);
 
-        double carbonEmissions = Calculator.calculateCarbonEmissions(distance, thisFuel, Double.parseDouble(thisConsumption));
+        String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thisFuel, Double.parseDouble(thisConsumption));
 
         model.addAttribute("distance", distance);
         model.addAttribute("vehicleFuel", thisFuel);

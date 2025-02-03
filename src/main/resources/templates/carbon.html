@@ -7,6 +7,15 @@
 <body>
 <h1>Calculate Carbon Emissions</h1>
 
+<label for="mode">Vehicle : </label>
+<select id="mode" name="mode" required>
+    <option value="car">Driving</option>
+    <option value="bus">Public Transport</option>
+    <option value="train">Driving</option>
+    <option value="plane">Public Transport</option>
+</select>
+<br><br>
+
 <form id="yearForm" action="/getMakes" method="get">
     <label for="year">Enter Year:</label>
     <input type="text" id="year" name="year" required>
@@ -64,17 +73,15 @@
     <h2>Carbon Emission Results</h2>
     <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
     <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
-    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km</p>
+    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km or kWh/100km </p>
     <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
 </div>
 
 <script>
-    // AJAX to handle year input and fetch makes
     $('#yearForm').on('submit', function(e) {
         e.preventDefault();
         var year = $('#year').val();
         $.get('/getMakes', { year: year }, function(data) {
-            // Update makes dropdown
             $('#make').html('');
             $('#make').append('<option value="">-- Choose a Make --</option>');
             data.forEach(function(make) {
@@ -83,13 +90,11 @@
         });
     });
 
-    // AJAX to handle make selection and fetch models
     $('#makeForm').on('submit', function(e) {
         e.preventDefault();
         var year = $('#yearHidden').val();
         var make = $('#make').val();
         $.get('/getModels', { year: year, make: make }, function(data) {
-            // Update models dropdown
             $('#model').html('');
             $('#model').append('<option value="">-- Choose a Model --</option>');
             data.forEach(function(model) {
@@ -98,7 +103,6 @@
         });
     });
 
-    // AJAX to handle make selection and fetch models
     $('#modelForm').on('submit', function(e) {
         e.preventDefault();
         var year = $('#year').val();
@@ -106,11 +110,9 @@
         var model = $('#model').val();
 
         $.get('/getFuelSize', { year: year, make: make, model: model }, function(data) {
-            // Clear existing options
             $('#tank').html('');
             $('#tank').append('<option value="">-- Choose a Tank Size --</option>');
 
-            // Iterate through the map and set the label as the key and the value as the value
             $.each(data, function(label, value) {
                 $('#tank').append('<option value="' + value + '">' + label + '</option>');
             });
