@@ -2,7 +2,6 @@ package com.example.music_tour_carbon_calculator;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;

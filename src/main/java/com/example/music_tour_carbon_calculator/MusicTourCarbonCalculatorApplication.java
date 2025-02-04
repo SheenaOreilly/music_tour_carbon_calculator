@@ -23,7 +23,6 @@ public class MusicTourCarbonCalculatorApplication {
     public String thisModel;
     public String thisFuel;
     public String thisConsumption;
-    public String currentVehicle;
 
     public static void main(String[] args) {
         SpringApplication.run(MusicTourCarbonCalculatorApplication.class, args);
