@@ -9,7 +9,7 @@ public class BusInfo {
             double consumption = switch (type.toLowerCase()) {
                 case "mini_bus" -> 6.9;
                 case "camper_van" -> 8;
-                case "coach" -> 21.4;
+                case "coach" -> 33;
                 case "double_decker" -> 39.2;
                 default -> 0;
             };

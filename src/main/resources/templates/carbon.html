@@ -5,210 +5,127 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+    <script src="/firebase-auth.js"></script>
 </head>
 <body>
-<h1>Calculate Carbon Emissions</h1>
+    <h1>Calculate Carbon Emissions</h1>
 
-<div id="planeForms" style="display:none;">
-    <form id="planeForm" action="/getPlanes" method="get">
-        <button type="submit">Find Airports</button>
-    </form>
-    <br><br>
-
-    <form id="planeCarbonForm" action="/getPlaneCarbon" method="get">
-        <label for="dep">Select Departure:</label>
-        <select id="dep" name="dep">
-            <option value="">-- Select a Departure --</option>
-        </select>
-
-        <label for="arr">Select Arrival:</label>
-        <select id="arr" name="arr">
-            <option value="">-- Select an Arrival --</option>
-        </select>
-
-        <button type="submit">Calculate Carbon</button>
-    </form>
-    <br><br>
-</div>
-
-
-<div id="carForms" style="display:none;">
-    <form id="yearForm" action="/getMakes" method="get">
-        <label for="year">Enter Year:</label>
-        <input type="text" id="year" name="year" required>
-        <button type="submit">Get Makes</button>
-    </form>
-    <br><br>
-
-    <form id="makeForm" action="/getModels" method="get">
-        <label for="make">Select Make:</label>
-        <select id="make" name="make" required>
-            <option value="">-- Choose a Make --</option>
-        </select>
-        <button type="submit">Get Models</button>
-    </form>
-    <br><br>
-
-    <form id="modelForm" action="/getFuelSize" method="get">
-        <label for="model">Select Model:</label>
-        <select id="model" name="model" required>
-            <option value="">-- Choose a Model --</option>
-        </select>
-        <button type="submit">Get Tank Size</button>
-    </form>
-    <br><br>
-
-    <form id="tankForm" action="/getFuelInfo" method="get">
-        <label for="tank">Select Tank Size:</label>
-        <select id="tank" name="tank" required>
-            <option value="">-- Choose a Tank Size --</option>
-        </select>
-        <button type="submit">Submit</button>
-    </form>
-    <br><br>
-</div>
-
-<div id="transportForm" style="display:none;">
-    <form action="/calculateCarbon" method="get">
-        <label for="origin">Origin :</label>
-        <input type="text" id="origin" name="origin" required>
+    <div id="planeForms" style="display:none;">
+        <form id="planeForm" action="/getPlanes" method="get">
+            <button type="submit">Find Airports</button>
+        </form>
         <br><br>
 
-        <label for="destination">Destination :</label>
-        <input type="text" id="destination" name="destination" required>
-        <br><br>
-
-        <label for="mode">Mode of Transport:</label>
-        <select id="mode" name="mode" required>
-            <option value="driving">Driving</option>
-            <option value="transit">Public Transport</option>
-        </select>
-        <br><br>
-
-        <label for="vehicle">Vehicle : </label>
-        <select id="vehicle" name="vehicle" required>
-            <option value="car">Car</option>
-            <option value="bus">Bus</option>
-            <option value="train">Train</option>
-            <option value="plane">Plane</option>
-        </select>
-        <br><br>
-
-        <div id="busForms" style="display:none;">
-            <label for="bus">Select Bus Type:</label>
-            <select id="bus" name="bus" required>
-                <option value="mini_bus"> Mini Bus </option>
-                <option value="camper_van"> Camper Van </option>
-                <option value="coach"> Coach </option>
-                <option value="double_decker"> Double Decker Bus </option>
+        <form id="planeCarbonForm" action="/getPlaneCarbon" method="get">
+            <label for="dep">Select Departure:</label>
+            <select id="dep" name="dep">
+                <option value="">-- Select a Departure --</option>
             </select>
-        </div>
+
+            <label for="arr">Select Arrival:</label>
+            <select id="arr" name="arr">
+                <option value="">-- Select an Arrival --</option>
+            </select>
+
+            <button type="submit">Calculate Carbon</button>
+        </form>
+        <br><br>
+    </div>
+
+
+    <div id="carForms" style="display:none;">
+        <form id="yearForm" action="/getMakes" method="get">
+            <label for="year">Enter Year:</label>
+            <input type="text" id="year" name="year" required>
+            <button type="submit">Get Makes</button>
+        </form>
         <br><br>
 
-        <button type="submit">Calculate</button>
-    </form>
-</div>
+        <form id="makeForm" action="/getModels" method="get">
+            <label for="make">Select Make:</label>
+            <select id="make" name="make" required>
+                <option value="">-- Choose a Make --</option>
+            </select>
+            <button type="submit">Get Models</button>
+        </form>
+        <br><br>
 
-<div th:if="${carbonEmissions != null}">
-    <h2>Carbon Emission Results</h2>
-    <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
-    <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
-    <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km or kWh/100km </p>
-    <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
-</div>
-<script>
+        <form id="modelForm" action="/getFuelSize" method="get">
+            <label for="model">Select Model:</label>
+            <select id="model" name="model" required>
+                <option value="">-- Choose a Model --</option>
+            </select>
+            <button type="submit">Get Tank Size</button>
+        </form>
+        <br><br>
 
-    $('#transportForm').show();
-    $('#carForms').show();
+        <form id="tankForm" action="/getFuelInfo" method="get">
+            <label for="tank">Select Tank Size:</label>
+            <select id="tank" name="tank" required>
+                <option value="">-- Choose a Tank Size --</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <br><br>
+    </div>
 
-    $('#vehicle').on('change', function() {
-        const selectedVehicle = $(this).val();
-        $('#vehicle').val(selectedVehicle);
-        if (selectedVehicle === 'car') {
-            $('#carForms').show();
-            $('#busForms').hide();
-            $('#planeForms').hide();
-            $('#transportForm').show();
-        } else if (selectedVehicle === 'bus') {
-            $('#busForms').show();
-            $('#carForms').hide();
-            $('#planeForms').hide();
-            $('#transportForm').show();
-        }else if(selectedVehicle === 'plane'){
-            $('#planeForms').show();
-            $('#carForms').hide();
-            $('#busForms').hide();
-            $('#transportForm').hide();
-        } else{
-            $('#carForms').hide();
-            $('#busForms').hide();
-            $('#planeForms').hide();
-            $('#transportForm').show();
-        }
-    });
+    <div id="transportForm" style="display:none;">
+        <form action="/calculateCarbon" method="get">
+            <label for="origin">Origin :</label>
+            <input type="text" id="origin" name="origin" required>
+            <br><br>
 
-    $('#yearForm').on('submit', function(e) {
-        e.preventDefault();
-        const year = $('#year').val();
-        $.get('/getMakes', { year: year }, function(data) {
-            $('#make').html('<option value="">-- Choose a Make --</option>');
-            data.forEach(function(make) {
-                $('#make').append('<option value="' + make + '">' + make + '</option>');
-            });
-        });
-    });
+            <label for="destination">Destination :</label>
+            <input type="text" id="destination" name="destination" required>
+            <br><br>
 
-    $('#makeForm').on('submit', function(e) {
-        e.preventDefault();
-        const year = $('#yearHidden').val();
-        const make = $('#make').val();
-        $.get('/getModels', { year: year, make: make }, function(data) {
-            $('#model').html('<option value="">-- Choose a Model --</option>');
-            data.forEach(function(model) {
-                $('#model').append('<option value="' + model + '">' + model + '</option>');
-            });
-        });
-    });
+            <label for="mode">Mode of Transport:</label>
+            <select id="mode" name="mode" required>
+                <option value="driving">Driving</option>
+                <option value="transit">Public Transport</option>
+            </select>
+            <br><br>
 
-    $('#modelForm').on('submit', function(e) {
-        e.preventDefault();
-        const year = $('#year').val();
-        const make = $('#make').val();
-        const model = $('#model').val();
+            <label for="vehicle">Vehicle : </label>
+            <select id="vehicle" name="vehicle" required>
+                <option value="car">Car</option>
+                <option value="bus">Bus</option>
+                <option value="train">Train</option>
+                <option value="plane">Plane</option>
+            </select>
+            <br><br>
 
-        $.get('/getFuelSize', { year: year, make: make, model: model }, function(data) {
-            $('#tank').html('<option value="">-- Choose a Tank Size --</option>');
+            <div id="busForms" style="display:none;">
+                <label for="bus">Select Bus Type:</label>
+                <select id="bus" name="bus" required>
+                    <option value="mini_bus"> Mini Bus </option>
+                    <option value="camper_van"> Camper Van </option>
+                    <option value="coach"> Coach </option>
+                    <option value="double_decker"> Double Decker Bus </option>
+                </select>
+            </div>
+            <br><br>
 
-            $.each(data, function(label, value) {
-                $('#tank').append('<option value="' + value + '">' + label + '</option>');
-            });
-        });
-    });
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
 
-    $('#planeForm').on('submit', function(e) {
-        e.preventDefault();
-        $.get('/getPlanes', function(data) {
-            $('#dep').html('<option value="">-- Select a Departure --</option>');
-            $('#arr').html('<option value="">-- Select an Arrival --</option>');
+    <div th:if="${carbonEmissions != null}">
+        <h2>Carbon Emission Results</h2>
+        <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
+        <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
+        <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km or kWh/100km </p>
+        <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
+    </div>
 
-            $.each(data, function(airport, location) {
-                $('#dep').append('<option value="' + location + '">' + airport + '</option>');
-                $('#arr').append('<option value="' + location + '">' + airport + '</option>');
-            });
+    <div id="logoutSection" style="display: none;">
+        <button onclick="logout()">Logout</button>
+    </div>
 
-            $('#dep').select2({
-                placeholder: "-- Select a Departure -- ",
-                allowClear: true
-            });
+    <script src="/calculator-response.js"></script>
 
-            $('#arr').select2({
-                placeholder: "-- Select an Arrival --",
-                allowClear: true
-            });
-
-        });
-    });
-
-</script>
 </body>
 </html>
