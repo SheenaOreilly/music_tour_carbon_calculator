@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Video</title>
+    <title>Login & Video</title>
     <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<video id="introVideo" autoplay muted>
-    <source src="loading_video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-<p>Loading ...</p>
 
-<script>
-    const video = document.getElementById('introVideo');
-    video.addEventListener('ended', function () {
-        window.location.href = "/carbon";
-    });
-</script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+    <script src="/firebase-auth.js"></script>
+</head>
+<body onload="checkAuth()">
+    <div id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="videoSection" style="display: none;">
+        <video id="introVideo" autoplay muted>
+            <source src="loading_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>Loading ...</p>
+    </div>
+
+    <script>
+        document.getElementById("introVideo").addEventListener("ended", function () {
+            window.location.href = "/carbon";
+        });
+    </script>
 </body>
 </html>
