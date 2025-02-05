@@ -1,19 +1,25 @@
 
+
 firebase.initializeApp(firebaseConfig);
 
 function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            userCredential.user.getIdToken().then(token => {
-                localStorage.setItem("token", token);
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("videoSection").style.display = "block";
-            });
-        })
-        .catch(error => alert("Login Failed: " + error.message));
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(userCredential) {
+        var user = userCredential.user;
+        console.log('Logged in as:', user.email);
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("videoSection").style.visibility = "visible";
+        var video = document.getElementById("introVideo");
+        video.autoplay = true;
+        video.play();
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.error('Login failed:', errorCode, errorMessage);
+        alert("Login failed: " + errorMessage);
+    });
 }
 
 function logout() {
@@ -26,18 +32,15 @@ function logout() {
 }
 
 function checkAuth() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            user.getIdToken().then(token => {
-                localStorage.setItem("token", token);
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("videoSection").style.display = "block";
-                document.getElementById("logoutSection").style.display = "block";
-            });
-        } else {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("videoSection").style.visibility = "visible";
+            var video = document.getElementById("introVideo");
+            video.autoplay = true;
+            video.play(); // Start playing the video
             document.getElementById("loginForm").style.display = "block";
-            document.getElementById("videoSection").style.display = "none";
-            document.getElementById("logoutSection").style.display = "none";
+            document.getElementById("videoSection").style.visibility = "hidden";
         }
     });
 }

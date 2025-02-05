@@ -112,6 +112,7 @@
             <button type="submit">Calculate</button>
         </form>
     </div>
+    <br><br>
 
     <div th:if="${carbonEmissions != null}">
         <h2>Carbon Emission Results</h2>
@@ -120,6 +121,7 @@
         <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km or kWh/100km </p>
         <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
     </div>
+    <br><br>
 
     <div id="logoutSection" style="display: none;">
         <button onclick="logout()">Logout</button>

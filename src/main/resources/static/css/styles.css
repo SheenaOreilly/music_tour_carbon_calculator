@@ -9,6 +9,14 @@ body {
     background-color: #ffffff;
 }
 
+#videoSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
 video {
     width: 20%;
     height: auto;
@@ -17,15 +25,5 @@ video {
 p {
     font-size: 20px;
     color: #3C7DDB;
-}
-
-#snow {
-    pointer-events: none;
-}
-
-.snow-container {
-    position: relative;
-    width: 100vw;
-    height: 20vh;
-    overflow: hidden;
+    margin-top: 20px;
 }
