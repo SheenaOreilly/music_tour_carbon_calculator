@@ -20,7 +20,6 @@ public class AuthController {
     @PostMapping("/verify")
     public String verifyToken(@RequestHeader("Authorization") String token) {
         try {
-            // Remove "Bearer " prefix if present
             String idToken = token.startsWith("Bearer ") ? token.substring(7) : token;
             FirebaseToken decodedToken = firebaseAuthService.verifyToken(idToken);
             return "Token is valid for user: " + decodedToken.getUid();

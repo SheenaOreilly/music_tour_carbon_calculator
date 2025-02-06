@@ -10,7 +10,11 @@
 
     <script src="/firebase-auth.js"></script>
 </head>
-<body>
+<body onload="checkAuthCarbon()">
+
+    <p id="userInfo" style="display: none;"></p>
+    <br><br>
+
     <h1>Calculate Carbon Emissions</h1>
 
     <div id="planeForms" style="display:none;">
