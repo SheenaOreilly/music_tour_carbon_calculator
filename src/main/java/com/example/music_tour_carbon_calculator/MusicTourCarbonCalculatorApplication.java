@@ -85,19 +85,25 @@ public class MusicTourCarbonCalculatorApplication {
 
     @GetMapping("/getPlaneCarbon")
     public String getPlaneCarbon(
+            @RequestParam(value = "tourName", defaultValue = "") String tourName,
             @RequestParam(value = "dep", defaultValue = "dublin") String dep,
             @RequestParam(value = "arr", defaultValue = "donegal") String arr,
             Model model) {
         String[] arrOfStr = dep.split(":");
         double lat1 = Double.parseDouble(arrOfStr[0]);
-        double lon1 = Double.parseDouble(arrOfStr[0]);
+        double lon1 = Double.parseDouble(arrOfStr[1]);
+        String  depature = arrOfStr[2];
         arrOfStr = arr.split(":");
         double lat2 = Double.parseDouble(arrOfStr[0]);
-        double lon2 = Double.parseDouble(arrOfStr[0]);
+        double lon2 = Double.parseDouble(arrOfStr[1]);
+        String  arrival = arrOfStr[2];
         double distance = Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*6371;
         double carbon = getPlaneInfo(distance);
         String carbonEmissions = String.format("%.2f", carbon);
 
+        model.addAttribute("tourName", tourName);
+        model.addAttribute("departure", depature);
+        model.addAttribute("arrival", arrival);
         model.addAttribute("distance", String.format("%.2f", distance));
         model.addAttribute("vehicleFuel", "N/A");
         model.addAttribute("consumption", "N/A");
@@ -127,6 +133,7 @@ public class MusicTourCarbonCalculatorApplication {
 
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
+            @RequestParam(value = "tourName", defaultValue = "") String tourName,
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
@@ -152,6 +159,9 @@ public class MusicTourCarbonCalculatorApplication {
 
         String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thisFuel, Double.parseDouble(thisConsumption));
 
+        model.addAttribute("tourName", tourName);
+        model.addAttribute("departure", origin);
+        model.addAttribute("arrival", destination);
         model.addAttribute("distance", distance);
         model.addAttribute("vehicleFuel", thisFuel);
         model.addAttribute("consumption", thisConsumption);

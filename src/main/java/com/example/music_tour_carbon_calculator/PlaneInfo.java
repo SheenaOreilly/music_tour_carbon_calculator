@@ -26,7 +26,7 @@ public class PlaneInfo {
                 }
                 String lat = arrOfStr[14];
                 String lon = arrOfStr[15];
-                String combined = lat + ":" + lon;
+                String combined = lat + ":" + lon + ":" + airport;
                 airports.put(airport, combined);
                 line = reader.readLine();
             }
