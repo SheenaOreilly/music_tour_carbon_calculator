@@ -1,6 +1,7 @@
 
 
 firebase.initializeApp(firebaseConfig);
+const db= firebase.firestore();
 
 function login() {
     var email = document.getElementById("email").value;
@@ -70,7 +71,6 @@ function checkAuth() {
         }
     });
 }
-
 function checkAuthCarbon() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -79,3 +79,34 @@ function checkAuthCarbon() {
         }
     });
 }
+
+function addUserData(data) {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const uid = user.uid;
+        const email = user.email;
+        db.collection(email).doc('Tours').set(data)
+            .then(() => {
+                console.log('User data added successfully.');
+            })
+            .catch((error) => {
+                console.error('Error adding user data:', error);
+            });
+    } else {
+        console.log('No user is authenticated.');
+    }
+}
+
+function addData(){
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            const data = {
+                email: user.email
+            };
+            addUserData(data);
+        } else {
+            console.log('User is not signed in.');
+        }
+    });
+}
+

@@ -1,6 +1,7 @@
 $('#transportForm').show();
 $('#carForms').show();
 $('#logoutSection').show();
+$('#addDataSection').show();
 
 $('#vehicle').on('change', function() {
     const selectedVehicle = $(this).val();
@@ -11,24 +12,28 @@ $('#vehicle').on('change', function() {
         $('#planeForms').hide();
         $('#transportForm').show();
         $('#logoutSection').show();
+        $('#addDataSection').show();
     } else if (selectedVehicle === 'bus') {
         $('#busForms').show();
         $('#carForms').hide();
         $('#planeForms').hide();
         $('#transportForm').show();
         $('#logoutSection').show();
+        $('#addDataSection').show();
     }else if(selectedVehicle === 'plane'){
         $('#planeForms').show();
         $('#carForms').hide();
         $('#busForms').hide();
         $('#transportForm').hide();
         $('#logoutSection').show();
+        $('#addDataSection').show();
     } else{
         $('#carForms').hide();
         $('#busForms').hide();
         $('#planeForms').hide();
         $('#transportForm').show();
         $('#logoutSection').show();
+        $('#addDataSection').show();
     }
 });
 
