@@ -26,7 +26,7 @@
         <br><br>
 
         <form id="planeCarbonForm" action="/getPlaneCarbon" method="get">
-            <label for="tourName">tourName :</label>
+            <label for="tourName">Tour Name :</label>
             <input type="text" id="tourName" name="tourName" required>
             <br><br>
 
@@ -84,7 +84,7 @@
 
     <div id="transportForm" style="display:none;">
         <form action="/calculateCarbon" method="get">
-            <label for="tourName">tourName :</label>
+            <label for="tourName">Tour Name :</label>
             <input type="text" id="tourName" name="tourName" required>
             <br><br>
 
@@ -130,13 +130,13 @@
 
     <div th:if="${carbonEmissions != null}">
         <h2>Carbon Emission Results</h2>
-        <p>Tour Name: <strong th:text="${tourName}"></strong></p>
-        <p>Departure: <strong th:text="${departure}"></strong></p>
-        <p>Arrival: <strong th:text="${arrival}"></strong></p>
-        <p>Distance Traveled: <strong th:text="${distance}"></strong> km</p>
-        <p>Fuel Type: <strong th:text="${vehicleFuel}"></strong></p>
-        <p>Fuel Consumption: <strong th:text="${consumption}"></strong> L/100km or kWh/100km </p>
-        <p>Carbon Emissions: <strong th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
+        <p>Tour Name: <strong id="tourNameText" th:text="${tourName}"></strong></p>
+        <p>Departure: <strong id="departureText" th:text="${departure}"></strong></p>
+        <p>Arrival: <strong id="arrivalText" th:text="${arrival}"></strong></p>
+        <p>Distance Traveled: <strong id="distanceText" th:text="${distance}"></strong> km</p>
+        <p>Fuel Type: <strong id="vehicleFuelText" th:text="${vehicleFuel}"></strong></p>
+        <p>Fuel Consumption: <strong id="consumptionText" th:text="${consumption}"></strong> L/100km or kWh/100km </p>
+        <p>Carbon Emissions: <strong id="carbonEmissionsText" th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
     </div>
     <br><br>
 

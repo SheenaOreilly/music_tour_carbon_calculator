@@ -146,6 +146,9 @@ public class MusicTourCarbonCalculatorApplication {
         if(vehicle.equalsIgnoreCase("train")){
             double carbon = 0.28 * distance;
             String carbonEmissions = String.format("%.2f", carbon);
+            model.addAttribute("tourName", tourName);
+            model.addAttribute("departure", origin);
+            model.addAttribute("arrival", destination);
             model.addAttribute("distance", distance);
             model.addAttribute("vehicleFuel", "N/A");
             model.addAttribute("consumption", "N/A");

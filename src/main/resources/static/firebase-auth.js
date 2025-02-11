@@ -71,21 +71,30 @@ function checkAuth() {
         }
     });
 }
-function checkAuthCarbon() {
+function checkAuthCarbon(carbonEmissions, tourName, departure, arrival) {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             document.getElementById("userInfo").innerText = "Logged in as: " + user.email;
             document.getElementById("userInfo").style.display = "block";
         }
     });
+
+    if(carbonEmissions != null){
+        addData(carbonEmissions, tourName, departure, arrival);
+    }
 }
 
-function addUserData(data) {
+function addUserData(data, tourName, departure, arrival) {
     const user = firebase.auth().currentUser;
     if (user) {
         const uid = user.uid;
         const email = user.email;
-        db.collection(email).doc('Tours').set(data)
+        const docName = departure + " -> " + arrival;
+        console.log(tourName);
+        console.log(docName);
+        console.log(email);
+        console.log(data);
+        db.collection(email).doc('Tours').collection(tourName).doc(docName).set(data)
             .then(() => {
                 console.log('User data added successfully.');
             })
@@ -98,12 +107,17 @@ function addUserData(data) {
 }
 
 function addData(){
+    const tourName = document.getElementById("tourNameText")?.innerText.trim();
+    const departure = document.getElementById("departureText")?.innerText.trim();
+    const arrival = document.getElementById("arrivalText")?.innerText.trim();
+    const carbonEmissions = document.getElementById("carbonEmissionsText")?.innerText.trim();
+
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             const data = {
-                email: user.email
+                carbon_emissions: carbonEmissions
             };
-            addUserData(data);
+            addUserData(data, tourName, departure, arrival);
         } else {
             console.log('User is not signed in.');
         }
