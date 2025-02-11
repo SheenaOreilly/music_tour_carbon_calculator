@@ -131,6 +131,11 @@ public class MusicTourCarbonCalculatorApplication {
         return "carbon";
     }
 
+    @GetMapping("/loginScreen")
+    public String showLogin() {
+        return "loginScreen";
+    }
+
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
             @RequestParam(value = "tourName", defaultValue = "") String tourName,

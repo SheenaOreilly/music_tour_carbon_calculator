@@ -3,43 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Video</title>
+    <title>Welcome</title>
     <link rel="stylesheet" href="/css/styles.css">
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
-
-    <script src="/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body onload="checkAuth()">
-<div id="loginForm">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-</div>
-<br><br>
-
-<form id="signupForm">
-    <h2>Create Account</h2>
-    <input type="email" id="signupEmail" placeholder="Email">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <button type="button" onclick="signup()">Sign Up</button>
-</form>
-
-<div id="videoSection" style="visibility: hidden;">
-    <video id="introVideo" muted>
-        <source src="loading_video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <p>Loading ...</p>
+<body>
+<h1>ABOUT US</h1>
+<p class="text">The aim of this dissertation is to create an application that can be utilised by you a musician to both calculate your emissions and allow you to calculate offsets.<br><br>
+    It’ll promote sustainability by leading by example in your target market of people in the age range 15-35.<br><br>
+    The whole world is trying to mitigate climate change and soon it will be expected of musicians.<br><br>
+    This application will help you as musicians make your concerts more sustainable thus joining the world in mitigating climate change.<br><br>
+    Please click LOG IN to create an account and start helping the planet.<br><br>
+    Enter as many tours as you wish!!!<br><br>
+</p>
+<div class="header"></div>
+<div class="button_container">
+    <div class="icon-container">
+        <i class="fa-solid fa-user"></i>
+    </div>
+    <button class="login-btn" onclick="window.location.href = '/loginScreen';">
+        LOG IN
+    </button>
 </div>
 
-<script>
-
-    document.getElementById("introVideo").addEventListener("ended", function () {
-        window.location.href = "/carbon";
-    });
-</script>
 </body>
 </html>
