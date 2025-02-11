@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Video</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/loginStyle.css">
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
@@ -12,20 +12,26 @@
     <script src="/firebase-auth.js"></script>
 </head>
 <body onload="checkAuth()">
-<div id="loginForm">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-</div>
-<br><br>
 
-<form id="signupForm">
-    <h2>Create Account</h2>
-    <input type="email" id="signupEmail" placeholder="Email">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <button type="button" onclick="signup()">Sign Up</button>
-</form>
+<div class="header" id="box">
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <br><br>
+        <a href="javascript:void(0);" onclick="toggleForm()">Create Account</a>
+    </div>
+
+    <form id="signupForm" style="display: none;">
+        <h2>Create Account</h2>
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button type="button" onclick="signup()">Sign Up</button>
+        <br><br>
+        <a href="javascript:void(0);" onclick="toggleForm()">Back to Login</a>
+    </form>
+</div>
 
 <div id="videoSection" style="visibility: hidden;">
     <video id="introVideo" muted>
@@ -36,6 +42,19 @@
 </div>
 
 <script>
+
+    function toggleForm() {
+        var loginForm = document.getElementById("loginForm");
+        var signupForm = document.getElementById("signupForm");
+
+        if (loginForm.style.display === "none") {
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+        } else {
+            loginForm.style.display = "none";
+            signupForm.style.display = "block";
+        }
+    }
 
     document.getElementById("introVideo").addEventListener("ended", function () {
         window.location.href = "/carbon";

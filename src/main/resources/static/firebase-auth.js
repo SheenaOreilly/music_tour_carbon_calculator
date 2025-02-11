@@ -12,6 +12,7 @@ function login() {
         console.log('Logged in as:', user.email);
         document.getElementById("loginForm").style.display = "none";
         document.getElementById("signupForm").style.display = "none";
+        document.getElementById("box").style.display = "none";
         document.getElementById("videoSection").style.visibility = "visible";
         var video = document.getElementById("introVideo");
         video.autoplay = true;
@@ -35,6 +36,7 @@ function signup() {
             alert("Account created successfully!");
             document.getElementById("loginForm").style.display = "none";
             document.getElementById("signupForm").style.display = "none";
+            document.getElementById("box").style.display = "none";
             document.getElementById("videoSection").style.visibility = "visible";
             var video = document.getElementById("introVideo");
             video.autoplay = true;
@@ -61,12 +63,14 @@ function checkAuth() {
         if (user) {
             document.getElementById("loginForm").style.display = "none";
             document.getElementById("signupForm").style.display = "none";
+            document.getElementById("box").style.display = "none";
             document.getElementById("videoSection").style.visibility = "visible";
             var video = document.getElementById("introVideo");
             video.autoplay = true;
             video.play();
             document.getElementById("loginForm").style.display = "block";
             document.getElementById("signupForm").style.display = "block";
+            document.getElementById("box").style.display = "block";
             document.getElementById("videoSection").style.visibility = "hidden";
         }
     });
