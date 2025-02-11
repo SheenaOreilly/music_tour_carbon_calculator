@@ -58,7 +58,7 @@ body {
     background-color: #ffffff;
     margin-top: 10px;
     border: 1px solid #4ea8ff;
-    border-radius: 5%;
+    border-radius: 10px;
     position: absolute;
     top: 7vh;
     right: 20px;
@@ -84,6 +84,24 @@ body {
     border-radius: 30px;
     display: flex;
     align-items: center;
+}
+
+.box{
+    width: 60vw;
+    border-radius: 30px;
+    font-size: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-color: darkgray;
+    background: white;
+    color: darkgrey;
+    border-style: dashed;
+    cursor: pointer;
+}
+
+.box:hover {
+    border-color: #4ea8ff;
+    color: #4ea8ff;
 }
 
 .toursp {

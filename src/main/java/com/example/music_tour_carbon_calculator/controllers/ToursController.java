@@ -16,4 +16,9 @@ public class ToursController {
     public String showTours() {
         return "tours";
     }
+
+    @GetMapping("/newTour")
+    public String showNewTour() {
+        return "newTour";
+    }
 }
