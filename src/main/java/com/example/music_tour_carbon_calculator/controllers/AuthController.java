@@ -1,5 +1,6 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.controllers;
 
+import com.example.music_tour_carbon_calculator.firebase.FirebaseAuthService;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.web.bind.annotation.PostMapping;

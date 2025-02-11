@@ -1,4 +1,4 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.calculator;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
