@@ -3,8 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Offsets</title>
+
+    <link rel="stylesheet" href="/css/offsetStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+
+    <script src="/javascript/firebase-auth.js"></script>
 </head>
-<body>
+<body onload="checkAuthCarbon()">
+
+<div class="header"></div>
+<div class="banner">
+    <a class="toursp" href="/tours">Tours</a>
+    <p class="offestp">Offsets</p>
+</div>
+<div class="icon-container" onclick="toggleCollapsible()">
+    <i class="fa-solid fa-user"></i>
+</div>
+
+<div class="content">
+    <p id="userInfo" style="display: none;"></p>
+    <div id="logoutSection" style="display: none;">
+        <button class="logoutButton" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<script>
+    function toggleCollapsible() {
+        var content = document.querySelector(".content");
+        var userInfo = document.getElementById("userInfo");
+        var logoutSection = document.getElementById("logoutSection");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            userInfo.style.display = "block";
+            logoutSection.style.display = "block";
+        } else {
+            content.style.display = "none";
+            userInfo.style.display = "none";
+            logoutSection.style.display = "none";
+        }
+    }
+
+</script>
 
 </body>
 </html>

@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.logoutButton {
+    background-color: #4ea8ff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 25px;
+    color: white;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: bold;
+}
+
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.icon-container{
+    font-size: 20px;
+    color: #4ea8ff;
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    border-style: double;
+    z-index: 2;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.icon-container:hover {
+    background-color: #0281fc;
+}
+
+.content {
+    background-color: #ffffff;
+    margin-top: 10px;
+    border: 1px solid #4ea8ff;
+    border-radius: 5%;
+    position: absolute;
+    top: 7vh;
+    right: 20px;
+    padding: 10px;
+    display: none;
+}
+
+.header {
+    padding-right: 50vw;
+    padding-left: 50vw;
+    padding-top: 25vh;
+    position: absolute;
+    top: 0px;
+    background: #02427f;
+}
+
+.banner {
+    width: 60vw;
+    padding: 0px 20px;
+    position: absolute;
+    top: 22vh;
+    background: rgb(100 149 237);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.toursp {
+    text-decoration: none;
+    color: lightblue;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.offestp {
+    text-decoration: underline;
+    color: #02427f;
+    font-weight: bold;
+}
+
