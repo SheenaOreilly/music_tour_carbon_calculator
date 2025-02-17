@@ -1,5 +1,3 @@
-
-
 firebase.initializeApp(firebaseConfig);
 const db= firebase.firestore();
 
@@ -7,21 +5,29 @@ function login() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(userCredential) {
-        var user = userCredential.user;
-        console.log('Logged in as:', user.email);
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "none";
-        document.getElementById("box").style.display = "none";
-        document.getElementById("videoSection").style.visibility = "visible";
-        var video = document.getElementById("introVideo");
-        video.autoplay = true;
-        video.play();
-    }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error('Login failed:', errorCode, errorMessage);
-        alert("Login failed: " + errorMessage);
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(userCredential) {
+            var user = userCredential.user;
+            console.log('Logged in as:', user.email);
+
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("box").style.display = "none";
+            document.getElementById("videoSection").style.visibility = "visible";
+            var video = document.getElementById("introVideo");
+            video.autoplay = true;
+            video.play();
+
+            fetch("/setUserEmail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: user.email })
+            });
+            console.log("Email set in session: ", data);
+        }).catch(error => {
+        console.error("Error setting email in session: ", error);
     });
 }
 
@@ -41,11 +47,18 @@ function signup() {
             var video = document.getElementById("introVideo");
             video.autoplay = true;
             video.play();
-        })
-        .catch((error) => {
-            console.error('Signup error:', error.code, error.message);
-            alert("Signup failed: " + error.message);
-        });
+
+            fetch("/setUserEmail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: user.email })
+            });
+            console.log("Email set in session: ", data);
+        }).catch(error => {
+        console.error("Error setting email in session: ", error);
+    });
 }
 
 
@@ -114,13 +127,33 @@ function addData(){
     const tourName = document.getElementById("tourNameText")?.innerText.trim();
     const departure = document.getElementById("departureText")?.innerText.trim();
     const arrival = document.getElementById("arrivalText")?.innerText.trim();
+    const consumption = document.getElementById("consumptionText")?.innerText.trim();
+    const distance = document.getElementById("distanceText")?.innerText.trim();
+    const vehicleFuel = document.getElementById("vehicleFuelText")?.innerText.trim();
     const carbonEmissions = document.getElementById("carbonEmissionsText")?.innerText.trim();
 
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            const data = {
-                carbon_emissions: carbonEmissions
-            };
+            let data = {};
+            if(vehicleFuel === "N/A")
+            {
+                data = {
+                    Departure: departure,
+                    Arrival: arrival,
+                    Distance: distance,
+                    Carbon_Emissions: carbonEmissions
+                };
+            }
+            else{
+                data = {
+                    Departure: departure,
+                    Arrival: arrival,
+                    Distance: distance,
+                    Consumption: consumption,
+                    Fuel: vehicleFuel,
+                    Carbon_Emissions: carbonEmissions
+                };
+            }
             addUserData(data, tourName, departure, arrival);
         } else {
             console.log('User is not signed in.');
