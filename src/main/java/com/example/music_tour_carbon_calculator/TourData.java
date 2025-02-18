@@ -13,9 +13,11 @@ public class TourData {
 
     private String documentId;
 
+    private String vehicle;
+
     public TourData() {}
 
-    public TourData(String departure, String arrival, String distance, String consumption, String fuel, String carbonEmissions, String documentId, String concert, String seats) {
+    public TourData(String departure, String arrival, String distance, String consumption, String fuel, String vehicle, String carbonEmissions, String documentId, String concert, String seats) {
         this.departure = departure;
         this.arrival = arrival;
         this.distance = distance;
@@ -25,6 +27,15 @@ public class TourData {
         this.documentId = documentId;
         this.concert = concert;
         this.seats = seats;
+        this.vehicle = vehicle;
+    }
+
+    public String getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
     public void setSeats(String seats) {

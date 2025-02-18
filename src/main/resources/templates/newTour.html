@@ -54,6 +54,18 @@
             <option value="">-- Select an Arrival --</option>
         </select>
 
+        <label for="isConcert">Is this a concert?</label>
+        <select id="isConcert" name="isConcert" onchange="toggleSeatsInput()">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+
+        <div id="seatsForm" style="display:none;">
+            <label for="seats">Number of Seats:</label>
+            <input type="number" id="seats" name="seats" min="1">
+        </div>
+        <br><br>
+
         <button type="submit">Calculate Carbon</button>
     </form>
     <br><br>
@@ -164,6 +176,7 @@
     <p>Fuel Consumption: <strong id="consumptionText" th:text="${consumption}"></strong> L/100km or kWh/100km </p>
     <p>Concert: <strong id="concertText" th:text="${concert}"></strong></p>
     <p>Seats: <strong id="seatsText" th:text="${seats}"></strong></p>
+    <p>Seats: <strong id="vehicleText" th:text="${vehicle}"></strong></p>
     <p>Carbon Emissions: <strong id="carbonEmissionsText" th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
 </div>
 <br><br>

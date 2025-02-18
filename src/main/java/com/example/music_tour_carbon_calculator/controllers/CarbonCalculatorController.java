@@ -71,6 +71,8 @@ public class CarbonCalculatorController {
             @RequestParam(value = "tourName", defaultValue = "") String tourName,
             @RequestParam(value = "dep", defaultValue = "dublin") String dep,
             @RequestParam(value = "arr", defaultValue = "donegal") String arr,
+            @RequestParam(value = "isConcert", defaultValue = "no") String concert,
+            @RequestParam(value = "seats", defaultValue = "0") String seats,
             Model model) {
         String[] arrOfStr = dep.split(":");
         double lat1 = Double.parseDouble(arrOfStr[0]);
@@ -90,6 +92,9 @@ public class CarbonCalculatorController {
         model.addAttribute("distance", String.format("%.2f", distance));
         model.addAttribute("vehicleFuel", "N/A");
         model.addAttribute("consumption", "N/A");
+        model.addAttribute("concert", concert);
+        model.addAttribute("seats", seats);
+        model.addAttribute("vehicle", "plane");
         model.addAttribute("carbonEmissions", carbonEmissions);
 
         return "newTour";
@@ -139,6 +144,7 @@ public class CarbonCalculatorController {
             model.addAttribute("consumption", "N/A");
             model.addAttribute("concert", concert);
             model.addAttribute("seats", seats);
+            model.addAttribute("vehicle", vehicle);
             model.addAttribute("carbonEmissions", carbonEmissions);
             return "newTour";
         }
@@ -157,6 +163,7 @@ public class CarbonCalculatorController {
         model.addAttribute("consumption", thisConsumption);
         model.addAttribute("concert", concert);
         model.addAttribute("seats", seats);
+        model.addAttribute("vehicle", vehicle);
         model.addAttribute("carbonEmissions", carbonEmissions);
 
         return "newTour";

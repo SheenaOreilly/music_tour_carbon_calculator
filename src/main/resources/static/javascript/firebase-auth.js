@@ -128,6 +128,7 @@ function addData(){
     const carbonEmissions = document.getElementById("carbonEmissionsText")?.innerText.trim();
     const isConcert = document.getElementById("concertText")?.innerText.trim();
     const seats = document.getElementById("seatsText")?.innerText.trim();
+    const vehicle = document.getElementById("vehicleText")?.innerText.trim();
 
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -140,8 +141,9 @@ function addData(){
                     Arrival: arrival,
                     Distance: distance,
                     Carbon_Emissions: carbonEmissions,
-                    isConcert: isConcert,
-                    seats: seats
+                    Concert: isConcert,
+                    Seats: seats,
+                    Vehicle: vehicle,
                 };
             }
             else{
@@ -153,7 +155,9 @@ function addData(){
                     Fuel: vehicleFuel,
                     Carbon_Emissions: carbonEmissions,
                     Concert: isConcert,
-                    Seats: seats
+                    Seats: seats,
+                    Vehicle: vehicle
+
                 };
             }
             addUserData(data, tourName, departure, arrival);

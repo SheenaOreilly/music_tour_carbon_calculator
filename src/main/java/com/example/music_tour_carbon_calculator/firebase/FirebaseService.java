@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class FirebaseService {
 
-    public static String[] values =  {"Arrival", "Carbon_Emissions", "Consumption", "Departure", "Distance", "Fuel", "Concert", "Seats"};
+    public static String[] values =  {"Arrival", "Carbon_Emissions", "Consumption", "Departure", "Distance", "Fuel", "Concert", "Seats", "Vehicle"};
 
     public void getAllTours(String userEmail, HttpSession session) {
 
@@ -121,6 +121,9 @@ public class FirebaseService {
                     break;
                 case "Seats":
                     tour.setSeats(realValue);
+                    break;
+                case "Vehicle":
+                    tour.setVehicle(realValue);
                     break;
                 default:
                     tour.setFuel(realValue);
