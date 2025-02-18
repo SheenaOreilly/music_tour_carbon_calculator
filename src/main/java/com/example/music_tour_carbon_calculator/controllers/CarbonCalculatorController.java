@@ -122,6 +122,8 @@ public class CarbonCalculatorController {
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
             @RequestParam(value = "vehicle", defaultValue = "train") String vehicle,
             @RequestParam(value = "bus", defaultValue = "coach") String bus,
+            @RequestParam(value = "isConcert", defaultValue = "no") String concert,
+            @RequestParam(value = "seats", defaultValue = "0") String seats,
             Model model) throws IOException {
 
         double distance = Distance.calculateDistance(origin, destination, mode);
@@ -135,6 +137,8 @@ public class CarbonCalculatorController {
             model.addAttribute("distance", distance);
             model.addAttribute("vehicleFuel", "N/A");
             model.addAttribute("consumption", "N/A");
+            model.addAttribute("concert", concert);
+            model.addAttribute("seats", seats);
             model.addAttribute("carbonEmissions", carbonEmissions);
             return "newTour";
         }
@@ -151,6 +155,8 @@ public class CarbonCalculatorController {
         model.addAttribute("distance", distance);
         model.addAttribute("vehicleFuel", thisFuel);
         model.addAttribute("consumption", thisConsumption);
+        model.addAttribute("concert", concert);
+        model.addAttribute("seats", seats);
         model.addAttribute("carbonEmissions", carbonEmissions);
 
         return "newTour";

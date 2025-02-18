@@ -60,7 +60,7 @@
 </div>
 
 
-<div id="carForms" style="display:none; margin-top: 100px">
+<div id="carForms" style="display:none; margin-top: 150px">
     <form id="yearForm" action="/getMakes" method="get">
         <label for="year">Enter Year:</label>
         <input type="text" id="year" name="year" required>
@@ -137,6 +137,18 @@
         </div>
         <br><br>
 
+        <label for="isConcert">Is this a concert?</label>
+        <select id="isConcert" name="isConcert" onchange="toggleSeatsInput()">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+
+        <div id="seatsForm" style="display:none;">
+            <label for="seats">Number of Seats:</label>
+            <input type="number" id="seats" name="seats" min="1">
+        </div>
+        <br><br>
+
         <button type="submit">Calculate</button>
     </form>
 </div>
@@ -150,6 +162,8 @@
     <p>Distance Traveled: <strong id="distanceText" th:text="${distance}"></strong> km</p>
     <p>Fuel Type: <strong id="vehicleFuelText" th:text="${vehicleFuel}"></strong></p>
     <p>Fuel Consumption: <strong id="consumptionText" th:text="${consumption}"></strong> L/100km or kWh/100km </p>
+    <p>Concert: <strong id="concertText" th:text="${concert}"></strong></p>
+    <p>Seats: <strong id="seatsText" th:text="${seats}"></strong></p>
     <p>Carbon Emissions: <strong id="carbonEmissionsText" th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
 </div>
 <br><br>
@@ -176,6 +190,17 @@
             content.style.display = "none";
             userInfo.style.display = "none";
             logoutSection.style.display = "none";
+        }
+    }
+
+    function toggleSeatsInput() {
+        var concertSelection = document.getElementById("isConcert").value;
+        var seatsForm = document.getElementById("seatsForm");
+
+        if (concertSelection === "yes") {
+            seatsForm.style.display = "block";
+        } else {
+            seatsForm.style.display = "none";
         }
     }
 

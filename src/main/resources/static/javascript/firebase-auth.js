@@ -126,6 +126,9 @@ function addData(){
     const distance = document.getElementById("distanceText")?.innerText.trim();
     const vehicleFuel = document.getElementById("vehicleFuelText")?.innerText.trim();
     const carbonEmissions = document.getElementById("carbonEmissionsText")?.innerText.trim();
+    const isConcert = document.getElementById("concertText")?.innerText.trim();
+    const seats = document.getElementById("seatsText")?.innerText.trim();
+
 
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -136,7 +139,9 @@ function addData(){
                     Departure: departure,
                     Arrival: arrival,
                     Distance: distance,
-                    Carbon_Emissions: carbonEmissions
+                    Carbon_Emissions: carbonEmissions,
+                    isConcert: isConcert,
+                    seats: seats
                 };
             }
             else{
@@ -146,7 +151,9 @@ function addData(){
                     Distance: distance,
                     Consumption: consumption,
                     Fuel: vehicleFuel,
-                    Carbon_Emissions: carbonEmissions
+                    Carbon_Emissions: carbonEmissions,
+                    Concert: isConcert,
+                    Seats: seats
                 };
             }
             addUserData(data, tourName, departure, arrival);
