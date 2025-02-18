@@ -58,7 +58,7 @@ public class CarbonCalculatorController {
         thisConsumption = consumption;
         model.addAttribute("vehicleFuel", vehicleFuel);
         model.addAttribute("consumption", consumption);
-        return "carbon";
+        return "newTour";
     }
     @GetMapping("/getPlanes")
     @ResponseBody
@@ -92,7 +92,7 @@ public class CarbonCalculatorController {
         model.addAttribute("consumption", "N/A");
         model.addAttribute("carbonEmissions", carbonEmissions);
 
-        return "carbon";
+        return "newTour";
     }
 
     public void getBusInfo(@RequestParam("bus") String bus){
@@ -109,10 +109,10 @@ public class CarbonCalculatorController {
         }
     }
 
-    @GetMapping("/carbon")
-    public String showCarbon() {
-        return "carbon";
-    }
+//    @GetMapping("/newTour")
+//    public String showCarbon() {
+//        return "newTour";
+//    }
 
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
@@ -136,7 +136,7 @@ public class CarbonCalculatorController {
             model.addAttribute("vehicleFuel", "N/A");
             model.addAttribute("consumption", "N/A");
             model.addAttribute("carbonEmissions", carbonEmissions);
-            return "carbon";
+            return "newTour";
         }
 
         if(vehicle.equalsIgnoreCase("bus")){
@@ -153,6 +153,6 @@ public class CarbonCalculatorController {
         model.addAttribute("consumption", thisConsumption);
         model.addAttribute("carbonEmissions", carbonEmissions);
 
-        return "carbon";
+        return "newTour";
     }
 }

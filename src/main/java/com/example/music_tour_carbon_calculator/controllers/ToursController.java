@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.music_tour_carbon_calculator.firebase.FirebaseService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,11 +39,12 @@ public class ToursController {
     }
 
     @GetMapping("/tours")
-    public String showTours(HttpSession session) {
+    public String showTours(HttpSession session, Model model) {
         String userEmail = (String) session.getAttribute("userEmail");
         firebaseService.getAllTours(userEmail, session);
         List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
         session.setAttribute("userTours", userTours);
+        model.addAttribute("userTours", userTours);
         return "tours";
     }
 

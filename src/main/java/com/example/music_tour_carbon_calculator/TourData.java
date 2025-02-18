@@ -8,20 +8,31 @@ public class TourData {
     private String fuel;
     private String carbonEmissions;
 
+    private String documentId;
+
     public TourData() {}
 
-    public TourData(String departure, String arrival, String distance, String consumption, String fuel, String carbonEmissions) {
+    public TourData(String departure, String arrival, String distance, String consumption, String fuel, String carbonEmissions, String documentId) {
         this.departure = departure;
         this.arrival = arrival;
         this.distance = distance;
         this.consumption = consumption;
         this.fuel = fuel;
         this.carbonEmissions = carbonEmissions;
+        this.documentId = documentId;
     }
 
     // Getters and Setters
     public String getDeparture() { return departure; }
     public void setDeparture(String departure) { this.departure = departure; }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
     public String getArrival() { return arrival; }
     public void setArrival(String arrival) { this.arrival = arrival; }

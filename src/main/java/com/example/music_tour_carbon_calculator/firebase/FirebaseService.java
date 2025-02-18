@@ -39,16 +39,16 @@ public class FirebaseService {
                     tourObject foundTour = findTourByName(userTours, tour);
 
                     if (foundTour != null) {
-                        AddData(collection, foundTour);
+                        AddData(collection, foundTour, userTours);
                     } else {
                         tourObject createTour = new tourObject(tour);
                         userTours.add(createTour);
-                        AddData(collection, createTour);
+                        AddData(collection, createTour, userTours);
                     }
                 }else{
                     tourObject createTour = new tourObject(tour);
                     userTours.add(createTour);
-                    AddData(collection, createTour);
+                    AddData(collection, createTour, userTours);
                 }
             }
             session.setAttribute("userTours", userTours);
@@ -58,10 +58,15 @@ public class FirebaseService {
         }
     }
 
-    private void AddData(CollectionReference collection, tourObject createTour) throws InterruptedException, ExecutionException {
+    private void AddData(CollectionReference collection, tourObject createTour, List<tourObject> userTours) throws InterruptedException, ExecutionException {
         List<QueryDocumentSnapshot> documents = collection.get().get().getDocuments();
         for (QueryDocumentSnapshot document : documents) {
+            String documentID = document.getId();
+            if (isTourLegDuplicate(userTours, documentID)) {
+                continue;
+            }
             TourData newTour = new TourData();
+            newTour.setDocumentId(documentID);
             Map<String, Object> data = document.getData();
             for(int i = 0; i < values.length; i++){
                 add(values[i], data, newTour);
@@ -69,6 +74,18 @@ public class FirebaseService {
             createTour.add(newTour);
         }
     }
+    private boolean isTourLegDuplicate(List<tourObject> userTours, String documentID) {
+        for (tourObject tour : userTours) {
+            for (TourData leg : tour.legsOfTour) {
+                if (leg.getDocumentId() != null && leg.getDocumentId().equals(documentID)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 
     public static tourObject findTourByName(List<tourObject> tours, String inputTourName) {
         for (tourObject tour : tours) {

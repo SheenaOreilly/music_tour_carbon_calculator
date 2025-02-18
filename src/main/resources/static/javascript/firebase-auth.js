@@ -104,16 +104,11 @@ function checkAuthCarbon(carbonEmissions, tourName, departure, arrival) {
 function addUserData(data, tourName, departure, arrival) {
     const user = firebase.auth().currentUser;
     if (user) {
-        const uid = user.uid;
         const email = user.email;
-        const docName = departure + " -> " + arrival;
-        console.log(tourName);
-        console.log(docName);
-        console.log(email);
-        console.log(data);
-        db.collection(email).doc('Tours').collection(tourName).doc(docName).set(data)
-            .then(() => {
-                console.log('User data added successfully.');
+
+        db.collection(email).doc('Tours').collection(tourName).add(data)
+            .then((docRef) => {
+                console.log('User data added successfully with ID:', docRef.id);
             })
             .catch((error) => {
                 console.error('Error adding user data:', error);

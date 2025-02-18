@@ -87,6 +87,7 @@ body {
 }
 
 .box{
+    margin-top: 15vh;
     width: 60vw;
     border-radius: 30px;
     font-size: 20px;

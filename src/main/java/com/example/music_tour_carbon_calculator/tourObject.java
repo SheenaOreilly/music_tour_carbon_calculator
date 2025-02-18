@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class tourObject {
-    List<TourData> legsOfTour = new ArrayList<>();
+    public List<TourData> legsOfTour = new ArrayList<>();
     public String tourName;
 
     public tourObject(String tourName){
