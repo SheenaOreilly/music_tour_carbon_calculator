@@ -20,6 +20,11 @@ body {
     font-weight: bold;
 }
 
+.newTour{
+    position: absolute;
+    top: 32vh;
+}
+
 
 .collapsible {
     background-color: #777;
@@ -85,22 +90,20 @@ body {
     display: flex;
     align-items: center;
 }
-
-.box{
-    margin-top: 15vh;
+.box,
+.boxTours {
     width: 60vw;
     border-radius: 30px;
     font-size: 20px;
     padding-top: 50px;
     padding-bottom: 50px;
-    border-color: darkgray;
     background: white;
-    color: darkgrey;
-    border-style: dashed;
+    border: 2px dashed darkgray;
     cursor: pointer;
 }
 
-.box:hover {
+.box:hover,
+.boxTours:hover {
     border-color: #4ea8ff;
     color: #4ea8ff;
 }
@@ -117,4 +120,64 @@ body {
     color: lightblue;
     font-weight: bold;
 }
+
+.tours-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 80vh;
+    transform: translateY(-50%);
+}
+
+.tour-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tour-name {
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+    color: black;
+    margin-left: 20px;
+}
+
+.tour-icons {
+    display: flex;
+    flex: 2;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50px;
+}
+
+.icon-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.icon-group i {
+    font-size: 24px;
+}
+
+.transport-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.transport-icons i {
+    font-size: 24px;
+    color: lightblue;
+}
+
+.transport-icons i.active {
+    color: darkblue;
+}
+
+
+
 

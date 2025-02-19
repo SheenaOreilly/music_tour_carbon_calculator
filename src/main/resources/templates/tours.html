@@ -31,44 +31,45 @@
     </div>
 </div>
 
-<form id="makeNewTour" action="/newTour" method="get">
+<form class="newTour" id="makeNewTour" action="/newTour" method="get">
     <button class="box" type="submit">New Tour</button>
 </form>
 <br><br>
 
 <h1>Past Tours</h1>
 
-<!--<div class="tours-container">-->
-<!--    <div th:each="tour : ${userTours}" class="tour-box">-->
-<!--        <h2 th:text="${tour.tourName}">Tour Name</h2>-->
-<!--        <ul>-->
-<!--            <li th:each="leg : ${tour.legsOfTour}">-->
-<!--                <strong>Departure:</strong> <span th:text="${leg.departure}"></span> |-->
-<!--                <strong>Arrival:</strong> <span th:text="${leg.arrival}"></span> |-->
-<!--                <strong>Distance:</strong> <span th:text="${leg.distance}"></span> km |-->
-<!--                <strong>Fuel:</strong> <span th:text="${leg.fuel}"></span> L |-->
-<!--                <strong>Emissions:</strong> <span th:text="${leg.carbonEmissions}"></span> kg CO₂-->
-<!--                <strong>Concert:</strong> <span th:text="${leg.concert}"></span> |-->
-<!--                <strong>Seats:</strong> <span th:text="${leg.seats}"></span> |-->
-<!--                <strong>Vehicle:</strong> <span th:text="${leg.vehicle}"></span>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="tours-container">
-    <div th:each="tour : ${overTours}" class="tour-box">
-        <h2 th:text="${tour.tourName}">Tour Name</h2>
-        <ul>
-            <strong>Number of Seats:</strong> <span th:text="${tour.noOfSeats}"></span> |
-            <strong>Number of Concerts:</strong> <span th:text="${tour.noOfConcerts}"></span> |
-            <strong>Carbon Emissions:</strong> <span th:text="${tour.carbonEmissions}"></span> kg CO₂ |
-            <li th:each="type : ${tour.modesOfTransport}">
-                <strong>Vehicle:</strong> <span th:text="${type}"></span>
-            </li>
-        </ul>
+    <div th:each="tour : ${overTours}" class="boxTours"
+         th:data-seats="${tour.noOfSeats}"
+         th:data-concerts="${tour.noOfConcerts}"
+         th:data-emissions="${tour.carbonEmissions}"
+         th:data-transport="${tour.modesOfTransport}">
+        <div class="tour-content">
+            <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
+            <div class="tour-icons">
+                <div class="icon-group">
+                    <i class="fas fa-users"></i>
+                    <p th:text="${tour.noOfConcerts}" class="concerts">10</p>
+                </div>
+                <div class="icon-group">
+                    <i class="fas fa-shoe-prints"></i>
+                    <p th:text="${tour.carbonEmissions} + ' kg CO₂'" class="carbon-emissions">500 kg CO₂</p>
+                </div>
+                <div class="icon-group">
+                    <i class="fas fa-chair"></i>
+                    <p th:text="${tour.noOfSeats}" class="seats">50</p>
+                </div>
+                <div class="transport-icons">
+                    <i class="fas fa-bus transport" data-mode="bus"></i>
+                    <i class="fas fa-plane transport" data-mode="plane"></i>
+                    <i class="fas fa-car transport" data-mode="car"></i>
+                    <i class="fas fa-train transport" data-mode="train"></i>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <script>
     function toggleCollapsible() {
@@ -86,6 +87,18 @@
             logoutSection.style.display = "none";
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".tour-box").forEach(tour => {
+            let activeModes = tour.getAttribute("data-transport").split(",");
+            tour.querySelectorAll(".transport").forEach(icon => {
+                if (activeModes.includes(icon.getAttribute("data-mode"))) {
+                    icon.classList.add("active");
+                }
+            });
+        });
+    });
+
 
 </script>
 
