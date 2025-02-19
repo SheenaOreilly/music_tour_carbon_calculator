@@ -1,8 +1,10 @@
 package com.example.music_tour_carbon_calculator.controllers;
 
+import com.example.music_tour_carbon_calculator.TourData;
 import com.example.music_tour_carbon_calculator.createTourBlock;
 import com.example.music_tour_carbon_calculator.overallTour;
 import com.example.music_tour_carbon_calculator.tourObject;
+import com.fasterxml.jackson.databind.DatabindContext;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.music_tour_carbon_calculator.firebase.FirebaseService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,19 @@ public class ToursController {
         return "tours";
     }
 
+    @GetMapping("/getSpecificTour")
+    public String showSpecificTour(@RequestParam("tourName") String tourName, HttpSession session, Model model){
+        List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
+        List<TourData> specificTourData = new ArrayList<>();
+        for(tourObject tour : userTours){
+            if(tour.tourName.equalsIgnoreCase(tourName)){
+                specificTourData = tour.legsOfTour;
+            }
+        }
+        model.addAttribute("tourName", tourName);
+        model.addAttribute("specificToursData", specificTourData);
+        return "specificTour";
+    }
 
     @GetMapping("/newTour")
     public String showNewTour() {

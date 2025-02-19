@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specific Tour</title>
+
+    <link rel="stylesheet" href="/css/tourStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+
+    <script src="/javascript/firebase-auth.js"></script>
+</head>
+<body onload="checkAuthCarbon()">
+
+<div class="header"></div>
+<div class="banner">
+    <p class="toursp">Tours</p>
+    <a class="offestp" href="/offsets">Offsets</a>
+</div>
+<div class="icon-container" onclick="toggleCollapsible()">
+    <i class="fa-solid fa-user"></i>
+</div>
+
+<div class="content">
+    <p id="userInfo" style="display: none;"></p>
+    <div id="logoutSection" style="display: none;">
+        <button class="logoutButton" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="tours-table">
+    <h2 th:text="${tourName}">Tour Name</h2>
+    <table class="tour-table">
+        <thead>
+        <tr>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Distance (km)</th>
+            <th>Fuel (L)</th>
+            <th>Emissions (kg CO₂)</th>
+            <th>Concert</th>
+            <th>Seats</th>
+            <th>Vehicle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tour : ${specificToursData}">
+            <td th:text="${tour.departure}"></td>
+            <td th:text="${tour.arrival}"></td>
+            <td th:text="${tour.distance}"></td>
+            <td th:text="${tour.fuel}"></td>
+            <td th:text="${tour.carbonEmissions}"></td>
+            <td th:text="${tour.concert}"></td>
+            <td th:text="${tour.seats}"></td>
+            <td th:text="${tour.vehicle}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+    <button class="logoutButton" style="background-color: rgb(100 149 237); position: absolute;left: 47vw;" onclick="window.location.href = '/tours';">
+        ALL TOURS
+    </button>
+</div>
+
+
+
+<script>
+    function toggleCollapsible() {
+        var content = document.querySelector(".content");
+        var userInfo = document.getElementById("userInfo");
+        var logoutSection = document.getElementById("logoutSection");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            userInfo.style.display = "block";
+            logoutSection.style.display = "block";
+        } else {
+            content.style.display = "none";
+            userInfo.style.display = "none";
+            logoutSection.style.display = "none";
+        }
+    }
+
+</script>
+
+</body>
+</html>
