@@ -15,7 +15,7 @@ public class FirebaseConfig {
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/carbon-calculator-music-tours-firebase-adminsdk-fbsvc-e5bba844ea.json");
+                new FileInputStream("src/main/resources/carbon-calculator-music-tours-firebase-adminsdk-fbsvc-0538dad743.json");
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

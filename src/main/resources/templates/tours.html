@@ -38,19 +38,33 @@
 
 <h1>Past Tours</h1>
 
+<!--<div class="tours-container">-->
+<!--    <div th:each="tour : ${userTours}" class="tour-box">-->
+<!--        <h2 th:text="${tour.tourName}">Tour Name</h2>-->
+<!--        <ul>-->
+<!--            <li th:each="leg : ${tour.legsOfTour}">-->
+<!--                <strong>Departure:</strong> <span th:text="${leg.departure}"></span> |-->
+<!--                <strong>Arrival:</strong> <span th:text="${leg.arrival}"></span> |-->
+<!--                <strong>Distance:</strong> <span th:text="${leg.distance}"></span> km |-->
+<!--                <strong>Fuel:</strong> <span th:text="${leg.fuel}"></span> L |-->
+<!--                <strong>Emissions:</strong> <span th:text="${leg.carbonEmissions}"></span> kg CO₂-->
+<!--                <strong>Concert:</strong> <span th:text="${leg.concert}"></span> |-->
+<!--                <strong>Seats:</strong> <span th:text="${leg.seats}"></span> |-->
+<!--                <strong>Vehicle:</strong> <span th:text="${leg.vehicle}"></span>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+
 <div class="tours-container">
-    <div th:each="tour : ${userTours}" class="tour-box">
+    <div th:each="tour : ${overTours}" class="tour-box">
         <h2 th:text="${tour.tourName}">Tour Name</h2>
         <ul>
-            <li th:each="leg : ${tour.legsOfTour}">
-                <strong>Departure:</strong> <span th:text="${leg.departure}"></span> |
-                <strong>Arrival:</strong> <span th:text="${leg.arrival}"></span> |
-                <strong>Distance:</strong> <span th:text="${leg.distance}"></span> km |
-                <strong>Fuel:</strong> <span th:text="${leg.fuel}"></span> L |
-                <strong>Emissions:</strong> <span th:text="${leg.carbonEmissions}"></span> kg CO₂
-                <strong>Concert:</strong> <span th:text="${leg.concert}"></span> |
-                <strong>Seats:</strong> <span th:text="${leg.seats}"></span> |
-                <strong>Vehicle:</strong> <span th:text="${leg.vehicle}"></span>
+            <strong>Number of Seats:</strong> <span th:text="${tour.noOfSeats}"></span> |
+            <strong>Number of Concerts:</strong> <span th:text="${tour.noOfConcerts}"></span> |
+            <strong>Carbon Emissions:</strong> <span th:text="${tour.carbonEmissions}"></span> kg CO₂ |
+            <li th:each="type : ${tour.modesOfTransport}">
+                <strong>Vehicle:</strong> <span th:text="${type}"></span>
             </li>
         </ul>
     </div>

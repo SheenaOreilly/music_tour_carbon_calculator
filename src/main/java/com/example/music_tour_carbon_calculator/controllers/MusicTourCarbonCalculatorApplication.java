@@ -7,15 +7,22 @@ import com.google.firebase.auth.FirebaseToken;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication(scanBasePackages = "com.example.music_tour_carbon_calculator")
 @Controller
-public class MusicTourCarbonCalculatorApplication {
+public class MusicTourCarbonCalculatorApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(MusicTourCarbonCalculatorApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(MusicTourCarbonCalculatorApplication.class);
     }
 
     @PostMapping("/login")
@@ -35,5 +42,4 @@ public class MusicTourCarbonCalculatorApplication {
     public String showLogin() {
         return "loginScreen";
     }
-
 }

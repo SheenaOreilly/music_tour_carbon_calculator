@@ -56,8 +56,15 @@ function signup() {
                 body: JSON.stringify({ email: user.email })
             });
             console.log("Email set in session: ", data);
+            fetch("/load", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            console.log("Tours set in session: ", data);
         }).catch(error => {
-        console.error("Error setting email in session: ", error);
+        console.error("Error setting tours in session: ", error);
     });
 }
 
@@ -65,11 +72,26 @@ function signup() {
 function logout() {
     firebase.auth().signOut().then(() => {
         localStorage.removeItem("token");
-        window.location.href = "http://localhost:8080/";
+
+        document.cookie = "JSESSIONID=; Max-Age=0; path=/";
+        document.cookie = "JSESSIONID=; Max-Age=0; path=/; domain=localhost";
+
+        fetch("/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(() => {
+            window.location.href = "http://localhost:8080/";
+        }).catch((error) => {
+            console.error("Error logging out from session:", error);
+        });
     }).catch((error) => {
         console.error("Logout error: ", error);
     });
 }
+
+
 
 function checkAuth() {
     firebase.auth().onAuthStateChanged(function(user) {
