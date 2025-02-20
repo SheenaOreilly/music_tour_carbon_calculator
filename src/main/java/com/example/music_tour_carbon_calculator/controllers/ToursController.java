@@ -83,7 +83,10 @@ public class ToursController {
     }
 
     @GetMapping("/newTour")
-    public String showNewTour() {
+    public String showNewTour(HttpSession session, Model model) {
+        String tourName = (String) session.getAttribute("tourName");
+        model.addAttribute("tourName", tourName);
+        model.addAttribute("currentLegs", session.getAttribute("currentTour"));
         return "newTour";
     }
 }

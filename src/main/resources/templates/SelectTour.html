@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Select Tour</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="/css/tourStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <script src="/javascript/firebase-auth.js"></script>
+</head>
+<body onload="checkAuthCarbon()">
+
+<div class="header"></div>
+<div class="banner">
+    <p class="toursp">Tours</p>
+    <a class="offestp" href="/offsets">Offsets</a>
+</div>
+<div class="icon-container" onclick="toggleCollapsible()">
+    <i class="fa-solid fa-user"></i>
+</div>
+
+<div class="content">
+    <p id="userInfo" style="display: none;"></p>
+    <div id="logoutSection" style="display: none;">
+        <button class="logoutButton" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<form id="selectTourForm" action="/selectTourName" method="get">
+    <label for="tourName">Tour Name :</label>
+    <input type="text" id="tourName" name="tourName" required>
+    <br><br>
+    <button type="submit">Go</button>
+</form>
+
+<button onclick="window.location.href = '/tours';">
+    CANCEL
+</button>
+
+<script>
+    function toggleCollapsible() {
+        var content = document.querySelector(".content");
+        var userInfo = document.getElementById("userInfo");
+        var logoutSection = document.getElementById("logoutSection");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            userInfo.style.display = "block";
+            logoutSection.style.display = "block";
+        } else {
+            content.style.display = "none";
+            userInfo.style.display = "none";
+            logoutSection.style.display = "none";
+        }
+    }
+
+</script>
+
+<script src="/javascript/calculator-response.js"></script>
+
+</body>
+</html>

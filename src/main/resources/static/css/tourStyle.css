@@ -191,5 +191,25 @@ th{
     background: rgb(100 149 237);
 }
 
+#tourContent {
+    width: 100%;
+    max-width: 90vw;
+}
+
+
+#legs {
+    flex: 1;
+    min-width: 50%;
+    position: absolute;
+    top: 37vh;
+}
+
+#calculator {
+    position: absolute;
+    top: 35vh;
+    left: 60vw;
+}
+
+
 
 

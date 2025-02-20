@@ -1,6 +1,9 @@
 package com.example.music_tour_carbon_calculator.controllers;
 
+import com.example.music_tour_carbon_calculator.TourData;
 import com.example.music_tour_carbon_calculator.calculator.*;
+import com.example.music_tour_carbon_calculator.tourObject;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,11 +69,11 @@ public class CarbonCalculatorController {
 
     @GetMapping("/getPlaneCarbon")
     public String getPlaneCarbon(
-            @RequestParam(value = "tourName", defaultValue = "") String tourName,
             @RequestParam(value = "dep", defaultValue = "dublin") String dep,
             @RequestParam(value = "arr", defaultValue = "donegal") String arr,
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
+            HttpSession session,
             Model model) {
         String[] arrOfStr = dep.split(":");
         double lat1 = Double.parseDouble(arrOfStr[0]);
@@ -84,6 +87,8 @@ public class CarbonCalculatorController {
         double carbon = getPlaneInfo(distance);
         String carbonEmissions = String.format("%.2f", carbon);
 
+        String tourName = (String) session.getAttribute("tourName");
+
         model.addAttribute("tourName", tourName);
         model.addAttribute("departure", depature);
         model.addAttribute("arrival", arrival);
@@ -94,6 +99,9 @@ public class CarbonCalculatorController {
         model.addAttribute("seats", seats);
         model.addAttribute("vehicle", "plane");
         model.addAttribute("carbonEmissions", carbonEmissions);
+
+        String distanceS = String.valueOf(distance);
+        model.addAttribute("currentLegs", addNewLeg(depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
 
         return "newTour";
     }
@@ -112,14 +120,8 @@ public class CarbonCalculatorController {
         }
     }
 
-//    @GetMapping("/newTour")
-//    public String showCarbon() {
-//        return "newTour";
-//    }
-
     @GetMapping("/calculateCarbon")
     public String calculateCarbon(
-            @RequestParam(value = "tourName", defaultValue = "") String tourName,
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
@@ -127,8 +129,10 @@ public class CarbonCalculatorController {
             @RequestParam(value = "bus", defaultValue = "coach") String bus,
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
+            HttpSession session,
             Model model) throws IOException {
 
+        String tourName = (String) session.getAttribute("tourName");
         double distance = Distance.calculateDistance(origin, destination, mode);
 
         if(vehicle.equalsIgnoreCase("train")){
@@ -144,6 +148,10 @@ public class CarbonCalculatorController {
             model.addAttribute("seats", seats);
             model.addAttribute("vehicle", vehicle);
             model.addAttribute("carbonEmissions", carbonEmissions);
+
+            String distanceS = String.valueOf(distance);
+            model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+
             return "newTour";
         }
 
@@ -164,6 +172,17 @@ public class CarbonCalculatorController {
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("carbonEmissions", carbonEmissions);
 
+        String distanceS = String.valueOf(distance);
+        model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+
         return "newTour";
+    }
+
+    public tourObject addNewLeg(String departure, String arrival, String distance, String vehicle, String carbon, String seats, HttpSession session){
+        tourObject newTour = (tourObject) session.getAttribute("currentTour");
+        TourData newLeg = new TourData(departure, arrival, distance, "N/A", "N/A", vehicle, carbon, "N/A", "N/A", seats);
+        newTour.add(newLeg);
+        session.setAttribute("currentTour", newTour);
+        return newTour;
     }
 }
