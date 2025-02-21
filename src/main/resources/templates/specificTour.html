@@ -31,37 +31,38 @@
     </div>
 </div>
 
-<div class="tours-table" style="    position: absolute; top: 30vh;">
-    <h2 th:text="${tourName}">Tour Name</h2>
-    <table class="tour-table">
-        <thead>
-        <tr>
-            <th>Departure</th>
-            <th>Arrival</th>
-            <th>Distance (km)</th>
-            <th>Fuel (L)</th>
-            <th>Emissions (kg CO₂)</th>
-            <th>Concert</th>
-            <th>Seats</th>
-            <th>Vehicle</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="tour : ${specificToursData}">
-            <td th:text="${tour.departure}"></td>
-            <td th:text="${tour.arrival}"></td>
-            <td th:text="${tour.distance}"></td>
-            <td th:text="${tour.fuel}"></td>
-            <td th:text="${tour.carbonEmissions}"></td>
-            <td th:text="${tour.concert}"></td>
-            <td th:text="${tour.seats}"></td>
-            <td th:text="${tour.vehicle}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="table-container">
+        <h2 th:text="${tourName}">Tour Name</h2>
+        <table class="tour-table">
+            <thead>
+            <tr>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Distance (km)</th>
+                <th>Fuel (L)</th>
+                <th>Emissions (kg CO₂)</th>
+                <th>Concert</th>
+                <th>Seats</th>
+                <th>Vehicle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tour : ${specificToursData}">
+                <td th:text="${tour.departure}"></td>
+                <td th:text="${tour.arrival}"></td>
+                <td th:text="${tour.distance}"></td>
+                <td th:text="${tour.fuel}"></td>
+                <td th:text="${tour.carbonEmissions}"></td>
+                <td th:text="${tour.concert}"></td>
+                <td th:text="${tour.seats}"></td>
+                <td th:text="${tour.vehicle}"></td>
+            </tr>
+            </tbody>
+        </table>
 
-    <br><br>
-    <button class="logoutButton" style="background-color: rgb(100 149 237); position: absolute;left: 47vw;" onclick="window.location.href = '/tours';">
+        <br><br>
+
+    <button class="logoutButton" onclick="window.location.href = '/tours';">
         ALL TOURS
     </button>
 </div>

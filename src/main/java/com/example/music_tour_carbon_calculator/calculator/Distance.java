@@ -12,12 +12,21 @@ import java.net.URL;
 public class Distance {
 
     public static double calculateDistance(String origin, String destination, String transportType) throws IOException {
+        String transport;
+        switch (transportType){
+            case "car", "bus":
+                transport = "transit";
+                break;
+            default:
+                transport = "public transport";
+                break;
+        }
         String apiKey = "AIzaSyBXYRQP5e4qehb6sluG6m7Ao6JotPR0o6M";
         String urlString = String.format(
                 "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&units=metric&mode=%s&key=%s",
                 origin.replace(" ", "%20"),
                 destination.replace(" ", "%20"),
-                transportType.replace(" ", "%20"),
+                transport.replace(" ", "%20"),
                 apiKey
         );
 

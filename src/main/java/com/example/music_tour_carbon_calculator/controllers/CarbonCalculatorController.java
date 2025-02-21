@@ -65,7 +65,7 @@ public class CarbonCalculatorController {
         String carbonEmissions = String.format("%.2f", carbon);
 
         String tourName = (String) session.getAttribute("tourName");
-        addUserData(tourName, depature, arrival, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, "plane", session);
+        addUserData(tourName, depature, arrival, "N/A", String.format("%.2f", distance), "N/A", carbonEmissions, concert,seats, "plane", session);
         String distanceS = String.valueOf(distance);
         model.addAttribute("currentLegs", addNewLeg(depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
 
@@ -92,7 +92,7 @@ public class CarbonCalculatorController {
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
             @RequestParam(value = "mode", defaultValue = "driving") String mode,
-            @RequestParam(value = "vehicle", defaultValue = "train") String vehicle,
+            @RequestParam(value = "selectedVehicle", defaultValue = "train") String vehicle,
             @RequestParam(value = "bus", defaultValue = "coach") String bus,
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
@@ -109,12 +109,12 @@ public class CarbonCalculatorController {
         }
 
         String tourName = (String) session.getAttribute("tourName");
-        double distance = Distance.calculateDistance(origin, destination, mode);
+        double distance = Distance.calculateDistance(origin, destination, vehicle);
 
         if(vehicle.equalsIgnoreCase("train")){
             double carbon = 0.28 * distance;
             String carbonEmissions = String.format("%.2f", carbon);
-            String distanceS = String.valueOf(distance);
+            String distanceS = String.format("%.2f", distance);
             model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
             addUserData(tourName, origin, destination, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, vehicle, session);
             return "newTour";
@@ -124,7 +124,7 @@ public class CarbonCalculatorController {
             getBusInfo(bus);
         }
         String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thiscar.getFuel(), Double.parseDouble(thiscar.getConsumption()));
-        String distanceS = String.valueOf(distance);
+        String distanceS = String.format("%.2f", distance);
         model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
         addUserData(tourName, origin, destination, thiscar.getConsumption(), String.valueOf(distance), thiscar.getFuel(), carbonEmissions, concert,seats, vehicle, session);
 

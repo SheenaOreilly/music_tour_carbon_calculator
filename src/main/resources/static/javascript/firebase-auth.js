@@ -124,6 +124,9 @@ function newLegCheck() {
         if (user) {
             document.getElementById("userInfo").innerText = "Logged in as: " + user.email;
             document.getElementById("userInfo").style.display = "block";
+            document.getElementById("isConcert").value = "no";
+            document.getElementById("isConcertPlane").value = "no";
+            console.log("changed to no");
         }
     });
     fetch('/getCars', {

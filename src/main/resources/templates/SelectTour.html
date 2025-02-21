@@ -31,16 +31,12 @@
     </div>
 </div>
 
-<form id="selectTourForm" action="/selectTourName" method="get">
-    <label for="tourName">Tour Name :</label>
-    <input type="text" id="tourName" name="tourName" required>
+<form class="selectionBox" id="selectTourForm" action="/selectTourName" method="get">
+    <input class="inputTour" type="text" id="tourName" placeholder="Tour Name ..." name="tourName" required>
+    <button class="button_tour" type="submit">Go</button>
     <br><br>
-    <button type="submit">Go</button>
+    <a href="javascript:void(0);" onclick="window.location.href = '/tours';">Back to Tours</a>
 </form>
-
-<button onclick="window.location.href = '/tours';">
-    CANCEL
-</button>
 
 <script>
     function toggleCollapsible() {
