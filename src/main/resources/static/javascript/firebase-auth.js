@@ -110,7 +110,7 @@ function checkAuth() {
         }
     });
 }
-function checkAuthCarbon(carbonEmissions, tourName, departure, arrival) {
+function checkAuthCarbon() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             document.getElementById("userInfo").innerText = "Logged in as: " + user.email;
@@ -118,5 +118,43 @@ function checkAuthCarbon(carbonEmissions, tourName, departure, arrival) {
         }
     });
 }
+
+function newLegCheck() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            document.getElementById("userInfo").innerText = "Logged in as: " + user.email;
+            document.getElementById("userInfo").style.display = "block";
+        }
+    });
+    fetch('/getCars', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch cars');
+            }
+        })
+        .then(data => {
+            const carDropdown = document.getElementById("carDropdown");
+            carDropdown.innerHTML = '<option value="">-- Select a Car --</option>';
+
+            for (const [nickname, documentId] of Object.entries(data)) {
+                const option = document.createElement("option");
+                option.value = documentId;
+                option.textContent = nickname;
+                carDropdown.appendChild(option);
+                document.getElementById("selectedCar").value = documentId;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching cars:', error);
+        });
+}
+
 
 

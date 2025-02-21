@@ -13,7 +13,7 @@
 
     <script src="/javascript/firebase-auth.js"></script>
 </head>
-<body onload="checkAuthCarbon()">
+<body onload="newLegCheck()">
 
 <div class="header"></div>
 <div class="banner">
@@ -101,43 +101,13 @@
 
 
         <div id="carForms" style="display:none;">
-            <form id="yearForm" action="/getMakes" method="get">
-                <label for="carName">Enter a Car Nickname:</label>
-                <input type="text" id="carName" name="carName" required>
-                <br><br>
+            <select id="carDropdown" name="carDropdown" onchange="updateCar()">
+                <option value="">-- Select a Car --</option>
+            </select>
 
-                <label for="year">Enter Year:</label>
-                <input type="text" id="year" name="year" required>
-                <button type="submit">Get Makes</button>
+            <form id="newCarForm" action="/car" method="get">
+                <button type="submit">New Car</button>
             </form>
-            <br><br>
-
-            <form id="makeForm" action="/getModels" method="get">
-                <label for="make">Select Make:</label>
-                <select id="make" name="make" required>
-                    <option value="">-- Choose a Make --</option>
-                </select>
-                <button type="submit">Get Models</button>
-            </form>
-            <br><br>
-
-            <form id="modelForm" action="/getFuelSize" method="get">
-                <label for="model">Select Model:</label>
-                <select id="model" name="model" required>
-                    <option value="">-- Choose a Model --</option>
-                </select>
-                <button type="submit">Get Tank Size</button>
-            </form>
-            <br><br>
-
-            <form id="tankForm" action="/getFuelInfo" method="get">
-                <label for="tank">Select Tank Size:</label>
-                <select id="tank" name="tank" required>
-                    <option value="">-- Choose a Tank Size --</option>
-                </select>
-                <button type="submit">Submit</button>
-            </form>
-            <br><br>
         </div>
 
         <div id="transportForm" style="display:none;">
@@ -190,6 +160,8 @@
                 </div>
                 <br><br>
 
+                <input type="hidden" id="selectedCar" name="selectedCar">
+
                 <button type="submit">Calculate</button>
             </form>
         </div>
@@ -238,6 +210,10 @@
         } else {
             seatsForm.style.display = "none";
         }
+    }
+
+    function updateCar(){
+        document.getElementById("selectedCar").value = document.getElementById("carDropdown").value;
     }
 
 
