@@ -1,7 +1,7 @@
 package com.example.music_tour_carbon_calculator.firebase;
 
-import com.example.music_tour_carbon_calculator.TourData;
-import com.example.music_tour_carbon_calculator.tourObject;
+import com.example.music_tour_carbon_calculator.objects.TourData;
+import com.example.music_tour_carbon_calculator.objects.tourObject;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;

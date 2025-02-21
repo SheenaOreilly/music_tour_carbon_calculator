@@ -1,4 +1,4 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.objects;
 
 public class TourData {
     private String departure;

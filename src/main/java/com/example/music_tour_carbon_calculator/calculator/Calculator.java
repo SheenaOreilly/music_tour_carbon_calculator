@@ -14,6 +14,7 @@ public class Calculator {
 
         double used_fuel = consumption * (distance/100);
         double emmisions = used_fuel * emissionFactor;
+        emmisions = Math.round(emmisions * 100.0) / 100.0;
         return String.format("%.2f", emmisions);
     }
 }

@@ -1,9 +1,16 @@
 package com.example.music_tour_carbon_calculator.controllers;
 
-import com.example.music_tour_carbon_calculator.TourData;
+import com.example.music_tour_carbon_calculator.firebase.FirebaseService;
+import com.example.music_tour_carbon_calculator.objects.TourData;
 import com.example.music_tour_carbon_calculator.calculator.*;
-import com.example.music_tour_carbon_calculator.tourObject;
+import com.example.music_tour_carbon_calculator.objects.tourObject;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +21,10 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class CarbonCalculatorController {
@@ -25,14 +34,18 @@ public class CarbonCalculatorController {
     public String thisModel;
     public String thisFuel;
     public String thisConsumption;
+
+    public String thisCarName;
+
     public static void main(String[] args) {
         SpringApplication.run(MusicTourCarbonCalculatorApplication.class, args);
     }
 
     @GetMapping("/getMakes")
     @ResponseBody
-    public List getMakes(@RequestParam("year") String year) throws IOException, ParserConfigurationException, SAXException {
+    public List getMakes(@RequestParam("year") String year, @RequestParam("carName") String carName) throws IOException, ParserConfigurationException, SAXException {
         thisYear = year;
+        thisCarName = carName;
         return CarInfo.getMakes(year);
     }
 
@@ -51,16 +64,29 @@ public class CarbonCalculatorController {
     }
 
     @GetMapping("/getFuelInfo")
-    public String getFuelInfo(@RequestParam("tank") String tank, Model model) throws IOException, ParserConfigurationException, SAXException {
+    public String getFuelInfo(@RequestParam("tank") String tank, Model model, HttpSession session) throws IOException, ParserConfigurationException, SAXException, ExecutionException, InterruptedException {
         List carInfo = CarInfo.getFuelInfo(tank);
         String vehicleFuel = (String) carInfo.get(0);
         String consumption = (String) carInfo.get(1);
         thisFuel = vehicleFuel.toLowerCase();
         thisConsumption = consumption;
+
+        Firestore db = FirestoreClient.getFirestore();
+        String userEmail = (String) session.getAttribute("userEmail");
+        Map<String, Object> data = new HashMap<>();
+        data.put("Consumption", thisConsumption);
+        data.put("Fuel", thisFuel);
+        data.put("Nickname", thisCarName);
+
+        CollectionReference toursRef = db.collection(userEmail).document("Cars").collection("Cars");
+        DocumentReference newTourRef = toursRef.add(data).get();
+        System.out.println("User data added successfully with ID: " + ((DocumentReference) newTourRef).getId());
+
         model.addAttribute("vehicleFuel", vehicleFuel);
         model.addAttribute("consumption", consumption);
         return "newTour";
     }
+
     @GetMapping("/getPlanes")
     @ResponseBody
     public Map<String, String> getPlanes()  {
@@ -74,7 +100,7 @@ public class CarbonCalculatorController {
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
             HttpSession session,
-            Model model) {
+            Model model) throws ExecutionException, InterruptedException {
         String[] arrOfStr = dep.split(":");
         double lat1 = Double.parseDouble(arrOfStr[0]);
         double lon1 = Double.parseDouble(arrOfStr[1]);
@@ -85,21 +111,11 @@ public class CarbonCalculatorController {
         String  arrival = arrOfStr[2];
         double distance = Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*6371;
         double carbon = getPlaneInfo(distance);
+        carbon = Math.round(carbon * 100.0) / 100.0;
         String carbonEmissions = String.format("%.2f", carbon);
 
         String tourName = (String) session.getAttribute("tourName");
-
-        model.addAttribute("tourName", tourName);
-        model.addAttribute("departure", depature);
-        model.addAttribute("arrival", arrival);
-        model.addAttribute("distance", String.format("%.2f", distance));
-        model.addAttribute("vehicleFuel", "N/A");
-        model.addAttribute("consumption", "N/A");
-        model.addAttribute("concert", concert);
-        model.addAttribute("seats", seats);
-        model.addAttribute("vehicle", "plane");
-        model.addAttribute("carbonEmissions", carbonEmissions);
-
+        addUserData(tourName, depature, arrival, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, "plane", session);
         String distanceS = String.valueOf(distance);
         model.addAttribute("currentLegs", addNewLeg(depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
 
@@ -110,6 +126,7 @@ public class CarbonCalculatorController {
         thisConsumption = BusInfo.getBusEmissions(bus);
         thisFuel = "diesel";
     }
+
     public double getPlaneInfo(double distance){
         if(distance < 1600){
             return 0.4 * distance;
@@ -130,7 +147,7 @@ public class CarbonCalculatorController {
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
             HttpSession session,
-            Model model) throws IOException {
+            Model model) throws IOException, ExecutionException, InterruptedException {
 
         String tourName = (String) session.getAttribute("tourName");
         double distance = Distance.calculateDistance(origin, destination, mode);
@@ -138,42 +155,19 @@ public class CarbonCalculatorController {
         if(vehicle.equalsIgnoreCase("train")){
             double carbon = 0.28 * distance;
             String carbonEmissions = String.format("%.2f", carbon);
-            model.addAttribute("tourName", tourName);
-            model.addAttribute("departure", origin);
-            model.addAttribute("arrival", destination);
-            model.addAttribute("distance", distance);
-            model.addAttribute("vehicleFuel", "N/A");
-            model.addAttribute("consumption", "N/A");
-            model.addAttribute("concert", concert);
-            model.addAttribute("seats", seats);
-            model.addAttribute("vehicle", vehicle);
-            model.addAttribute("carbonEmissions", carbonEmissions);
-
             String distanceS = String.valueOf(distance);
             model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
-
+            addUserData(tourName, origin, destination, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, vehicle, session);
             return "newTour";
         }
 
         if(vehicle.equalsIgnoreCase("bus")){
             getBusInfo(bus);
         }
-
         String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thisFuel, Double.parseDouble(thisConsumption));
-
-        model.addAttribute("tourName", tourName);
-        model.addAttribute("departure", origin);
-        model.addAttribute("arrival", destination);
-        model.addAttribute("distance", distance);
-        model.addAttribute("vehicleFuel", thisFuel);
-        model.addAttribute("consumption", thisConsumption);
-        model.addAttribute("concert", concert);
-        model.addAttribute("seats", seats);
-        model.addAttribute("vehicle", vehicle);
-        model.addAttribute("carbonEmissions", carbonEmissions);
-
         String distanceS = String.valueOf(distance);
         model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+        addUserData(tourName, origin, destination, thisConsumption, String.valueOf(distance), thisFuel, carbonEmissions, concert,seats, vehicle, session);
 
         return "newTour";
     }
@@ -184,5 +178,28 @@ public class CarbonCalculatorController {
         newTour.add(newLeg);
         session.setAttribute("currentTour", newTour);
         return newTour;
+    }
+
+    public void addUserData(String tourName, String departure, String arrival, String consumption,
+                            String distance, String vehicleFuel, String carbonEmissions, String isConcert,
+                            String seats, String vehicle, HttpSession session) throws ExecutionException, InterruptedException {
+
+        Firestore db = FirestoreClient.getFirestore();
+        String userEmail = (String) session.getAttribute("userEmail");
+        Map<String, Object> data = new HashMap<>();
+        data.put("Departure", departure);
+        data.put("Arrival", arrival);
+        data.put("Distance", distance);
+        data.put("Carbon_Emissions", carbonEmissions);
+        data.put("Concert", isConcert);
+        data.put("Seats", seats);
+        data.put("Vehicle", vehicle);
+        if (!vehicleFuel.equals("N/A")) {
+            data.put("Consumption", consumption);
+            data.put("Fuel", vehicleFuel);
+        }
+        CollectionReference toursRef = db.collection(userEmail).document("Tours").collection(tourName);
+        DocumentReference newTourRef = toursRef.add(data).get();
+        System.out.println("User data added successfully with ID: " + ((DocumentReference) newTourRef).getId());
     }
 }

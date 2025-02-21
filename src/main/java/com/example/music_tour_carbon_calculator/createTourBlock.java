@@ -1,5 +1,8 @@
 package com.example.music_tour_carbon_calculator;
 
+import com.example.music_tour_carbon_calculator.objects.TourData;
+import com.example.music_tour_carbon_calculator.objects.overallTour;
+import com.example.music_tour_carbon_calculator.objects.tourObject;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;

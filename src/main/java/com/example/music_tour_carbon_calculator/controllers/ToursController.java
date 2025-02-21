@@ -1,14 +1,12 @@
 package com.example.music_tour_carbon_calculator.controllers;
 
-import com.example.music_tour_carbon_calculator.TourData;
+import com.example.music_tour_carbon_calculator.objects.TourData;
 import com.example.music_tour_carbon_calculator.createTourBlock;
-import com.example.music_tour_carbon_calculator.overallTour;
-import com.example.music_tour_carbon_calculator.tourObject;
-import com.fasterxml.jackson.databind.DatabindContext;
+import com.example.music_tour_carbon_calculator.objects.overallTour;
+import com.example.music_tour_carbon_calculator.objects.tourObject;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

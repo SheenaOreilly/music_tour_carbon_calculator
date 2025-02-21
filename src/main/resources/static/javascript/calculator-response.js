@@ -40,7 +40,8 @@ $('#vehicle').on('change', function() {
 $('#yearForm').on('submit', function(e) {
     e.preventDefault();
     const year = $('#year').val();
-    $.get('/getMakes', { year: year }, function(data) {
+    const carName = $('#carName').val();
+    $.get('/getMakes', { year: year,  carName: carName}, function(data) {
         $('#make').html('<option value="">-- Choose a Make --</option>');
         data.forEach(function(make) {
             $('#make').append('<option value="' + make + '">' + make + '</option>');

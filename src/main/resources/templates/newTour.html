@@ -102,6 +102,10 @@
 
         <div id="carForms" style="display:none;">
             <form id="yearForm" action="/getMakes" method="get">
+                <label for="carName">Enter a Car Nickname:</label>
+                <input type="text" id="carName" name="carName" required>
+                <br><br>
+
                 <label for="year">Enter Year:</label>
                 <input type="text" id="year" name="year" required>
                 <button type="submit">Get Makes</button>
@@ -137,7 +141,7 @@
         </div>
 
         <div id="transportForm" style="display:none;">
-            <form action="/calculateCarbon" method="get">
+            <form id="carbonSubmitForm" action="/calculateCarbon" method="get">
 
                 <label for="origin">Origin :</label>
                 <input type="text" id="origin" name="origin" required>
@@ -191,25 +195,6 @@
         </div>
         <br><br>
 
-        <div th:if="${carbonEmissions != null}">
-            <h2>Carbon Emission Results</h2>
-            <p>Tour Name: <strong id="tourNameText" th:text="${tourName}"></strong></p>
-            <p>Departure: <strong id="departureText" th:text="${departure}"></strong></p>
-            <p>Arrival: <strong id="arrivalText" th:text="${arrival}"></strong></p>
-            <p>Distance Traveled: <strong id="distanceText" th:text="${distance}"></strong> km</p>
-            <p>Fuel Type: <strong id="vehicleFuelText" th:text="${vehicleFuel}"></strong></p>
-            <p>Fuel Consumption: <strong id="consumptionText" th:text="${consumption}"></strong> L/100km or kWh/100km </p>
-            <p>Concert: <strong id="concertText" th:text="${concert}"></strong></p>
-            <p>Seats: <strong id="seatsText" th:text="${seats}"></strong></p>
-            <p>Seats: <strong id="vehicleText" th:text="${vehicle}"></strong></p>
-            <p>Carbon Emissions: <strong id="carbonEmissionsText" th:text="${carbonEmissions}"></strong> kg CO<sub>2</sub></p>
-        </div>
-        <br><br>
-
-        <div id="addDataSection" style="display: none;">
-            <button onclick="addData()">Add Data</button>
-        </div>
-
         <button onclick="window.location.href = '/tours';">
             CANCEL
         </button>
@@ -254,6 +239,7 @@
             seatsForm.style.display = "none";
         }
     }
+
 
 </script>
 
