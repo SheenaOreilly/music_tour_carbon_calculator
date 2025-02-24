@@ -2,6 +2,7 @@ package com.example.music_tour_carbon_calculator.firebase;
 
 import com.example.music_tour_carbon_calculator.objects.TourData;
 import com.example.music_tour_carbon_calculator.objects.tourObject;
+import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +27,7 @@ public class FirebaseService {
 
         try {
             Firestore db = FirestoreClient.getFirestore();
+
             CollectionReference userCollection = db.collection(userEmail);
 
             DocumentReference toursDocument = userCollection.document("Tours");
@@ -35,18 +37,31 @@ public class FirebaseService {
             for (CollectionReference collection : subCollections) {
                 String tour = collection.getId();
 
+                CollectionReference offsetTourCollection = db.collection(userEmail).document("Offsets").collection(tour);
+                ApiFuture<QuerySnapshot> future = offsetTourCollection.get();
+                List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+                Boolean offsetValue = false;
+                for (QueryDocumentSnapshot document : documents) {
+                    if (document.contains("offset")) {
+                        offsetValue = document.getBoolean("offset");
+                    }
+                }
+
                 if(!userTours.isEmpty()){
                     tourObject foundTour = findTourByName(userTours, tour);
 
                     if (foundTour != null) {
+                        foundTour.setOffset(offsetValue);
                         AddData(collection, foundTour, userTours);
                     } else {
                         tourObject createTour = new tourObject(tour);
+                        createTour.setOffset(offsetValue);
                         userTours.add(createTour);
                         AddData(collection, createTour, userTours);
                     }
                 }else{
                     tourObject createTour = new tourObject(tour);
+                    createTour.setOffset(offsetValue);
                     userTours.add(createTour);
                     AddData(collection, createTour, userTours);
                 }

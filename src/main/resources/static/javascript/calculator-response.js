@@ -3,9 +3,9 @@ $('#carForms').show();
 $('#logoutSection').show();
 $('#addDataSection').show();
 
-$('#vehicle').on('change', function() {
+$('#vehicleDropdown').on('change', function() {
     const selectedVehicle = $(this).val();
-    $('#vehicle').val(selectedVehicle);
+    $('#vehicleDropdown').val(selectedVehicle);
     if (selectedVehicle === 'car') {
         $('#carForms').show();
         $('#busForms').hide();

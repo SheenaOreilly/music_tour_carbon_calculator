@@ -5,9 +5,11 @@ import com.example.music_tour_carbon_calculator.objects.TourData;
 import com.example.music_tour_carbon_calculator.calculator.*;
 import com.example.music_tour_carbon_calculator.objects.carObject;
 import com.example.music_tour_carbon_calculator.objects.tourObject;
+import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;
@@ -91,8 +93,7 @@ public class CarbonCalculatorController {
     public String calculateCarbon(
             @RequestParam(value = "origin", defaultValue = "dublin") String origin,
             @RequestParam(value = "destination", defaultValue = "dublin") String destination,
-            @RequestParam(value = "mode", defaultValue = "driving") String mode,
-            @RequestParam(value = "selectedVehicle", defaultValue = "train") String vehicle,
+            @RequestParam(value = "selectedVehicle", defaultValue = "car") String vehicle,
             @RequestParam(value = "bus", defaultValue = "coach") String bus,
             @RequestParam(value = "isConcert", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
@@ -158,6 +159,15 @@ public class CarbonCalculatorController {
             data.put("Fuel", vehicleFuel);
         }
         CollectionReference toursRef = db.collection(userEmail).document("Tours").collection(tourName);
+        ApiFuture<QuerySnapshot> querySnapshotFuture = toursRef.get();
+        QuerySnapshot querySnapshot = querySnapshotFuture.get();
+        if (querySnapshot.isEmpty()) {
+            Map<String, Object> offsetData = new HashMap<>();
+            offsetData.put("offset", false);
+            CollectionReference offsetRef = db.collection(userEmail).document("Offsets").collection(tourName);
+            DocumentReference newOffsetRef = offsetRef.add(offsetData).get();
+            System.out.println("Offset data added successfully with ID: " + ((DocumentReference) newOffsetRef).getId());
+        }
         DocumentReference newTourRef = toursRef.add(data).get();
         System.out.println("User data added successfully with ID: " + ((DocumentReference) newTourRef).getId());
     }

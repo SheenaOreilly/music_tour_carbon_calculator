@@ -10,12 +10,22 @@ public class overallTour {
     public int noOfSeats;
     public int noOfConcerts;
     public double carbonEmissions;
+    public boolean offset;
 
-    public overallTour(String tourName, int noOfSeats, int noOfConcerts, double carbonEmissions) {
+    public overallTour(String tourName, int noOfSeats, int noOfConcerts, double carbonEmissions, boolean offset) {
         this.tourName = tourName;
         this.noOfSeats = noOfSeats;
         this.noOfConcerts = noOfConcerts;
         this.carbonEmissions = carbonEmissions;
+        this.offset = offset;
+    }
+
+    public boolean getOffset() {
+        return offset;
+    }
+
+    public void setOffset(boolean offset) {
+        this.offset = offset;
     }
 
     public int getNoOfSeats(){

@@ -31,6 +31,40 @@
     </div>
 </div>
 
+<div class="offset-wrapper">
+    <div class = "tours">
+        <div th:each="tour : ${overTours}">
+        <span th:switch="${tour.getOffset}">
+            <span th:case="false">
+                <input type="checkbox" class="offsetCheck" name="offsetCheck"
+                       th:value="${tour.carbonEmissions} + ':' + ${tour.noOfSeats}"
+                       onclick="updateTotalCarbon()">
+                <label th:text="${tour.tourName} + ': ' + ${tour.carbonEmissions} + ' kg CO₂' + ', ' + ${tour.noOfSeats} + ' seats'"></label>
+            </span>
+        </span>
+        </div>
+    </div>
+    <div>
+        <h3>Total Carbon Emissions: <span id="totalCarbon">0</span></h3>
+    </div>
+
+    <div>
+        <h3>Total Seats: <span id="totalSeats">0</span></h3>
+    </div>
+
+    <div class="offset_companies-container">
+        <div th:each="company : ${offsetCompaniesMap}">
+            <h2 th:text="${company.getKey()}" class="company-name hidden"
+                th:attr="data-company=${company.getKey()}, data-offset=${company.getValue().split(' ')[1]}">
+            </h2>
+            <a th:href="${company.getValue().split(' ')[0]}" class="company-link" target="_blank" th:text="${company.getKey()}"></a>
+            <p>Offset Carbon: <span class="company-offset-value">0</span></p>
+        </div>
+    </div>
+
+
+</div>
+
 <script>
     function toggleCollapsible() {
         var content = document.querySelector(".content");
@@ -47,6 +81,45 @@
             logoutSection.style.display = "none";
         }
     }
+
+    function updateTotalCarbon() {
+        let totalCarbon = 0;
+        let totalSeats = 0;
+        let companyTotals = {};
+
+        document.querySelectorAll(".company-name").forEach(company => {
+            let companyName = company.textContent.trim();
+            let offsetFactor = parseFloat(company.getAttribute("data-offset"));
+            if (!isNaN(offsetFactor)) {
+                companyTotals[companyName] = 0;
+            }
+        });
+
+        document.querySelectorAll('.offsetCheck:checked').forEach(checkbox => {
+            const parts = checkbox.value.split(":");
+            let carbonEmissions = parseFloat(parts[0]);
+            let seats = parseInt(parts[1]);
+
+            totalCarbon += carbonEmissions;
+            totalSeats += seats;
+
+            for (let company in companyTotals) {
+                let offsetFactor = parseFloat(document.querySelector(`[data-company='${company}']`).getAttribute("data-offset"));
+                companyTotals[company] += carbonEmissions * offsetFactor;
+            }
+        });
+
+        document.getElementById("totalCarbon").textContent = totalCarbon.toFixed(2) + ' kg CO₂ / ' + (totalCarbon/1000).toFixed(2) + ' Tonnes CO₂';
+        document.getElementById("totalSeats").textContent = totalSeats;
+
+        for (let company in companyTotals) {
+            let companyElement = document.querySelector(`[data-company='${company}']`)?.parentElement.querySelector(".company-offset-value");
+            if (companyElement) {
+                companyElement.textContent = companyTotals[company].toFixed(2) + ' Euro ' + (companyTotals[company].toFixed(2)/totalSeats).toFixed(2) + ' per ticket';
+            }
+        }
+    }
+
 
 </script>
 

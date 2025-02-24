@@ -99,3 +99,12 @@ body {
     font-weight: bold;
 }
 
+.offset-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hidden {
+    display: none;
+}

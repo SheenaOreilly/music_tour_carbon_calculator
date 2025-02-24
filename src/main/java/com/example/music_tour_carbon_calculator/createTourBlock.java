@@ -14,7 +14,7 @@ public class createTourBlock {
         List<overallTour> overallTours = new ArrayList<>();
 
         for(tourObject tour : userTours){
-            overallTour newTour = new overallTour(tour.tourName, 0, 0, 0.0);
+            overallTour newTour = new overallTour(tour.tourName, 0, 0, 0.0, tour.isOffset());
             for(TourData leg : tour.legsOfTour){
                 newTour.updateCarbon(Double.parseDouble(leg.getCarbonEmissions()));
                 if(leg.getConcert().equalsIgnoreCase("yes")){

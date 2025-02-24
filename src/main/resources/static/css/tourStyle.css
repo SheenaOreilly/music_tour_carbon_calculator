@@ -139,6 +139,27 @@ a:hover {
     background-color: white ;
 }
 
+.boxTours{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.tour-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: -3vw;
+}
+
+.tour-status {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+}
+
 .toursp {
     text-decoration: underline;
     color: #02427f;

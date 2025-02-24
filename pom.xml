@@ -12,6 +12,7 @@
     <artifactId>music_tour_carbon_calculator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>music_tour_carbon_calculator</name>
+    <packaging>jar</packaging>
     <description>music_tour_carbon_calculator</description>
     <url/>
     <licenses>

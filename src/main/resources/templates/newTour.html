@@ -65,7 +65,7 @@
 
     <div id="calculator">
         <label class="headings" for="vehicle">Vehicle : </label>
-        <select class="dropdown" id="vehicle" name="vehicle" required onchange="updateVehicle()">
+        <select class="dropdown" id="vehicleDropdown" name="vehicleDropdown" required onchange="updateVehicle()">
             <option value="car">Car</option>
             <option value="bus">Bus</option>
             <option value="train">Train</option>
@@ -90,12 +90,6 @@
                 <select id="arr" name="arr">
                     <option value="">-- Select an Arrival --</option>
                 </select>
-
-<!--                <label for="isConcertPlane">Is this a concert?</label>-->
-<!--                <select id="isConcertPlane" name="isConcertPlane" onchange="toggleSeatsInputPlane()">-->
-<!--                    <option value="no">No</option>-->
-<!--                    <option value="yes">Yes</option>-->
-<!--                </select>-->
 
                 <input type="checkbox" id="isConcertCheckPlane" name="isConcertCheckPlane" value="yes" onchange="toggleSeatsInputPlane()">
                 <label for="isConcertCheckPlane"> Is this a new venue?</label><br>
@@ -145,12 +139,6 @@
                     </select>
                 </div>
                 <br><br>
-
-<!--                <label for="isConcert">Is this a concert?</label>-->
-<!--                <select id="isConcert" name="isConcert" onchange="toggleSeatsInput()">-->
-<!--                    <option value="no">No</option>-->
-<!--                    <option value="yes">Yes</option>-->
-<!--                </select>-->
 
                 <input type="checkbox" id="isConcertCheck" name="isConcertCheck" value="yes" onchange="toggleSeatsInput()">
                 <label for="isConcertCheck"> Is this a new venue?</label><br>
@@ -224,7 +212,7 @@
     }
 
     function updateVehicle(){
-        document.getElementById("selectedVehicle").value = document.getElementById("vehicle").value;
+        document.getElementById("selectedVehicle").value = document.getElementById("vehicleDropdown").value;
     }
 
 </script>

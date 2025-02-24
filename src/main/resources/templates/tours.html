@@ -39,34 +39,44 @@
 <h1>Past Tours</h1>
 
 <div class="tours-container">
-    <div th:each="tour : ${overTours}" class="boxTours">
-        <form id="specificTour" action="/getSpecificTour" method="get">
-            <input type="hidden" name="tourName" th:value="${tour.tourName}" />
-            <button type="submit" style="display: none;">Submit</button>
-            <div class="tour-content" onclick="this.closest('form').submit()">
-                <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
-                <div class="tour-icons">
-                    <div class="icon-group">
-                        <i class="fas fa-users"></i>
-                        <p th:text="${tour.noOfConcerts} + ' Concerts'" class="concerts">10</p>
-                    </div>
-                    <div class="icon-group">
-                        <i class="fas fa-shoe-prints"></i>
-                        <p th:text="${tour.carbonEmissions} + ' kg CO₂'" class="carbon-emissions">500 kg CO₂</p>
-                    </div>
-                    <div class="icon-group">
-                        <i class="fas fa-chair"></i>
-                        <p th:text="${tour.noOfSeats} + ' Seats'" class="seats">50</p>
-                    </div>
-                    <div class="transport-icons">
-                        <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? 'darkblue' : 'lightblue')"></i>
-                        <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? 'darkblue' : 'lightblue')"></i>
-                        <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? 'darkblue' : 'lightblue')"></i>
-                        <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? 'darkblue' : 'lightblue')"></i>
+    <div th:each="tour : ${overTours}">
+        <div class="tour-wrapper">
+            <span th:switch="${tour.getOffset}" class="tour-status">
+                <span th:case="true">
+                    <i class="fa fa-check" style="color: lightblue"></i>
+                </span>
+                <span th:case="false">
+                    <i class="fa-solid fa-hourglass-end" style="color: darkblue"></i>
+                </span>
+            </span>
+            <form id="specificTour" action="/getSpecificTour" method="get"  class="boxTours">
+                <input type="hidden" name="tourName" th:value="${tour.tourName}" />
+                <button type="submit" style="display: none;">Submit</button>
+                <div class="tour-content" onclick="this.closest('form').submit()">
+                    <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
+                    <div class="tour-icons">
+                        <div class="icon-group">
+                            <i class="fas fa-users"></i>
+                            <p th:text="${tour.noOfConcerts} + ' Concerts'" class="concerts"></p>
+                        </div>
+                        <div class="icon-group">
+                            <i class="fas fa-shoe-prints"></i>
+                            <p th:text="${tour.carbonEmissions} + ' kg CO₂'" class="carbon-emissions"></p>
+                        </div>
+                        <div class="icon-group">
+                            <i class="fas fa-chair"></i>
+                            <p th:text="${tour.noOfSeats} + ' Seats'" class="seats"></p>
+                        </div>
+                        <div class="transport-icons">
+                            <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? 'darkblue' : 'lightblue')"></i>
+                            <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? 'darkblue' : 'lightblue')"></i>
+                            <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? 'darkblue' : 'lightblue')"></i>
+                            <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? 'darkblue' : 'lightblue')"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

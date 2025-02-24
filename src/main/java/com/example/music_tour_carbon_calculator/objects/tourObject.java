@@ -7,6 +7,7 @@ import java.util.List;
 public class tourObject {
     public List<TourData> legsOfTour = new ArrayList<>();
     public String tourName;
+    boolean offset;
 
     public tourObject(String tourName){
         this.tourName = tourName;
@@ -16,6 +17,11 @@ public class tourObject {
         legsOfTour.add(oneLeg);
     }
 
+    public boolean isOffset() {
+        return offset;
+    }
 
-
+    public void setOffset(boolean offset) {
+        this.offset = offset;
+    }
 }
