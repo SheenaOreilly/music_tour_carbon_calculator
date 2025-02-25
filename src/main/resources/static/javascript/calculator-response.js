@@ -75,27 +75,3 @@ $('#modelForm').on('submit', function(e) {
         });
     });
 });
-
-$('#planeForm').on('submit', function(e) {
-    e.preventDefault();
-    $.get('/getPlanes', function(data) {
-        $('#dep').html('<option value="">-- Select a Departure --</option>');
-        $('#arr').html('<option value="">-- Select an Arrival --</option>');
-
-        $.each(data, function(airport, location) {
-            $('#dep').append('<option value="' + location + '">' + airport + '</option>');
-            $('#arr').append('<option value="' + location + '">' + airport + '</option>');
-        });
-
-        $('#dep').select2({
-            placeholder: "-- Select a Departure -- ",
-            allowClear: true
-        });
-
-        $('#arr').select2({
-            placeholder: "-- Select an Arrival --",
-            allowClear: true
-        });
-
-    });
-});

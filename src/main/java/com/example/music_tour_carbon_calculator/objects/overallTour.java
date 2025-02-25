@@ -2,6 +2,7 @@ package com.example.music_tour_carbon_calculator.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
 
 public class overallTour {
     public String tourName;
@@ -56,7 +57,8 @@ public class overallTour {
     }
 
     public void updateCarbon(double carbon){
-        carbonEmissions = carbonEmissions + carbon;
+        DecimalFormat df_obj = new DecimalFormat("#.###");
+        carbonEmissions = Double.parseDouble(df_obj.format(carbonEmissions + carbon));
     }
 
     public void updateConcerts(int concerts){
