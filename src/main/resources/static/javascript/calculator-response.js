@@ -75,3 +75,17 @@ $('#modelForm').on('submit', function(e) {
         });
     });
 });
+
+$('#offsetTourForm').on('submit', function(e){
+    e.preventDefault();
+    let checkedTours = [];
+    document.querySelectorAll('.offsetCheck:checked').forEach(function(checkbox) {
+        const tourName = checkbox.nextElementSibling.textContent.split(':')[0];
+        checkedTours.push(tourName);
+    });
+
+    $.get('/offsetTourMethod', {checkedTours : checkedTours}, function(data){
+        window.location.reload();
+    });
+});
+

@@ -1,5 +1,6 @@
 package com.example.music_tour_carbon_calculator.calculator;
 
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -32,15 +33,30 @@ public class Distance {
 
         JSONObject jsonObject = getJsonObject(urlString);
 
-        String distanceText = jsonObject.getJSONArray("rows")
+        JSONArray elements = jsonObject.getJSONArray("rows")
                 .getJSONObject(0)
-                .getJSONArray("elements")
-                .getJSONObject(0)
-                .getJSONObject("distance")
-                .getString("text");
+                .getJSONArray("elements");
 
-        String distanceValue = distanceText.replaceAll("[^\\d.]", "");
-        return Double.parseDouble(distanceValue);
+        // Check if status is NOT "NOT_FOUND"
+        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND")) {
+            String distanceText = elements.getJSONObject(0)
+                    .getJSONObject("distance")
+                    .getString("text");
+            String distanceValue = distanceText.replaceAll("[^\\d.]", "");
+            return Double.parseDouble(distanceValue);
+        } else {
+            System.out.println("Error: Distance information not found.");
+            return 0.0;
+        }
+//        String distanceText = jsonObject.getJSONArray("rows")
+//                .getJSONObject(0)
+//                .getJSONArray("elements")
+//                .getJSONObject(0)
+//                .getJSONObject("distance")
+//                .getString("text");
+//
+//        String distanceValue = distanceText.replaceAll("[^\\d.]", "");
+//        return Double.parseDouble(distanceValue);
     }
 
     private static JSONObject getJsonObject(String urlString) throws IOException {

@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,19 @@ public class CarbonCalculatorController {
         double lat2 = Double.parseDouble(arrOfStr[0]);
         double lon2 = Double.parseDouble(arrOfStr[1]);
         String  arrival = arrOfStr[2];
-        double distance = Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*6371;
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
+        double deltaLat = lat2Rad - lat1Rad;
+        double deltaLon = lon2Rad - lon1Rad;
+        double a = Math.pow(Math.sin(deltaLat / 2), 2) +
+                Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                        Math.pow(Math.sin(deltaLon / 2), 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        DecimalFormat df_obj = new DecimalFormat("#.###");
+        double distance = Double.parseDouble(df_obj.format(6371.0 * c));
         double carbon = getPlaneInfo(distance);
         carbon = Math.round(carbon * 100.0) / 100.0;
         String carbonEmissions = String.format("%.2f", carbon);
@@ -111,6 +124,11 @@ public class CarbonCalculatorController {
 
         String tourName = (String) session.getAttribute("tourName");
         double distance = Distance.calculateDistance(origin, destination, vehicle);
+
+        if (distance == 0.0) {
+            model.addAttribute("alertMessage", "Error: Can not found distance, please check Origin and Destination.");
+            return "newTour";
+        }
 
         if(vehicle.equalsIgnoreCase("train")){
             double carbon = 0.28 * distance;

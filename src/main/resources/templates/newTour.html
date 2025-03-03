@@ -172,6 +172,11 @@
     ALL TOURS
 </button>
 
+<script th:if="${alertMessage != null}">
+    alert("[[${alertMessage}]]");
+</script>
+
+
 <script>
     function toggleCollapsible() {
         var content = document.querySelector(".content");
