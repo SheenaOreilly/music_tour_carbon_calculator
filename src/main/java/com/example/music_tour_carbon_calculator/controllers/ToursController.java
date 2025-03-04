@@ -37,6 +37,10 @@ public class ToursController {
     public ResponseEntity<?> setUserEmail(@RequestBody Map<String, String> request, HttpSession session) {
         String email = request.get("email");
         session.setAttribute("userEmail", email);
+        firebaseService.getAllTours(email, session);
+        List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
+        createTourBlock.createBlock(userTours, session);
+        List<overallTour> overTours = (List<overallTour>) session.getAttribute("overallTours");
         return ResponseEntity.ok().body("Email set in session");
     }
 

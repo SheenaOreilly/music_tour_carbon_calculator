@@ -14,6 +14,10 @@
 <body onload="checkAuth()">
 
 <div class="header" id="box">
+    <div class="container">
+        <img src="images/EcoTour.png" alt="LOGO" width="80" height="80" style="margin-left: 25%">
+        <p>Eco Tour</p>
+    </div>
     <div id="loginForm">
         <h2>Login</h2>
         <input type="email" id="email" placeholder="Email">
@@ -35,10 +39,10 @@
 
 <div id="videoSection" style="visibility: hidden;">
     <video id="introVideo" muted>
-        <source src="loading_video.mp4" type="video/mp4">
+        <source src="images/loading_video_2.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    <p>Loading ...</p>
+    <p class="loading">Loading ...</p>
 </div>
 
 <script>

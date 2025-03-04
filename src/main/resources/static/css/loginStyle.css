@@ -1,3 +1,25 @@
+.header {
+    padding: 60px 40px;
+    background: #01224f;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.loading{
+    text-align: center;
+    font-size: 15px;
+    color: #01224f;
+}
 
 body {
     margin: 0;
@@ -7,43 +29,31 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #daeaf8;
 }
-
-
-.header {
-    padding: 40px;
-    background: #3C7DDB;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
 
 input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 15px 0;
     border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
-    transition: border 0.3s;
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border: 2px solid #3C7DDB;
+    border: 2px solid #daeaf8;
     outline: none;
 }
 
 button {
     width: 50%;
     padding: 12px;
-    background-color: #7ab0ff;
-    color: #ffffff;
+    background-color: #daeaf8;
+    color: #01224f;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -52,8 +62,8 @@ button {
 }
 
 button:hover {
-    color: #ffffff;
-    background-color: #00142f;
+    color: #01224f;
+    background-color: #7cbef8;
 }
 
 a {
@@ -61,12 +71,14 @@ a {
 }
 
 a:hover {
-    color: #000000;
+    color: #7cbef8;
 }
 
-h2{
+h2 {
+    margin-top: 10px;
     color: white;
     font-size: xx-large;
+    text-align: left;
 }
 
 video {
@@ -78,6 +90,6 @@ video {
 
 p {
     text-align: center;
-    font-size: 18px;
-    color: #333;
+    font-size: 25px;
+    color: #daeaf8;
 }
