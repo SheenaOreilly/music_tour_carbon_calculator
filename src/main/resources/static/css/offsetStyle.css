@@ -102,7 +102,7 @@ body {
 .offset-wrapper {
     display: flex;
     align-items: center;
-    gap: 200px;
+    gap: 50vw;
 }
 
 .hidden {
