@@ -49,8 +49,8 @@
                     <i class="fa-solid fa-hourglass-end" style="color: #01224f"></i>
                 </span>
             </span>
-            <form id="specificTour" action="/getSpecificTour" method="get"  class="boxTours">
-                <input type="hidden" name="tourName" th:value="${tour.tourName}" />
+            <form id="specificTour" action="/getSpecificTour" method="get" class="boxTours">
+            <input type="hidden" name="tourName" th:value="${tour.tourName}" />
                 <button type="submit" style="display: none;">Submit</button>
                 <div class="tour-content" onclick="this.closest('form').submit()">
                     <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
@@ -60,7 +60,7 @@
                             <p th:text="${tour.noOfConcerts} + ' Concerts'" class="concerts"></p>
                         </div>
                         <div class="icon-group">
-                            <i class="fas fa-shoe-prints"></i>
+                            <i class="fas fa-shoe-prints" th:style="'color: hsl(' + ${0 + (tour.getRank * (100 / (#lists.size(overTours) - 1)))} + ', 100%, 70%)'"></i>
                             <p th:text="${tour.carbonEmissions} + ' kg CO₂'" class="carbon-emissions"></p>
                         </div>
                         <div class="icon-group">

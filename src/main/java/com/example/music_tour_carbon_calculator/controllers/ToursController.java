@@ -10,13 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import com.example.music_tour_carbon_calculator.firebase.FirebaseService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +39,30 @@ public class ToursController {
         List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
         createTourBlock.createBlock(userTours, session);
         List<overallTour> overTours = (List<overallTour>) session.getAttribute("overallTours");
+        sort(overTours, session);
         return ResponseEntity.ok().body("Email set in session");
+    }
+
+    public static void sort(List<overallTour> list, HttpSession session) {
+        List<overallTour> temp = new ArrayList<>(list);
+        temp.sort(Comparator.comparing(
+                overallTour::getCarbonEmissions,
+                Comparator.nullsLast(Comparator.reverseOrder())
+        ));
+        int i = 0;
+        for(overallTour tour : temp){
+            for(overallTour real : list){
+                if(real.getTourName().equalsIgnoreCase(tour.getTourName())){
+                    real.setRank(i);
+                    i++;
+                }
+            }
+        }
+        list.sort(Comparator.comparing(
+                overallTour::getOffset,
+                Comparator.nullsLast(Comparator.naturalOrder())
+        ));
+        session.setAttribute("overallTours", list);
     }
 
     @PostMapping("/logout")
@@ -65,8 +86,10 @@ public class ToursController {
         List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
         createTourBlock.createBlock(userTours, session);
         List<overallTour> overTours = (List<overallTour>) session.getAttribute("overallTours");
+        sort(overTours, session);
         model.addAttribute("userTours", userTours);
         model.addAttribute("overTours", overTours);
+        model.addAttribute("totalTours", overTours.size());
         return "tours";
     }
 
