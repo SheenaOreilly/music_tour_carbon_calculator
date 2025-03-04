@@ -9,13 +9,13 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-
-
     <script src="/javascript/firebase-auth.js"></script>
 </head>
 <body onload="checkAuthCarbon()">
-
 <div class="header"></div>
+<div class="container">
+    <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
+</div>
 <div class="banner">
     <p class="toursp">Tours</p>
     <a class="offestp" href="/offsets">Offsets</a>
@@ -36,17 +36,17 @@
 </form>
 <br><br>
 
-<h1>Past Tours</h1>
+<h1 style="margin-top: -120px;">Past Tours</h1>
 
 <div class="tours-container">
     <div th:each="tour : ${overTours}">
         <div class="tour-wrapper">
             <span th:switch="${tour.getOffset}" class="tour-status">
                 <span th:case="true">
-                    <i class="fa fa-check" style="color: lightblue"></i>
+                    <i class="fa fa-check" style="color: #daeaf8"></i>
                 </span>
                 <span th:case="false">
-                    <i class="fa-solid fa-hourglass-end" style="color: darkblue"></i>
+                    <i class="fa-solid fa-hourglass-end" style="color: #01224f"></i>
                 </span>
             </span>
             <form id="specificTour" action="/getSpecificTour" method="get"  class="boxTours">
@@ -68,10 +68,10 @@
                             <p th:text="${tour.noOfSeats} + ' Seats'" class="seats"></p>
                         </div>
                         <div class="transport-icons">
-                            <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? 'darkblue' : 'lightblue')"></i>
-                            <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? 'darkblue' : 'lightblue')"></i>
-                            <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? 'darkblue' : 'lightblue')"></i>
-                            <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? 'darkblue' : 'lightblue')"></i>
+                            <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? '#01224f' : '#daeaf8')"></i>
+                            <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? '#01224f' : '#daeaf8')"></i>
+                            <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? '#01224f' : '#daeaf8')"></i>
+                            <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? '#01224f' : '#daeaf8')"></i>
                         </div>
                     </div>
                 </div>
