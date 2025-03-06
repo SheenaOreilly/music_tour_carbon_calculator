@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="/css/selectTourStyle.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <script src="/javascript/firebase-auth.js"></script>
@@ -19,16 +20,19 @@
 <div class="container">
     <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
 </div>
+
 <div class="banner">
-    <p class="toursp">Tours</p>
+    <a class="toursp" href="/SelectTour">New Tour</a>
+    <a class="pasttourp" href="/tours">Past Tours</a>
     <a class="offestp" href="/offsets">Offsets</a>
 </div>
+
 <div class="icon-container" onclick="toggleCollapsible()">
     <i class="fa-solid fa-user"></i>
 </div>
 
 <div class="content">
-    <p id="userInfo" style="display: none;"></p>
+    <p id="userInfo" style="display: none; font-family: Arial"></p>
     <div id="logoutSection" style="display: none;">
         <button class="logoutButton" onclick="logout()">Logout</button>
     </div>
@@ -37,11 +41,10 @@
 <form id="selectTourForm" action="/selectTourName" method="get">
     <div class="enterWrapper">
         <input class="inputTour" type="text" id="tourName" placeholder="Tour Name ..." name="tourName" required>
-        <button class="button_tour" type="submit">Go</button>
+        <button class="go_button" type="submit">Go</button>
         <br><br>
     </div>
     <img style=" margin-top: 100px;" src="images/tourImage.png" alt="LOGO" width="600" height="600">
-    <a href="javascript:void(0);" onclick="window.location.href = '/tours';" style="color: #7cbef8; position: absolute; left: 28vw; top: 54vh;">Back to Tours</a>
 </form>
 
 <script>

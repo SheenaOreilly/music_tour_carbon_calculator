@@ -9,23 +9,6 @@ body {
     background-color: #ffffff;
 }
 
-.button_tour {
-    width: 50%;
-    padding: 12px;
-    background-color: #7ab0ff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.button_tour:hover {
-    color: #ffffff;
-    background-color: #00142f;
-}
-
 a {
     color: #ffffff;
 }
@@ -47,24 +30,13 @@ a:hover {
 }
 
 
-.logoutButton {
-    margin-left: 50px;
-    background-color: #daeaf8;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 25px;
-    color: #01224f;
-    cursor: pointer;
-    z-index: 1;
-    font-weight: bold;
-}
-
 .searchbar{
     border: solid #01224f 2px;
     border-radius: 30px;
     margin-bottom: 1px;
     margin-top: -10px;
     padding: 4px 100px 4px 10px;
+    font-size: 20px;
 }
 
 .searchbar:focus{
@@ -72,92 +44,16 @@ a:hover {
     outline: none;
 }
 
-.search-wrapper{
+.search-wrapper {
     background-color: #01224f;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-right: 8px;
     margin-bottom: 45px;
     border-radius: 30px;
-}
-
-.logoutButton:hover{
-    background-color: #01224f;
-    color: #daeaf8;
-}
-
-.newTour{
     position: absolute;
-    top: 23vh;
+    top: 20vh;
 }
 
-
-.collapsible {
-    background-color: #777;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-}
-
-.active, .collapsible:hover {
-    background-color: #555;
-}
-
-.icon-container{
-    position: absolute;
-    top: 10px;
-    right: 40px;
-    font-size: 20px;
-    color: #daeaf8;
-    background-color: #01224f;
-    padding: 2.5px 5px;
-    margin-right: -28px;
-    border-radius: 50%;
-    border-style: double;
-    z-index: 2;
-}
-
-.icon-container:hover {
-    background-color: #7cbef8;
-}
-
-.content {
-    background-color: #ffffff;
-    margin-top: 10px;
-    border: 1px solid #daeaf8;
-    border-radius: 10px;
-    position: absolute;
-    top: 7vh;
-    right: 20px;
-    padding: 10px;
-    display: none;
-}
-
-.header {
-    padding-right: 50vw;
-    padding-left: 50vw;
-    padding-top: 15vh;
-    position: absolute;
-    top: 0px;
-    background: #01224f;
-}
-
-.banner {
-    width: 60vw;
-    padding: 0px 20px;
-    position: absolute;
-    top: 12vh;
-    background:  #daeaf8;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.box,
 .boxTours {
     width: 60vw;
     border-radius: 30px;
@@ -165,15 +61,10 @@ a:hover {
     padding-top: 50px;
     padding-bottom: 50px;
     background: white;
-    border: 2px dashed darkgray;
+    border: 2px solid #01224f;
     cursor: pointer;
 }
 
-.box{
-    color: darkgray;
-}
-
-.box:hover,
 .boxTours:hover {
     border-color: #383838;
     color: #383838;
@@ -201,17 +92,14 @@ a:hover {
     width: 40px;
 }
 
-.toursp {
-    text-decoration: underline;
-    color: #01224f;
-    font-weight: bold;
-    margin-right: 20px;
+.pasttourp {
+    text-decoration: underline !important;
+    color: #01224f !important;
 }
 
-.offestp {
-    text-decoration: none;
-    color: #01224f61;
-    font-weight: bold;
+.label{
+    font-family: Arial;
+    font-size: 17px;
 }
 
 .tours-container {
@@ -219,7 +107,7 @@ a:hover {
     flex-direction: column;
     gap: 20px;
     position: absolute;
-    top: 50vh;
+    top: 28vh;
 }
 
 .tour-content {
@@ -234,6 +122,7 @@ a:hover {
     font-weight: bold;
     flex: 1;
     margin-left: 20px;
+    font-family: Arial;
 }
 
 .tour-icons {
@@ -249,6 +138,14 @@ a:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+.allTour{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 65vw;
 }
 
 .icon-group i {
@@ -269,10 +166,35 @@ a:hover {
     color: #daeaf8;
 }
 
-
-
-
-
-
+.table-container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px;
+    font-family: arial;
+    font-size: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    font-family: arial;
+    background-color: #01224f;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
 
 

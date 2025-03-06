@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="/css/carPageStyle.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <script src="/javascript/firebase-auth.js"></script>
@@ -16,10 +17,13 @@
 <body onload="newLegCheck()">
 
 <div class="header"></div>
+
 <div class="banner">
-    <p class="toursp">Tours</p>
+    <a class="toursp" href="/SelectTour">New Tour</a>
+    <a class="pasttourp" href="/tours">Past Tours</a>
     <a class="offestp" href="/offsets">Offsets</a>
 </div>
+
 <div class="icon-container" onclick="toggleCollapsible()">
     <i class="fa-solid fa-user"></i>
 </div>

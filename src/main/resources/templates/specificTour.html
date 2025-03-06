@@ -5,6 +5,7 @@
     <title>Specific Tour</title>
 
     <link rel="stylesheet" href="/css/tourStyle.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
@@ -16,10 +17,16 @@
 <body onload="checkAuthCarbon()">
 
 <div class="header"></div>
+<div class="container">
+    <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
+</div>
+
 <div class="banner">
-    <p class="toursp">Tours</p>
+    <a class="toursp" href="/SelectTour">New Tour</a>
+    <a class="pasttourp" href="/tours">Past Tours</a>
     <a class="offestp" href="/offsets">Offsets</a>
 </div>
+
 <div class="icon-container" onclick="toggleCollapsible()">
     <i class="fa-solid fa-user"></i>
 </div>
@@ -32,42 +39,39 @@
 </div>
 
 <div class="table-container">
-        <h2 th:text="${tourName}">Tour Name</h2>
-        <table class="tour-table">
-            <thead>
-            <tr>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Distance (km)</th>
-                <th>Fuel (L)</th>
-                <th>Emissions (kg CO₂)</th>
-                <th>Concert</th>
-                <th>Seats</th>
-                <th>Vehicle</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="tour : ${specificToursData}">
-                <td th:text="${tour.departure}"></td>
-                <td th:text="${tour.arrival}"></td>
-                <td th:text="${tour.distance}"></td>
-                <td th:text="${tour.fuel}"></td>
-                <td th:text="${tour.carbonEmissions}"></td>
-                <td th:text="${tour.concert}"></td>
-                <td th:text="${tour.seats}"></td>
-                <td th:text="${tour.vehicle}"></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <br><br>
-
-    <button class="logoutButton" onclick="window.location.href = '/tours';">
-        ALL TOURS
-    </button>
+    <div class="allTour">
+        <h2 style="font-family: Arial" th:text="${tourName}">Tour Name</h2>
+        <button class="logoutButton" onclick="window.location.href = '/tours';">
+            ALL TOURS
+        </button>
+    </div>
+    <table class="tour-table">
+        <thead>
+        <tr>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Distance (km)</th>
+            <th>Fuel (L)</th>
+            <th>Emissions (kg CO₂)</th>
+            <th>Concert</th>
+            <th>Seats</th>
+            <th>Vehicle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tour : ${specificToursData}">
+            <td th:text="${tour.departure}"></td>
+            <td th:text="${tour.arrival}"></td>
+            <td th:text="${tour.distance}"></td>
+            <td th:text="${tour.fuel}"></td>
+            <td th:text="${tour.carbonEmissions}"></td>
+            <td th:text="${tour.concert}"></td>
+            <td th:text="${tour.seats}"></td>
+            <td th:text="${tour.vehicle}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-
 
 <script>
     function toggleCollapsible() {
@@ -85,7 +89,6 @@
             logoutSection.style.display = "none";
         }
     }
-
 </script>
 
 </body>

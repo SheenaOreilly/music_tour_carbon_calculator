@@ -14,26 +14,23 @@
 <body onload="checkAuth()">
 
 <div class="header" id="box">
-    <div class="container">
-        <img src="images/EcoTour.png" alt="LOGO" width="80" height="80" style="margin-left: 25%">
-        <p>Eco Tour</p>
-    </div>
+    <img src="images/EcoTour.png" alt="LOGO" width="150" height="150" >
     <div id="loginForm">
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
+        <h2 style="font-family: Arial">Login</h2>
+        <input style="font-family: Arial" type="email" id="email" placeholder="Email">
+        <input style="font-family: Arial" type="password" id="password" placeholder="Password">
+        <button style="font-family: Arial" onclick="login()">Login</button>
         <br><br>
-        <a href="javascript:void(0);" onclick="toggleForm()">Create Account</a>
+        <a href="javascript:void(0);" onclick="toggleForm()" style="font-family: Arial">Create Account</a>
     </div>
 
     <form id="signupForm" style="display: none;">
-        <h2>Create Account</h2>
-        <input type="email" id="signupEmail" placeholder="Email">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <button type="button" onclick="signup()">Sign Up</button>
+        <h2 style="font-family: Arial">Create Account</h2>
+        <input style="font-family: Arial" type="email" id="signupEmail" placeholder="Email">
+        <input style="font-family: Arial" type="password" id="signupPassword" placeholder="Password">
+        <button style="font-family: Arial" type="button" onclick="signup()">Sign Up</button>
         <br><br>
-        <a href="javascript:void(0);" onclick="toggleForm()">Back to Login</a>
+        <a style="font-family: Arial" href="javascript:void(0);" onclick="toggleForm()">Back to Login</a>
     </form>
 </div>
 
@@ -61,7 +58,7 @@
     }
 
     document.getElementById("introVideo").addEventListener("ended", function () {
-        window.location.href = "/tours";
+        window.location.href = "/SelectTour";
     });
 </script>
 </body>

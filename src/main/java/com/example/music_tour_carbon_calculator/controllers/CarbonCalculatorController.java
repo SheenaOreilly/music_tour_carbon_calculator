@@ -50,7 +50,7 @@ public class CarbonCalculatorController {
     public String getPlaneCarbon(
             @RequestParam(value = "dep", defaultValue = "dublin") String dep,
             @RequestParam(value = "arr", defaultValue = "donegal") String arr,
-            @RequestParam(value = "isConcert", defaultValue = "no") String concert,
+            @RequestParam(value = "isConcertPlane", defaultValue = "no") String concert,
             @RequestParam(value = "seats", defaultValue = "0") String seats,
             HttpSession session,
             Model model) throws ExecutionException, InterruptedException {
@@ -83,6 +83,7 @@ public class CarbonCalculatorController {
         addUserData(tourName, depature, arrival, "N/A", String.format("%.2f", distance), "N/A", carbonEmissions, concert,seats, "plane", session);
         String distanceS = String.valueOf(distance);
         model.addAttribute("currentLegs", addNewLeg(depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
+        model.addAttribute("tourName" , tourName);
 
         return "newTour";
     }
@@ -135,6 +136,7 @@ public class CarbonCalculatorController {
             String carbonEmissions = String.format("%.2f", carbon);
             String distanceS = String.format("%.2f", distance);
             model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+            model.addAttribute("tourName" , tourName);
             addUserData(tourName, origin, destination, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, vehicle, session);
             return "newTour";
         }
@@ -145,6 +147,7 @@ public class CarbonCalculatorController {
         String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thiscar.getFuel(), Double.parseDouble(thiscar.getConsumption()));
         String distanceS = String.format("%.2f", distance);
         model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+        model.addAttribute("tourName" , tourName);
         addUserData(tourName, origin, destination, thiscar.getConsumption(), String.valueOf(distance), thiscar.getFuel(), carbonEmissions, concert,seats, vehicle, session);
 
         return "newTour";

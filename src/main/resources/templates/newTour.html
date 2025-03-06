@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="/css/newTourStyle.css">
     <link rel="stylesheet" href="/css/checkBox.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <script src="/javascript/firebase-auth.js"></script>
@@ -20,16 +21,19 @@
 <div class="logo-container">
     <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
 </div>
+
 <div class="banner">
-    <p class="toursp">Tours</p>
+    <a class="toursp" href="/SelectTour">New Tour</a>
+    <a class="pasttourp" href="/tours">Past Tours</a>
     <a class="offestp" href="/offsets">Offsets</a>
 </div>
+
 <div class="icon-container" onclick="toggleCollapsible()">
     <i class="fa-solid fa-user"></i>
 </div>
 
 <div class="content">
-    <p id="userInfo" style="display: none;"></p>
+    <p id="userInfo" style="display: none; font-family: Arial"></p>
     <div id="logoutSection" style="display: none;">
         <button class="logoutButton" onclick="logout()">Logout</button>
     </div>
@@ -39,21 +43,21 @@
 
 </div>
 <div id="tourContent">
-    <div th:if="${currentLegs != null}" id="legs" style="position: absolute; top: 30vh;">
+    <div class ="table-container" th:if="${currentLegs != null}" id="legs" style="position: absolute; top: 20vh;">
         <div th:if="${tourName != null}" >
-            <p class="headings" id="tourNameHeaderText" th:text="${tourName}"></p>
+            <p style="margin-left: 40%;" class="headings" id="tourNameHeaderText" th:text="${tourName}"></p>
         </div>
         <br><br>
 
         <table class="tour-table">
             <thead>
             <tr>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Distance (km)</th>
-                <th>Emissions (kg CO₂)</th>
-                <th>Seats</th>
-                <th>Vehicle</th>
+                <th >Departure</th>
+                <th >Arrival</th>
+                <th >Distance (km)</th>
+                <th >Emissions (kg CO₂)</th>
+                <th >Seats</th>
+                <th >Vehicle</th>
             </tr>
             </thead>
             <tbody>
@@ -85,17 +89,17 @@
 
                 <label class="headings" for="dep">Select Departure:</label>
                 <select id="dep" name="dep">
-                    <option value="">-- Select a Departure --</option>
+                    <option style="font-family: Arial" value="">-- Select a Departure --</option>
                 </select>
                 <br><br>
 
                 <label class="headings" for="arr">Select Arrival:</label>
                 <select id="arr" name="arr">
-                    <option value="">-- Select an Arrival --</option>
+                    <option style="font-family: Arial" value="">-- Select an Arrival --</option>
                 </select>
                 <br><br>
 
-                <label class="container" for="isConcertCheckPlane"> Is this a new venue?
+                <label class="container" for="isConcertCheckPlane" style="font-family: Arial"> Is this a new venue?
                     <input type="checkbox" id="isConcertCheckPlane" name="isConcertCheckPlane" value="yes" onchange="toggleSeatsInputPlane()">
                     <span class="checkmark"></span>
                 </label><br>
@@ -130,6 +134,7 @@
         <div id="transportForm" style="display:none;">
             <form id="carbonSubmitForm" action="/calculateCarbon" method="get">
 
+                <br><br>
                 <label class="headings" for="origin">Origin :</label>
                 <input type="text" id="origin" name="origin" required>
                 <br><br>
@@ -170,10 +175,6 @@
         <br><br>
     </div>
 </div>
-
-<button style="position: absolute;top: 90vh;" class="logoutButton" onclick="window.location.href = '/tours';">
-    ALL TOURS
-</button>
 
 <script th:if="${alertMessage != null}">
     alert("[[${alertMessage}]]");
