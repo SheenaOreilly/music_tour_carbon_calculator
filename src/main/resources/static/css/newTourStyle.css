@@ -31,6 +31,18 @@ a {
 }
 
 .container{
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.logo-container{
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -63,12 +75,6 @@ a:hover {
     background-color: #01224f;
     color: #daeaf8;
 }
-
-.newTour{
-    position: absolute;
-    top: 23vh;
-}
-
 
 .collapsible {
     background-color: #777;
@@ -138,50 +144,6 @@ a:hover {
     align-items: center;
 }
 
-.box,
-.boxTours {
-    width: 60vw;
-    border-radius: 30px;
-    font-size: 20px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    background: white;
-    border: 2px dashed darkgray;
-    cursor: pointer;
-}
-
-.box{
-    color: darkgray;
-}
-
-.box:hover,
-.boxTours:hover {
-    border-color: #daeaf8;
-    color: #daeaf8;
-    background-color: white ;
-}
-
-.boxTours{
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-}
-
-.tour-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: -3vw;
-}
-
-.tour-status {
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-}
-
 .toursp {
     text-decoration: underline;
     color: #01224f;
@@ -193,74 +155,6 @@ a:hover {
     text-decoration: none;
     color: #01224f61;
     font-weight: bold;
-}
-
-.tours-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: absolute;
-    top: 50vh;
-}
-
-.tour-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.tour-name {
-    font-size: 24px;
-    font-weight: bold;
-    flex: 1;
-    margin-left: 20px;
-}
-
-.tour-icons {
-    display: flex;
-    flex: 2;
-    justify-content: space-around;
-    align-items: center;
-    gap: 50px;
-}
-
-.icon-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.icon-group i {
-    font-size: 24px;
-}
-
-.transport-icons {
-    display: flex;
-    gap: 10px;
-}
-
-.transport-icons i {
-    font-size: 24px;
-    color: lightblue;
-}
-
-.transport-icons i.active {
-    color: darkblue;
-}
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 15px;
-}
-
-th{
-    background: rgb(100 149 237);
 }
 
 #tourContent {
@@ -280,41 +174,6 @@ th{
     position: absolute;
     top: 35vh;
     left: 60vw;
-}
-
-
-.selectionBox {
-    padding: 40px;
-    background: #3C7DDB;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
-.inputTour{
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: border 0.3s;
-}
-
-.inputTour:focus{
-    border: 2px solid #3C7DDB;
-    outline: none;
-}
-
-.table-container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: absolute;
-    top: 30vh;
 }
 
 .dropdown{

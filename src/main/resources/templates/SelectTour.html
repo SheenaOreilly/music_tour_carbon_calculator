@@ -34,11 +34,14 @@
     </div>
 </div>
 
-<form class="selectionBox" id="selectTourForm" action="/selectTourName" method="get">
-    <input class="inputTour" type="text" id="tourName" placeholder="Tour Name ..." name="tourName" required>
-    <button class="button_tour" type="submit">Go</button>
-    <br><br>
-    <a href="javascript:void(0);" onclick="window.location.href = '/tours';">Back to Tours</a>
+<form id="selectTourForm" action="/selectTourName" method="get">
+    <div class="enterWrapper">
+        <input class="inputTour" type="text" id="tourName" placeholder="Tour Name ..." name="tourName" required>
+        <button class="button_tour" type="submit">Go</button>
+        <br><br>
+    </div>
+    <img style=" margin-top: 100px;" src="images/tourImage.png" alt="LOGO" width="600" height="600">
+    <a href="javascript:void(0);" onclick="window.location.href = '/tours';" style="color: #7cbef8; position: absolute; left: 28vw; top: 54vh;">Back to Tours</a>
 </form>
 
 <script>

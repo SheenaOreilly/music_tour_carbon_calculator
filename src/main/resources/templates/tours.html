@@ -32,11 +32,16 @@
 </div>
 
 <form class="newTour" id="makeNewTour" action="/SelectTour" method="get">
-    <button class="box" type="submit">New Tour</button>
+    <button class="box" type="submit"><i class="fa-solid fa-plus"></i> New Tour</button>
 </form>
 <br><br>
 
 <h1 style="margin-top: -120px;">Past Tours</h1>
+
+<div class="search-wrapper">
+    <input class="searchbar" type="text" id="searchInput" placeholder="Search..." onkeyup="searchTours()">
+    <i style="color: white" class="fa-solid fa-magnifying-glass"></i>
+</div>
 
 <div class="tours-container">
     <div th:each="tour : ${overTours}">
@@ -82,6 +87,25 @@
 
 
 <script>
+
+
+
+    function searchTours() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const tours = document.querySelectorAll('.tour-wrapper');
+
+        tours.forEach(tour => {
+            const tourName = tour.querySelector('.tour-name').textContent.toLowerCase();
+
+            if (tourName.includes(filter)) {
+                tour.style.display = '';
+            } else {
+                tour.style.display = 'none';
+            }
+        });
+    }
+
     function toggleCollapsible() {
         var content = document.querySelector(".content");
         var userInfo = document.getElementById("userInfo");

@@ -44,24 +44,15 @@ public class ToursController {
     }
 
     public static void sort(List<overallTour> list, HttpSession session) {
-        List<overallTour> temp = new ArrayList<>(list);
-        temp.sort(Comparator.comparing(
+        list.sort(Comparator.comparing(
                 overallTour::getCarbonEmissions,
                 Comparator.nullsLast(Comparator.reverseOrder())
         ));
         int i = 0;
-        for(overallTour tour : temp){
-            for(overallTour real : list){
-                if(real.getTourName().equalsIgnoreCase(tour.getTourName())){
-                    real.setRank(i);
-                    i++;
-                }
-            }
+        for(overallTour tour : list){
+            tour.setRank(i);
+            i++;
         }
-        list.sort(Comparator.comparing(
-                overallTour::getOffset,
-                Comparator.nullsLast(Comparator.naturalOrder())
-        ));
         session.setAttribute("overallTours", list);
     }
 
