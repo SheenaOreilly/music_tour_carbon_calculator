@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: #daeaf8;
 }
 
 a {
@@ -63,7 +63,7 @@ a {
 .boxTours:hover {
     border-color: #383838;
     color: #383838;
-    background-color: #daeaf8 ;
+    background-color: #98cdfc;
 }
 
 .boxTours{
@@ -75,8 +75,7 @@ a {
 .tour-wrapper {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-left: -3vw;
+    margin-bottom: 20px;
 }
 
 .tour-status {
@@ -169,12 +168,15 @@ a {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 20vh;
 }
 table {
     width: 100%;
     border-collapse: collapse;
 }
 th, td {
+    text-transform: uppercase;
     padding: 12px;
     font-family: arial;
     font-size: 15px;
