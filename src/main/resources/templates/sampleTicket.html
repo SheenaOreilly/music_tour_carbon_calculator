@@ -100,6 +100,22 @@
         }
     });
 
+    function toggleCollapsible() {
+        var content = document.querySelector(".content");
+        var userInfo = document.getElementById("userInfo");
+        var logoutSection = document.getElementById("logoutSection");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            userInfo.style.display = "block";
+            logoutSection.style.display = "block";
+        } else {
+            content.style.display = "none";
+            userInfo.style.display = "none";
+            logoutSection.style.display = "none";
+        }
+    }
+
 </script>
 <script src="/javascript/calculator-response.js"></script>
 
