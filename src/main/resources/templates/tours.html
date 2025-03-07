@@ -14,9 +14,10 @@
 </head>
 <body onload="checkAuthCarbon()">
 <div class="header"></div>
-<div class="container">
-    <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
+<div class="logo-container">
+    <img src="images/EcoTour.png" alt="LOGO" width="80" height="80">
 </div>
+
 <div class="banner">
     <a class="toursp" href="/SelectTour">Edit/Add Tour</a>
     <a class="pasttourp" href="/tours">Past Tours</a>
@@ -40,48 +41,56 @@
 </div>
 
 <div class="tours-container">
-    <div th:each="tour : ${overTours}">
-        <div class="tour-wrapper">
-            <form id="specificTour" action="/getSpecificTour" method="get" class="boxTours">
-            <input type="hidden" name="tourName" th:value="${tour.tourName}" />
-                <button type="submit" style="display: none;">Submit</button>
-                <div class="tour-content" onclick="this.closest('form').submit()">
-                    <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
-                    <div class="tour-icons">
-                        <span th:switch="${tour.getOffset}" class="tour-status">
-                            <span class="icon-group" th:case="true">
-                                <i class="fa fa-check" style="color: #01224f"></i>
-                                <p class="label">Offset Complete</p>
+    <div th:if="${not #lists.isEmpty(overTours)}">
+        <div th:each="tour : ${overTours}">
+            <div class="tour-wrapper">
+                <form id="specificTour" action="/getSpecificTour" method="get" class="boxTours">
+                    <input type="hidden" name="tourName" th:value="${tour.tourName}" />
+                    <button type="submit" style="display: none;">Submit</button>
+                    <div class="tour-content" onclick="this.closest('form').submit()">
+                        <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
+                        <div class="tour-icons">
+                            <span th:switch="${tour.getOffset}" class="tour-status">
+                                <span class="icon-group" th:case="true">
+                                    <i class="fa fa-check" style="color: #01224f"></i>
+                                    <p class="label">Offset Complete</p>
+                                </span>
+                                <span class="icon-group" th:case="false">
+                                    <i class="fa-solid fa-hourglass-end" style="color: #afd6f7"></i>
+                                    <p class="label">Offset Incomplete</p>
+                                </span>
                             </span>
-                            <span class="icon-group" th:case="false">
-                                <i class="fa-solid fa-hourglass-end" style="color: #afd6f7"></i>
-                                <p class="label">Offset Incomplete</p>
-                            </span>
-                        </span>
-                        <div class="icon-group">
-                            <i class="fas fa-users"></i>
-                            <p class="label" th:text="${tour.noOfConcerts} + ' Concerts'"></p>
-                        </div>
-                        <div class="icon-group">
-                            <i class="fas fa-shoe-prints" th:style="'color: hsl(' + ${0 + (tour.getRank * (100 / (#lists.size(overTours) - 1)))} + ', 100%, 70%)'"></i>
-                            <p class="label" th:text="${tour.carbonEmissions} + ' kg CO₂'"></p>
-                        </div>
-                        <div class="icon-group">
-                            <i class="fas fa-chair"></i>
-                            <p class="label" th:text="${tour.noOfSeats} + ' Seats'"></p>
-                        </div>
-                        <div class="transport-icons">
-                            <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? '#01224f' : '#afd6f7')"></i>
-                            <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? '#01224f' : '#afd6f7')"></i>
-                            <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? '#01224f' : '#afd6f7')"></i>
-                            <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? '#01224f' : '#afd6f7')"></i>
+                            <div class="icon-group">
+                                <i class="fas fa-users"></i>
+                                <p class="label" th:text="${tour.noOfConcerts} + ' Concerts'"></p>
+                            </div>
+                            <div class="icon-group">
+                                <i class="fas fa-shoe-prints"
+                                   th:style="'color: hsl(' + ${#lists.size(overTours) > 1 ? (0 + (tour.getRank * (100 / (#lists.size(overTours) - 1)))) : 0} + ', 100%, 70%)'">
+                                </i>
+                                <p class="label" th:text="${tour.carbonEmissions} + ' kg CO₂'"></p>
+                            </div>
+                            <div class="icon-group">
+                                <i class="fas fa-chair"></i>
+                                <p class="label" th:text="${tour.noOfSeats} + ' Seats'"></p>
+                            </div>
+                            <div class="transport-icons">
+                                <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? '#01224f' : '#afd6f7')"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+    <div th:if="${#lists.isEmpty(overTours)}">
+        <p>You have no tours.</p>
+    </div>
 </div>
+
 
 
 <script>

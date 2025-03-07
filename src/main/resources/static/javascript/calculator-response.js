@@ -37,19 +37,22 @@ $('#vehicleDropdown').on('change', function() {
     }
 });
 
-$('#yearForm').on('submit', function(e) {
-    e.preventDefault();
+$('#year, #carName').on('input', function() {
     const year = $('#year').val();
     const carName = $('#carName').val();
-    $.get('/getMakes', { year: year,  carName: carName}, function(data) {
-        $('#make').html('<option value="">-- Choose a Make --</option>');
-        data.forEach(function(make) {
-            $('#make').append('<option value="' + make + '">' + make + '</option>');
+
+    if ((year.length === 4) && carName) {
+        $.get('/getMakes', { year: year, carName: carName }, function(data) {
+            $('#make').html('<option value="">-- Choose a Make --</option>');
+            data.forEach(function(make) {
+                $('#make').append('<option value="' + make + '">' + make + '</option>');
+            });
         });
-    });
+    }
 });
 
-$('#makeForm').on('submit', function(e) {
+
+$('#makeForm').on('change', function(e) {
     e.preventDefault();
     const year = $('#yearHidden').val();
     const make = $('#make').val();
@@ -59,9 +62,10 @@ $('#makeForm').on('submit', function(e) {
             $('#model').append('<option value="' + model + '">' + model + '</option>');
         });
     });
+
 });
 
-$('#modelForm').on('submit', function(e) {
+$('#modelForm').on('change', function(e) {
     e.preventDefault();
     const year = $('#year').val();
     const make = $('#make').val();
@@ -79,9 +83,13 @@ $('#modelForm').on('submit', function(e) {
 $('#offsetTourForm').on('submit', function(e){
     e.preventDefault();
     let checkedTours = [];
-    document.querySelectorAll('.offsetCheck:checked').forEach(function(checkbox) {
-        const tourName = checkbox.nextElementSibling.textContent.split(':')[0];
-        checkedTours.push(tourName);
+    document.querySelectorAll('.checkbox-wrapper-31 input:checked').forEach(function(checkbox) {
+        let tourLabel = checkbox.closest('.spawnStyle').querySelector('label');
+
+        if (tourLabel) {
+            let tourName = tourLabel.textContent.split(':')[0].trim();
+            checkedTours.push(tourName);
+        }
     });
 
     $.get('/offsetTourMethod', {checkedTours : checkedTours}, function(data){

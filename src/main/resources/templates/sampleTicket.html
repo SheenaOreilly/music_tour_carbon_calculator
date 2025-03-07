@@ -20,8 +20,8 @@
 <body onload="checkAuthCarbon()">
 
 <div class="header"></div>
-<div class="container">
-    <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
+<div class="logo-container">
+    <img src="images/EcoTour.png" alt="LOGO" width="80" height="80">
 </div>
 
 <div class="banner">
@@ -42,8 +42,65 @@
     </div>
 </div>
 
-<img src="images/ticket.png" alt="LOGO" >
+<div class="search-wrapper">
+    <input class="searchbar" type="text" id="searchInput" placeholder="Enter Tour Name">
+    <button id="searchButton" type="submit" style="background-color: #01224f;border: none;color: white;" class="fa-solid fa-magnifying-glass" onclick="toggleImage()"></button>
+</div>
 
+<img id="ticket" src="images/ticket.png" alt="Ticket" style="display: block">
+<img id="emptyTicket" src="images/emptyTicket.png" alt="Ticket" style="display: none">
+<p class="concertTicket" id="concertName"></p>
+
+<label for="imageUpload" class="custom-file-upload">
+    Upload Photo
+</label>
+<input type="file" id="imageUpload" accept="image/*">
+<img class="image" id="previewImage">
+
+
+<script>
+    function toggleImage() {
+        var ticket = document.getElementById("ticket");
+        var emptyTicket = document.getElementById("emptyTicket");
+        var inputField = document.getElementById("searchInput");
+        var concertName = document.getElementById("concertName");
+
+        ticket.style.display = "none";
+        emptyTicket.style.display = "block";
+        concertName.innerText = inputField.value;
+        resizeText();
+    }
+
+
+    function resizeText() {
+        const textElement = document.getElementById("concertName");
+        let fontSize = 100;
+        textElement.style.fontSize = fontSize + "px";
+
+        while (
+            (textElement.scrollWidth > textElement.clientWidth ||
+                textElement.scrollHeight > textElement.clientHeight) &&
+            fontSize > 10
+            ) {
+            fontSize -= 2;
+            textElement.style.fontSize = fontSize + "px";
+        }
+    }
+
+    document.getElementById("imageUpload").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById("previewImage");
+                img.src = e.target.result;
+                img.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
 <script src="/javascript/calculator-response.js"></script>
 
 </body>

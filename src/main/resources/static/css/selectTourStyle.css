@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: #daeaf8;
 }
 
 a {
@@ -44,7 +44,7 @@ a {
     width: 100%;
     padding: 12px;
     margin: 15px 0;
-    border: 2px solid #daeaf8;
+    border: 2px solid #01224e;
     border-radius: 25px;
     box-sizing: border-box;
     font-size: 16px;
@@ -53,15 +53,15 @@ a {
 }
 
 .inputTour:focus{
-    border: 2px solid #daeaf8;
+    border: 2px solid #01224e;
     outline: none;
 }
 
 .go_button {
     width: 22%;
     padding: 12px 12px 15px 12px;
-    background-color: #daeaf8;
-    color: #01224f;
+    background-color: #01224f;
+    color: #daeaf8;
     border: none;
     border-radius: 25px;
     font-size: 16px;
@@ -71,7 +71,7 @@ a {
 }
 
 .go_button:hover {
-    color: #01224f;
-    background-color: #7cbef8;
+    color: #daeaf8;
+    background-color: #00132d;
 }
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Controller
@@ -52,15 +53,17 @@ public class OffsetController {
     public String offsetTourMethod(@RequestParam(value = "checkedTours") List<String> checkedTours) throws ExecutionException, InterruptedException {
         String userEmail = (String) session.getAttribute("userEmail");
         for(String tourNameOffset : checkedTours){
-            Firestore db = FirestoreClient.getFirestore();
-            CollectionReference offsetTourCollection = db.collection(userEmail).document("Offsets").collection(tourNameOffset);
-            ApiFuture<QuerySnapshot> future = offsetTourCollection.get();
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            for(QueryDocumentSnapshot doc : documents){
-                DocumentReference docRef = doc.getReference();
-                Map<String, Object> offsetData = new HashMap<>();
-                offsetData.put("offset", true);
-                docRef.update(offsetData).get();
+            if(!Objects.equals(tourNameOffset, "")){
+                Firestore db = FirestoreClient.getFirestore();
+                CollectionReference offsetTourCollection = db.collection(userEmail).document("Offsets").collection(tourNameOffset);
+                ApiFuture<QuerySnapshot> future = offsetTourCollection.get();
+                List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+                for(QueryDocumentSnapshot doc : documents){
+                    DocumentReference docRef = doc.getReference();
+                    Map<String, Object> offsetData = new HashMap<>();
+                    offsetData.put("offset", true);
+                    docRef.update(offsetData).get();
+                }
             }
         }
         update(checkedTours);

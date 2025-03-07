@@ -17,6 +17,9 @@
 <body onload="newLegCheck()">
 
 <div class="header"></div>
+<div class="logo-container">
+    <img src="images/EcoTour.png" alt="LOGO" width="80" height="80">
+</div>
 
 <div class="banner">
     <a class="toursp" href="/SelectTour">Edit/Add Tour</a>
@@ -42,48 +45,37 @@
 
 <div id="carFormsNewCar" style="margin-top: 100px;">
     <form id="yearForm" action="/getMakes" method="get">
-        <label class="headings" for="carName">Enter a Car Nickname:</label>
-        <input type="text" id="carName" name="carName" required>
+        <input  class="dropdown" type="text" id="carName" name="carName" required placeholder="Enter a Car Nickname">
         <br><br><br>
 
-        <label class="headings" for="year">Enter Year:</label>
-        <input type="text" id="year" name="year" required>
-        <button class="smallButton" type="submit">Get Makes</button>
+        <input  class="dropdown" type="text" id="year" name="year" required placeholder="Model Year">
     </form>
     <br><br>
 
     <form id="makeForm" action="/getModels" method="get">
-        <label class="headings" for="make">Select Make:</label>
         <select class="dropdown" id="make" name="make" required>
             <option value="">-- Choose a Make --</option>
         </select>
-        <button class="smallButton" type="submit">Get Models</button>
     </form>
     <br><br>
 
     <form id="modelForm" action="/getFuelSize" method="get">
-        <label class="headings" for="model">Select Model:</label>
-        <select class="dropdown" id="model" name="model" required>
+        <select class="dropdown" id="model" name="model" required placeholder="Model">
             <option value="">-- Choose a Model --</option>
         </select>
-        <button class="smallButton" type="submit">Get Tank Size</button>
     </form>
     <br><br>
 
     <form id="tankForm" action="/getFuelInfo" method="get">
-        <label class="headings" for="tank">Select Tank Size:</label>
-        <select class="dropdown" id="tank" name="tank" required>
+        <select class="dropdown" id="tank" name="tank" required placeholder="Tank">
             <option value="">-- Choose a Tank Size --</option>
         </select>
-        <button class="smallButton" type="submit">Submit</button>
+        <br><br>
+        <button style="margin-left: 130px; background-color: #01224f; color: #daeaf8;" class="logoutButton" type="submit">Save Car</button>
     </form>
     <br><br>
 </div>
 <br><br>
-
-<button class="logoutButton" onclick="window.location.href = '/newTour';">
-    BACK
-</button>
 
 <script>
     function toggleCollapsible() {

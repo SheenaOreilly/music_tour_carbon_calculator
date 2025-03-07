@@ -120,7 +120,7 @@ public class CarbonCalculatorController {
 
         if (distance == 0.0) {
             model.addAttribute("alertMessage", "Error: Can not found distance, please check Origin and Destination.");
-            return "newTour";
+            return "redirect:/newTour";
         }
 
         if(vehicle.equalsIgnoreCase("train")){

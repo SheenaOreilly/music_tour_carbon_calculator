@@ -19,7 +19,7 @@
 
 <div class="header"></div>
 <div class="logo-container">
-    <img src="images/EcoTour.png" alt="LOGO" width="105" height="100">
+    <img src="images/EcoTour.png" alt="LOGO" width="80" height="80">
 </div>
 
 <div class="banner">
@@ -75,8 +75,8 @@
     </div>
 
     <div id="calculator">
-        <label class="headings" for="vehicle">Vehicle : </label>
         <select class="dropdown" id="vehicleDropdown" name="vehicleDropdown" required onchange="updateVehicle()">
+            <option value="">-- Choose a Vehicle --</option>
             <option value="car">Car</option>
             <option value="bus">Bus</option>
             <option value="train">Train</option>
@@ -88,13 +88,11 @@
 
             <form id="planeCarbonForm" action="/getPlaneCarbon" method="get">
 
-                <label class="headings" for="dep">Select Departure:</label>
                 <select id="dep" name="dep">
                     <option style="font-family: Arial" value="">-- Select a Departure --</option>
                 </select>
                 <br><br>
 
-                <label class="headings" for="arr">Select Arrival:</label>
                 <select id="arr" name="arr">
                     <option style="font-family: Arial" value="">-- Select an Arrival --</option>
                 </select>
@@ -106,8 +104,7 @@
                 </label><br>
 
                 <div id="seatsFormPlane" style="display:none;">
-                    <label class="headings" for="seats">Number of Seats:</label>
-                    <input type="number" id="seats" name="seats" min="1">
+                    <input class="dropdown" type="number" id="seats" name="seats" min="1" placeholder="Number of Seats">
                 </div>
                 <br><br>
 
@@ -119,34 +116,30 @@
         </div>
 
 
-        <div id="carForms" style="display: flex;align-items: center;gap: 15px;">
-            <label class="headings" for="carDropdown">Car :</label>
+        <div id="carForms" style="display: flex;align-items: center;gap: 15px; margin-bottom: 15px">
             <select id="carDropdown" name="carDropdown" onchange="updateCar()" class="dropdown">
                 <option value="">-- Select a Car --</option>
             </select>
 
             <form id="newCarForm" action="/car" method="get">
-                <button class="smallButton" type="submit">New Car</button>
+                <button class="plus" type="submit">
+                    <i class="fas fa-plus"></i>
+                </button>
             </form>
-
-            <br>
         </div>
 
         <div id="transportForm" style="display:none;">
             <form id="carbonSubmitForm" action="/calculateCarbon" method="get">
 
-                <br><br>
-                <label class="headings" for="origin">Origin :</label>
-                <input type="text" id="origin" name="origin" required>
+                <input class="dropdown" type="text" id="origin" name="origin" placeholder="Origin" required>
                 <br><br>
 
-                <label class="headings" for="destination">Destination :</label>
-                <input type="text" id="destination" name="destination" required>
+                <input class="dropdown" type="text" id="destination" name="destination" placeholder="Destination"  required>
                 <br><br>
 
                 <div id="busForms" style="display:none;">
-                    <label class="headings" for="bus">Select Bus Type:</label>
-                    <select class="dropdown" id="bus" name="bus" required>
+                    <select class="dropdown" id="bus" name="bus">
+                        <option value="">-- Select Bus Type --</option>
                         <option value="mini_bus"> Mini Bus </option>
                         <option value="camper_van"> Camper Van </option>
                         <option value="coach"> Coach </option>
@@ -161,8 +154,7 @@
                 </label><br>
 
                 <div id="seatsForm" style="display:none;">
-                    <label class="headings" for="seats">Number of Seats:</label>
-                    <input type="number" id="seats" name="seats" min="1">
+                    <input class="dropdown" type="number" id="seats" name="seats" min="1" placeholder="Number of Seats">
                 </div>
                 <br><br>
 

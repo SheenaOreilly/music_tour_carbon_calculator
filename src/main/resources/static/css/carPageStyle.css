@@ -37,6 +37,14 @@ a {
     left: 10px;
 }
 
+#carFormsNewCar {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 6px 8px 20px 3px rgb(183 216 245);
+    width: 25vw;
+}
+
 .toursp {
     text-decoration: underline !important;
     color: #01224f !important;
@@ -44,12 +52,15 @@ a {
 }
 
 .dropdown{
-    border-color: rgb(100 149 237);
-    border-radius: 10px;
+    border-bottom: 1px solid #01224f;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     text-align: center;
-    padding-left: 40px;
-    padding-right: 40px;
+    width: 80%;
+    height: 30px;
     font-family: Arial;
+    background-color: #ffffff;
 }
 
 .smallButton{
