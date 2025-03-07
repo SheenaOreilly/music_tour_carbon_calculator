@@ -42,4 +42,9 @@ public class MusicTourCarbonCalculatorApplication extends SpringBootServletIniti
     public String showLogin() {
         return "loginScreen";
     }
+
+    @GetMapping("/sampleTicket")
+    public String showTicket() {
+        return "sampleTicket";
+    }
 }

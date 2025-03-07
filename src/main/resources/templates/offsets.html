@@ -25,9 +25,10 @@
 </div>
 
 <div class="banner">
-    <a class="toursp" href="/SelectTour">New Tour</a>
+    <a class="toursp" href="/SelectTour">Edit/Add Tour</a>
     <a class="pasttourp" href="/tours">Past Tours</a>
     <a class="offestp" href="/offsets">Offsets</a>
+    <a class="sample" href="/sampleTicket">Sample Ticket</a>
 </div>
 
 <div class="icon-container" onclick="toggleCollapsible()">
@@ -41,42 +42,53 @@
     </div>
 </div>
 
-<div>
-    <h3>Total Carbon Emissions: <span id="totalCarbon">0</span></h3>
-</div>
+<div class="title">
+    <div class="carbon-container">
+        <img src="images/carbon-footprint.png" alt="footprint" width="105" height="100">
+        <h3 class="headings">Total Carbon Emissions: <span id="totalCarbon">0</span></h3>
+    </div>
 
-<div>
-    <h3>Total Seats: <span id="totalSeats">0</span></h3>
+    <div class="seats-container">
+        <img src="images/concert.png" alt="footprint" width="105" height="100">
+        <h3 class="headings">Total Seats: <span id="totalSeats">0</span></h3>
+    </div>
 </div>
 
 <div class="offset-wrapper">
-    <div class = "tours">
+    <div class="tours">
         <h1 class="headings">Select Tours</h1>
         <div th:each="tour : ${overTours}">
         <span th:switch="${tour.getOffset}">
-            <span th:case="false">
-                <input type="checkbox" class="offsetCheck" name="offsetCheck"
-                       th:value="${tour.carbonEmissions} + ':' + ${tour.noOfSeats}"
-                       onclick="updateTotalCarbon()">
+            <span class="spawnStyle" th:case="false">
+                <div class="checkbox-wrapper-31">
+                    <input type="checkbox" class="offsetCheck" name="offsetCheck"
+                           th:value="${tour.carbonEmissions} + ':' + ${tour.noOfSeats}"
+                           onclick="updateTotalCarbon()">
+                    <svg viewBox="0 0 35.6 35.6">
+                        <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                        <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                        <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                    </svg>
+                </div>
                 <label th:text="${tour.tourName} + ': ' + ${tour.carbonEmissions} + ' kg CO₂' + ', ' + ${tour.noOfSeats} + ' seats'"></label>
             </span>
         </span>
         </div>
     </div>
 
+
     <div class="offset_companies-container">
-        <div th:each="company : ${offsetCompaniesMap}">
+        <a th:href="${company.getValue().split(' ')[0]}" class="offsetBox" target="_blank" th:each="company : ${offsetCompaniesMap}">
             <h2 th:text="${company.getKey()}" class="company-name hidden"
                 th:attr="data-company=${company.getKey()}, data-offset=${company.getValue().split(' ')[1]}">
             </h2>
-            <a th:href="${company.getValue().split(' ')[0]}" class="company-link" target="_blank" th:text="${company.getKey()}"></a>
             <p>Offset : <span class="company-offset-value">0</span></p>
-        </div>
+        </a>
     </div>
 </div>
 
 <form id="offsetTourForm" action="/offsetTourMethod" method="get">
-    <button class="logoutButton" type="submit">OFFSET</button>
+    <button style="position: fixed;top: 90vh;left: 45vw;" class="logoutButton" type="submit">OFFSET</button>
 </form>
 
 <script>
@@ -109,7 +121,7 @@
             }
         });
 
-        document.querySelectorAll('.offsetCheck:checked').forEach(checkbox => {
+        document.querySelectorAll('.checkbox-wrapper-31 input:checked').forEach(checkbox => {
             const parts = checkbox.value.split(":");
             let carbonEmissions = parseFloat(parts[0]);
             let seats = parseInt(parts[1]);
@@ -133,6 +145,7 @@
             }
         }
     }
+
 </script>
 
 <script src="/javascript/calculator-response.js"></script>

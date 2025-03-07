@@ -89,24 +89,32 @@ body{
 .toursp {
     text-decoration: none;
     color: #01224f61;
-    font-weight: bold;
-    margin-right: 20px;
+    margin-right: 40px;
     font-family: Arial;
+}
+
+a:hover {
+    color: #01224e;
 }
 
 .offestp {
     text-decoration: none;
     color: #01224f61;
-    font-weight: bold;
-    margin-right: 20px;
+    margin-right: 40px;
     font-family: Arial;
 }
 
 .pasttourp {
     text-decoration: none;
     color: #01224f61;
-    font-weight: bold;
-    margin-right: 20px;
+    margin-right: 40px;
+    font-family: Arial;
+}
+
+.sample{
+    text-decoration: none;
+    color: #01224f61;
+    margin-right: 40px;
     font-family: Arial;
 }
 

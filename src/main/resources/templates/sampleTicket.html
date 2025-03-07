@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Select Tour</title>
+    <meta charset="UTF-8">
+    <title>Sample Ticket</title>
+
+    <link rel="stylesheet" href="/css/sampleTicket.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-    <link rel="stylesheet" href="/css/selectTourStyle.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
     <script src="/javascript/firebase-auth.js"></script>
 </head>
@@ -33,39 +36,13 @@
 </div>
 
 <div class="content">
-    <p id="userInfo" style="display: none; font-family: Arial"></p>
+    <p id="userInfo" style="display: none;"></p>
     <div id="logoutSection" style="display: none;">
         <button class="logoutButton" onclick="logout()">Logout</button>
     </div>
 </div>
 
-<form id="selectTourForm" action="/selectTourName" method="get">
-    <div class="enterWrapper">
-        <input class="inputTour" type="text" id="tourName" placeholder="Tour Name ..." name="tourName" required>
-        <button class="go_button" type="submit">Go</button>
-        <br><br>
-    </div>
-    <img style=" margin-top: 100px;" src="images/tourImage.png" alt="LOGO" width="600" height="600">
-</form>
-
-<script>
-    function toggleCollapsible() {
-        var content = document.querySelector(".content");
-        var userInfo = document.getElementById("userInfo");
-        var logoutSection = document.getElementById("logoutSection");
-
-        if (content.style.display === "none" || content.style.display === "") {
-            content.style.display = "block";
-            userInfo.style.display = "block";
-            logoutSection.style.display = "block";
-        } else {
-            content.style.display = "none";
-            userInfo.style.display = "none";
-            logoutSection.style.display = "none";
-        }
-    }
-
-</script>
+<img src="images/ticket.png" alt="LOGO" >
 
 <script src="/javascript/calculator-response.js"></script>
 

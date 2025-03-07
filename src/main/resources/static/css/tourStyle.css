@@ -25,11 +25,6 @@ a {
     left: 10px;
 }
 
-a:hover {
-    color: #000000;
-}
-
-
 .searchbar{
     border: solid #01224f 2px;
     border-radius: 30px;
@@ -95,6 +90,7 @@ a:hover {
 .pasttourp {
     text-decoration: underline !important;
     color: #01224f !important;
+    font-weight: bold !important;
 }
 
 .label{

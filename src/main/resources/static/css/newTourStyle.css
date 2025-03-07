@@ -25,13 +25,10 @@ a {
     left: 10px;
 }
 
-a:hover {
-    color: #000000;
-}
-
 .toursp {
     text-decoration: underline !important;
     color: #01224f !important;
+    font-weight: bold !important;
 }
 
 
@@ -97,5 +94,6 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #ff8a8a;
+    cursor: grab;
 }

@@ -1,28 +1,20 @@
 package com.example.music_tour_carbon_calculator.controllers;
 
-import com.example.music_tour_carbon_calculator.firebase.FirebaseService;
 import com.example.music_tour_carbon_calculator.objects.TourData;
 import com.example.music_tour_carbon_calculator.calculator.*;
 import com.example.music_tour_carbon_calculator.objects.carObject;
 import com.example.music_tour_carbon_calculator.objects.tourObject;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QuerySnapshot;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -191,5 +183,37 @@ public class CarbonCalculatorController {
         }
         DocumentReference newTourRef = toursRef.add(data).get();
         System.out.println("User data added successfully with ID: " + ((DocumentReference) newTourRef).getId());
+    }
+
+    @GetMapping("/deleteLeg")
+    public String deleteLeg( @RequestParam(value = "documentId", defaultValue = "123") String documentId , @RequestParam(value = "tourName" , defaultValue = "dublin") String tourName, HttpSession session) throws ExecutionException, InterruptedException {
+        List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
+        String userEmail = (String) session.getAttribute("userEmail");
+
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference offsetTourCollection = db.collection(userEmail).document("Tours").collection(tourName);
+        ApiFuture<QuerySnapshot> future = offsetTourCollection.get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        for(tourObject tours : userTours){
+            if(tours.tourName.equalsIgnoreCase(tourName)){
+                List<TourData> legs = tours.legsOfTour;
+                for(TourData leg : legs){
+                    if(leg.getDocumentId().equalsIgnoreCase(documentId)){
+                        legs.remove(leg);
+                        for(QueryDocumentSnapshot doc : documents){
+                            DocumentReference docRef = doc.getReference();
+                            if (docRef.getId().equals(documentId)) {
+                                docRef.delete();
+                                tours.legsOfTour = legs;
+                                session.setAttribute("userTours", userTours);
+                                return "redirect:/newTour";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "newTour";
     }
 }
