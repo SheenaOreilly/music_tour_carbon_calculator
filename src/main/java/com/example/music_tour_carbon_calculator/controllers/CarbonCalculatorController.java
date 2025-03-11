@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public class CarbonCalculatorController {
         String tourName = (String) session.getAttribute("tourName");
         addUserData(tourName, depature, arrival, "N/A", String.format("%.2f", distance), "N/A", carbonEmissions, concert,seats, "plane", session);
         String distanceS = String.valueOf(distance);
-        model.addAttribute("currentLegs", addNewLeg(depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
+        model.addAttribute("currentLegs", addNewLeg(tourName, depature, arrival, distanceS, "plane", carbonEmissions, seats, session));
         model.addAttribute("tourName" , tourName);
 
         return "newTour";
@@ -127,7 +128,7 @@ public class CarbonCalculatorController {
             double carbon = 0.28 * distance;
             String carbonEmissions = String.format("%.2f", carbon);
             String distanceS = String.format("%.2f", distance);
-            model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+            model.addAttribute("currentLegs", addNewLeg(tourName, origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
             model.addAttribute("tourName" , tourName);
             addUserData(tourName, origin, destination, "N/A", String.valueOf(distance), "N/A", carbonEmissions, concert,seats, vehicle, session);
             return "newTour";
@@ -138,19 +139,26 @@ public class CarbonCalculatorController {
         }
         String carbonEmissions = Calculator.calculateCarbonEmissions(distance, thiscar.getFuel(), Double.parseDouble(thiscar.getConsumption()));
         String distanceS = String.format("%.2f", distance);
-        model.addAttribute("currentLegs", addNewLeg(origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
+        model.addAttribute("currentLegs", addNewLeg(tourName, origin, destination, distanceS, vehicle, carbonEmissions, seats, session));
         model.addAttribute("tourName" , tourName);
         addUserData(tourName, origin, destination, thiscar.getConsumption(), String.valueOf(distance), thiscar.getFuel(), carbonEmissions, concert,seats, vehicle, session);
 
         return "newTour";
     }
 
-    public tourObject addNewLeg(String departure, String arrival, String distance, String vehicle, String carbon, String seats, HttpSession session){
-        tourObject newTour = (tourObject) session.getAttribute("currentTour");
+    public tourObject addNewLeg(String tourName, String departure, String arrival, String distance, String vehicle, String carbon, String seats, HttpSession session){
+        List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
+        tourObject specificTourData = new tourObject(tourName);
+        for(tourObject tour : userTours){
+            if(tour.tourName.equalsIgnoreCase(tourName)){
+                specificTourData.legsOfTour = new ArrayList<>(tour.legsOfTour);
+
+            }
+        }
         TourData newLeg = new TourData(departure, arrival, distance, "N/A", "N/A", vehicle, carbon, "N/A", "N/A", seats);
-        newTour.add(newLeg);
-        session.setAttribute("currentTour", newTour);
-        return newTour;
+        specificTourData.add(newLeg);
+        session.setAttribute("currentTour", specificTourData);
+        return specificTourData;
     }
 
     public void addUserData(String tourName, String departure, String arrival, String consumption,

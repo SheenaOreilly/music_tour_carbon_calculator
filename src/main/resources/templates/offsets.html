@@ -78,9 +78,9 @@
 
 
     <div class="offset_companies-container">
-        <a th:href="${company.getValue().split(' ')[0]}" class="offsetBox" target="_blank" th:each="company : ${offsetCompaniesMap}">
+        <a th:href="${company.getValue().split('@')[0]}" class="offsetBox" target="_blank" th:each="company : ${offsetCompaniesMap}" th:attr="title=${company.getValue().split('@')[2]}">
             <h2 th:text="${company.getKey()}" class="company-name hidden"
-                th:attr="data-company=${company.getKey()}, data-offset=${company.getValue().split(' ')[1]}">
+                th:attr="data-company=${company.getKey()}, data-offset=${company.getValue().split('@')[1]}">
             </h2>
             <p>Offset : <span class="company-offset-value">0</span></p>
         </a>
