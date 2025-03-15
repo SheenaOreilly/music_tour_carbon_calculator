@@ -1,5 +1,6 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.calculator;
 
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -12,26 +13,50 @@ import java.net.URL;
 public class Distance {
 
     public static double calculateDistance(String origin, String destination, String transportType) throws IOException {
+        String transport;
+        switch (transportType){
+            case "car", "bus":
+                transport = "transit";
+                break;
+            default:
+                transport = "public transport";
+                break;
+        }
         String apiKey = "AIzaSyBXYRQP5e4qehb6sluG6m7Ao6JotPR0o6M";
         String urlString = String.format(
                 "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&units=metric&mode=%s&key=%s",
                 origin.replace(" ", "%20"),
                 destination.replace(" ", "%20"),
-                transportType.replace(" ", "%20"),
+                transport.replace(" ", "%20"),
                 apiKey
         );
 
         JSONObject jsonObject = getJsonObject(urlString);
 
-        String distanceText = jsonObject.getJSONArray("rows")
+        JSONArray elements = jsonObject.getJSONArray("rows")
                 .getJSONObject(0)
-                .getJSONArray("elements")
-                .getJSONObject(0)
-                .getJSONObject("distance")
-                .getString("text");
+                .getJSONArray("elements");
 
-        String distanceValue = distanceText.replaceAll("[^\\d.]", "");
-        return Double.parseDouble(distanceValue);
+        // Check if status is NOT "NOT_FOUND"
+        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND")) {
+            String distanceText = elements.getJSONObject(0)
+                    .getJSONObject("distance")
+                    .getString("text");
+            String distanceValue = distanceText.replaceAll("[^\\d.]", "");
+            return Double.parseDouble(distanceValue);
+        } else {
+            System.out.println("Error: Distance information not found.");
+            return 0.0;
+        }
+//        String distanceText = jsonObject.getJSONArray("rows")
+//                .getJSONObject(0)
+//                .getJSONArray("elements")
+//                .getJSONObject(0)
+//                .getJSONObject("distance")
+//                .getString("text");
+//
+//        String distanceValue = distanceText.replaceAll("[^\\d.]", "");
+//        return Double.parseDouble(distanceValue);
     }
 
     private static JSONObject getJsonObject(String urlString) throws IOException {

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tours</title>
+
+    <link rel="stylesheet" href="/css/tourStyle.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="/javascript/firebase-auth.js"></script>
+</head>
+<body onload="checkAuthCarbon()">
+<div class="header"></div>
+<div class="logo-container">
+    <img src="images/EcoTour.png" alt="LOGO" width="100" height="100">
+</div>
+
+<div class="banner">
+    <a class="toursp" href="/SelectTour">Edit/Add Tour</a>
+    <a class="pasttourp" href="/tours">Past Tours</a>
+    <a class="offestp" href="/offsets">Offsets</a>
+    <a class="sample" href="/sampleTicket">Sample Ticket</a>
+</div>
+<div class="icon-container" onclick="toggleCollapsible()">
+    <i class="fa-solid fa-user"></i>
+</div>
+
+<div class="content">
+    <p id="userInfo" style="display: none;"></p>
+    <div id="logoutSection" style="display: none;">
+        <button class="logoutButton" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="search-wrapper">
+    <input class="searchbar" type="text" id="searchInput" placeholder="Search..." onkeyup="searchTours()">
+    <i style="color: white" class="fa-solid fa-magnifying-glass"></i>
+</div>
+
+<div class="tours-container">
+    <div th:if="${not #lists.isEmpty(overTours)}">
+        <div th:each="tour : ${overTours}">
+            <div class="tour-wrapper">
+                <form id="specificTour" action="/getSpecificTour" method="get" class="boxTours">
+                    <input type="hidden" name="tourName" th:value="${tour.tourName}" />
+                    <button type="submit" style="display: none;">Submit</button>
+                    <div class="tour-content" onclick="this.closest('form').submit()">
+                        <h2 th:text="${tour.tourName}" class="tour-name">Tour Name</h2>
+                        <div class="tour-icons">
+                            <span th:switch="${tour.getOffset}" class="tour-status">
+                                <span class="icon-group" th:case="true">
+                                    <i class="fa fa-check" style="color: #01224f"></i>
+                                    <p class="label">Offset Complete</p>
+                                </span>
+                                <span class="icon-group" th:case="false">
+                                    <i class="fa-solid fa-hourglass-end" style="color: #afd6f7"></i>
+                                    <p class="label">Offset Incomplete</p>
+                                </span>
+                            </span>
+                            <div class="icon-group">
+                                <i class="fas fa-users"></i>
+                                <p class="label" th:text="${tour.noOfConcerts} + ' Concerts'"></p>
+                            </div>
+                            <div class="icon-group">
+                                <i class="fas fa-shoe-prints"
+                                   th:style="'color: hsl(' + ${#lists.size(overTours) > 1 ? (0 + (tour.getRank * (100 / (#lists.size(overTours) - 1)))) : 0} + ', 100%, 70%)'">
+                                </i>
+                                <p class="label" th:text="${tour.carbonEmissions} + ' kg CO₂'"></p>
+                            </div>
+                            <div class="icon-group">
+                                <i class="fas fa-chair"></i>
+                                <p class="label" th:text="${tour.noOfSeats} + ' Seats'"></p>
+                            </div>
+                            <div class="transport-icons">
+                                <i class="fas fa-car transport" data-mode="car" th:style="'color: ' + (${tour.modesOfTransport.contains('car')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-bus transport" data-mode="bus" th:style="'color: ' + (${tour.modesOfTransport.contains('bus')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-plane transport" data-mode="plane" th:style="'color: ' + (${tour.modesOfTransport.contains('plane')} ? '#01224f' : '#afd6f7')"></i>
+                                <i class="fas fa-train transport" data-mode="train" th:style="'color: ' + (${tour.modesOfTransport.contains('train')} ? '#01224f' : '#afd6f7')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(overTours)}">
+        <p>You have no tours.</p>
+    </div>
+</div>
+
+
+
+<script>
+
+
+
+    function searchTours() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const tours = document.querySelectorAll('.tour-wrapper');
+
+        tours.forEach(tour => {
+            const tourName = tour.querySelector('.tour-name').textContent.toLowerCase();
+
+            if (tourName.includes(filter)) {
+                tour.style.display = '';
+            } else {
+                tour.style.display = 'none';
+            }
+        });
+    }
+
+    function toggleCollapsible() {
+        var content = document.querySelector(".content");
+        var userInfo = document.getElementById("userInfo");
+        var logoutSection = document.getElementById("logoutSection");
+
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            userInfo.style.display = "block";
+            logoutSection.style.display = "block";
+        } else {
+            content.style.display = "none";
+            userInfo.style.display = "none";
+            logoutSection.style.display = "none";
+        }
+    }
+
+</script>
+
+</body>
+</html>

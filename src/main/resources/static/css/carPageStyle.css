@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+a {
+    color: #ffffff;
+}
+
+.container{
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.logo-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 20px;
+    color: #daeaf8;
+    z-index: 2;
+    position: absolute;
+    top: 1vh;
+    left: 10px;
+}
+
+#carFormsNewCar {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 6px 8px 20px 3px rgb(1 34 79);
+    width: 25vw;
+}
+
+.toursp {
+    text-decoration: underline !important;
+    color: #01224f !important;
+    font-weight: bold !important;
+}
+
+.dropdown{
+    border-bottom: 1px solid #01224f;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    width: 80%;
+    height: 30px;
+    font-family: Arial;
+    background-color: #ffffff;
+    font-size: 15px;
+}
+
+.smallButton{
+    border: 2px solid #4ea8ff;
+    background-color: white;
+    color: #4ea8ff;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.smallButton:hover{
+    border: 2px solid #02427f;
+    color: #02427f;
+}

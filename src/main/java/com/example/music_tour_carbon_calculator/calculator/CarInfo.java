@@ -1,4 +1,4 @@
-package com.example.music_tour_carbon_calculator;
+package com.example.music_tour_carbon_calculator.calculator;
 
 import org.springframework.stereotype.Service;
 
@@ -94,15 +94,26 @@ public class CarInfo {
         NodeList fuelNodes = doc.getElementsByTagName("fuelType1");
         NodeList consumptionNodes = doc.getElementsByTagName("comb08U");
         NodeList consumptionNodesBackup = doc.getElementsByTagName("comb08");
+        NodeList consumptionNodesElectric = doc.getElementsByTagName("combE");
 
         for (int i = 0; i < fuelNodes.getLength(); i++) {
             String fuel = fuelNodes.item(i).getTextContent();
-            String consumption = consumptionNodes.item(i).getTextContent();
-            double conversion = Double.parseDouble(consumption);
-            if(conversion <= 0.0){
-                conversion = Double.parseDouble(consumptionNodesBackup.item(i).getTextContent());
+            String consumption;
+            double conversion;
+            if(fuel.equalsIgnoreCase("electricity"))
+            {
+                consumption = consumptionNodesElectric.item(i).getTextContent();
+                conversion = Double.parseDouble(consumption);
+                conversion = conversion / 1.609344; // kwh per 100 miles to kwh per 100 km
             }
-            conversion = 235.2145 / conversion;
+            else{
+                consumption = consumptionNodes.item(i).getTextContent();
+                conversion = Double.parseDouble(consumption);
+                if(conversion <= 0.0){
+                    conversion = Double.parseDouble(consumptionNodesBackup.item(i).getTextContent());
+                }
+                conversion = 235.2145 / conversion; // miles per gallon to km per litre
+            }
             consumption = String.format("%.2f", conversion);
             vehicleTexts.add(fuel);
             vehicleTexts.add(consumption);
