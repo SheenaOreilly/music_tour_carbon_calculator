@@ -1,9 +1,7 @@
 package com.example.music_tour_carbon_calculator.calculator;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,7 +12,15 @@ public class PlaneInfo {
         Map<String, String> airports = new LinkedHashMap<>();
         BufferedReader reader;
         try{
-            reader = new BufferedReader(new FileReader("C:\\Users\\Admin\\Documents\\FifthYear\\dissertation\\project\\music_tour_carbon_calculator\\src\\main\\resources\\static\\GlobalAirportDatabase.txt"));
+            InputStream inputStream = PlaneInfo.class.getClassLoader().getResourceAsStream("GlobalAirportDatabase.txt");
+
+            if (inputStream == null) {
+                throw new FileNotFoundException("GlobalAirportDatabase.txt file not found in classpath.");
+            }
+
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+
             String line = reader.readLine();
 
             while(line != null){

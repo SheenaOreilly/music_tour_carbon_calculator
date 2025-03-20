@@ -187,7 +187,7 @@
                 data: { documentId: documentId, tourName: tourName },
                 xhrFields: { withCredentials: true },
                 success: function(response) {
-                    window.location.reload();
+                    window.location.href = '/newTour';
                 },
                 error: function(xhr, status, error) {
                     console.error("Error deleting tour leg:", error);

@@ -82,7 +82,7 @@ function logout() {
                 "Content-Type": "application/json"
             }
         }).then(() => {
-            window.location.href = "http://localhost:8080/";
+            window.location.href = "https://eco-tours-eco-tours.azuremicroservices.io/";
         }).catch((error) => {
             console.error("Error logging out from session:", error);
         });
