@@ -83,6 +83,7 @@ table {
     border-collapse: collapse;
 }
 th, td {
+    text-transform: uppercase;
     padding: 12px;
     font-family: arial;
     font-size: 15px;

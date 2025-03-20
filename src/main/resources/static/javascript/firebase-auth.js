@@ -27,7 +27,8 @@ function login() {
             });
             console.log("Email set in session: ", data);
         }).catch(error => {
-        console.error("Error setting email in session: ", error);
+            alert("Invalid email or password. Please try again.");
+            console.error("Error setting email in session: ", error);
     });
 }
 
@@ -64,8 +65,14 @@ function signup() {
             });
             console.log("Tours set in session: ", data);
         }).catch(error => {
-        console.error("Error setting tours in session: ", error);
-    });
+            console.error("Signup error: ", error);
+
+            if (error.code === "auth/email-already-in-use") {
+                alert("This email is already in use. Please use a different email or log in.");
+            } else if (error.code === "auth/weak-password") {
+                alert("Password should be at least 6 characters long and contain a numeric character.");
+            }
+        });
 }
 
 
