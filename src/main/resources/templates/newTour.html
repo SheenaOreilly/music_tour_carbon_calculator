@@ -169,8 +169,10 @@
     </div>
 </div>
 
-<script th:if="${alertMessage != null}">
-    alert("[[${alertMessage}]]");
+<script th:if="${alertMessage}">
+    window.onload = function() {
+        alert("[[${alertMessage}]]");
+    }
 </script>
 
 

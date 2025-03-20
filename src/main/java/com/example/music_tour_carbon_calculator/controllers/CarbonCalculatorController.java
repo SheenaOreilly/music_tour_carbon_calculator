@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -117,7 +118,7 @@ public class CarbonCalculatorController {
             @RequestParam(value = "seats", defaultValue = "0") String seats,
             @RequestParam(value = "selectedCar", defaultValue = "") String selectedCar,
             HttpSession session,
-            Model model) throws IOException, ExecutionException, InterruptedException {
+            Model model, RedirectAttributes redirectAttributes) throws IOException, ExecutionException, InterruptedException {
 
         List<carObject> userCars = (List<carObject>) session.getAttribute("userCars");
         carObject thiscar = null;
@@ -131,7 +132,7 @@ public class CarbonCalculatorController {
         double distance = Distance.calculateDistance(origin, destination, vehicle);
 
         if (distance == 0.0) {
-            model.addAttribute("alertMessage", "Error: Can not found distance, please check Origin and Destination.");
+            redirectAttributes.addFlashAttribute("alertMessage", "Error: Cannot find distance, please check Origin and Destination.");
             return "redirect:/newTour";
         }
 

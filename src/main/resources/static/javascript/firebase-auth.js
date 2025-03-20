@@ -27,9 +27,14 @@ function login() {
             });
             console.log("Email set in session: ", data);
         }).catch(error => {
-            alert("Invalid email or password. Please try again.");
-            console.error("Error setting email in session: ", error);
-    });
+            if (error.code === "auth/wrong-password") {
+                alert("Incorrect password. Please try again.");
+            } else if (error.code === "auth/user-not-found") {
+                alert("No account found with this email. Please sign up.");
+            } else if (error.code === "auth/invalid-email") {
+                alert("Invalid email format. Please enter a valid email.");
+            }
+        });
 }
 
 function signup() {
@@ -71,6 +76,31 @@ function signup() {
                 alert("This email is already in use. Please use a different email or log in.");
             } else if (error.code === "auth/weak-password") {
                 alert("Password should be at least 6 characters long and contain a numeric character.");
+            }
+        });
+}
+
+function resetPassword() {
+    var email = document.getElementById("email").value; // Get the email input field value
+
+    if (!email) {
+        alert("Please enter your email address before resetting the password.");
+        return;
+    }
+
+    firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Password reset email sent! Check your inbox.");
+        })
+        .catch(error => {
+            console.error("Error sending password reset email:", error);
+
+            if (error.code === "auth/user-not-found") {
+                alert("No account found with this email.");
+            } else if (error.code === "auth/invalid-email") {
+                alert("Invalid email format. Please enter a valid email.");
+            } else {
+                alert("Error sending reset email. Please try again.");
             }
         });
 }
