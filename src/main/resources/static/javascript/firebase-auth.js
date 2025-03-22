@@ -27,12 +27,8 @@ function login() {
             });
             console.log("Email set in session: ", data);
         }).catch(error => {
-            if (error.code === "auth/wrong-password") {
-                alert("Incorrect password. Please try again.");
-            } else if (error.code === "auth/user-not-found") {
-                alert("No account found with this email. Please sign up.");
-            } else if (error.code === "auth/invalid-email") {
-                alert("Invalid email format. Please enter a valid email.");
+            if (error.code === "auth/invalid-credential") {
+                alert("Incorrect email or password. Please check your credentials or Please sign up");
             }
         });
 }

@@ -121,6 +121,7 @@ public class CarbonCalculatorController {
             Model model, RedirectAttributes redirectAttributes) throws IOException, ExecutionException, InterruptedException {
 
         List<carObject> userCars = (List<carObject>) session.getAttribute("userCars");
+        List<tourObject> userTours = (List<tourObject>) session.getAttribute("userTours");
         carObject thiscar = null;
         for(carObject car : userCars){
             if(car.documentId.equalsIgnoreCase(selectedCar)){
@@ -131,8 +132,14 @@ public class CarbonCalculatorController {
         String tourName = (String) session.getAttribute("tourName");
         double distance = Distance.calculateDistance(origin, destination, vehicle);
 
-        if (distance == 0.0) {
-            redirectAttributes.addFlashAttribute("alertMessage", "Error: Cannot find distance, please check Origin and Destination.");
+        if (distance <= 0.0) {
+            if(distance == -1.0){
+                redirectAttributes.addFlashAttribute("alertMessage", "Error: Cannot find distance, please check Origin.");
+            }else if(distance == -2.0){
+                redirectAttributes.addFlashAttribute("alertMessage", "Error: Cannot find distance, please check Destination.");
+            } else{
+                redirectAttributes.addFlashAttribute("alertMessage", "Error: Cannot find distance, please check Origin and Destination.");
+            }
             return "redirect:/newTour";
         }
 
