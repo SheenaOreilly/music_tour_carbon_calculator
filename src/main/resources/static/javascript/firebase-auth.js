@@ -67,10 +67,9 @@ function signup() {
             console.log("Tours set in session: ", data);
         }).catch(error => {
             console.error("Signup error: ", error);
-
             if (error.code === "auth/email-already-in-use") {
                 alert("This email is already in use. Please use a different email or log in.");
-            } else if (error.code === "auth/weak-password") {
+            } else if (error.code === "auth/weak-password" || error.code === "auth/password-does-not-meet-requirements") {
                 alert("Password should be at least 6 characters long and contain a numeric character.");
             }
         });
