@@ -116,6 +116,22 @@ public class G_toursTest {
         wait.until(ExpectedConditions.urlContains("/getSpecificTour"));
         Assertions.assertTrue(driver.getCurrentUrl().contains("/getSpecificTour"),
                 "User should be redirected to the specific tour page.");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("tour-table")));
+        List<WebElement> rows = driver.findElements(By.cssSelector(".tour-table tbody tr"));
+        Assertions.assertFalse(rows.isEmpty(), "No tour data found!");
+
+        for (WebElement row : rows) {
+            List<WebElement> columns = row.findElements(By.tagName("td"));
+            Assertions.assertEquals(8, columns.size(), "Row does not have expected 8 columns!");
+
+            for (WebElement column : columns) {
+                Assertions.assertFalse(column.getText().trim().isEmpty(), "Table contains empty fields!");
+            }
+        }
+        WebElement allToursButton = driver.findElement(By.xpath("/html/body/div[6]/div/button"));
+        allToursButton.click();
+        wait.until(ExpectedConditions.urlContains("/tours"));
+        Assertions.assertTrue(driver.getCurrentUrl().contains("/tours"), "Did not navigate back to all tours page!");
     }
 
     @Test
