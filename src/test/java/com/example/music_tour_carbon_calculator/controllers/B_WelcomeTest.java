@@ -12,7 +12,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.time.Duration;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class WelcomeTest {
+public class B_WelcomeTest {
 
     @LocalServerPort
     private int port = 8080;

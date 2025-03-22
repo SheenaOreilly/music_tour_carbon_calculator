@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class newTourTest{
+public class E_newTourTest {
 
     @LocalServerPort
     private int port = 8080;

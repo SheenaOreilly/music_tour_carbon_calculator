@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class carTest{
+public class F_carTest {
 
     @LocalServerPort
     private int port = 8080;
@@ -63,7 +63,7 @@ public class carTest{
         ModelYear.sendKeys("2020");
         WebElement makeDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("make")));
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class carTest{
         specificMakeOption.click();
         WebElement modelDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("model")));
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class carTest{
         modelOption.click();
         WebElement tankDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("tank")));
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

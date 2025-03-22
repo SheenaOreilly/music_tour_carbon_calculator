@@ -12,8 +12,9 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SelectTourTest {
+public class D_SelectTourTest {
 
     @LocalServerPort
     private int port = 8080;
@@ -48,6 +49,7 @@ public class SelectTourTest {
         }
     }
 
+    @Order(1)
     @Test
     public void testHeaderElements() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -67,6 +69,7 @@ public class SelectTourTest {
         Assertions.assertTrue(logoutButton.isDisplayed(), "Logout button should be visible");
     }
 
+    @Order(2)
     @Test
     public void testPageElements(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -84,6 +87,7 @@ public class SelectTourTest {
         Assertions.assertTrue(imageSrc.contains("images/tourImage.png"), "Image source should be 'images/tourImage.png'");
     }
 
+    @Order(3)
     @Test
     public void createTourName(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

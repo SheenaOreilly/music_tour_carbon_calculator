@@ -12,8 +12,9 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class LoginTest {
+public class C_LoginTest {
 
     @LocalServerPort
     private int port = 8080;
@@ -46,6 +47,7 @@ public class LoginTest {
         }
     }
 
+    @Order(1)
     @Test
     public void testLoginPageElements() {
         WebElement emailInput = driver.findElement(By.id("email"));
@@ -60,6 +62,7 @@ public class LoginTest {
         Assertions.assertTrue(createAccountLink.isDisplayed(), "Create Account link should be visible");
     }
 
+    @Order(2)
     @Test
     public void testCreateAccountToggle() {
         WebElement createAccountLink = driver.findElement(By.xpath("//a[text()='Create Account']"));
@@ -74,6 +77,7 @@ public class LoginTest {
         Assertions.assertTrue(loginForm.isDisplayed(), "Login form should be visible again");
     }
 
+    @Order(3)
     @Test
     public void testCreateAccount() {
         WebElement createAccountLink = driver.findElement(By.xpath("//a[text()='Create Account']"));
@@ -101,6 +105,7 @@ public class LoginTest {
             "The page should redirect to SelectTour after the video finishes.");
     }
 
+    @Order(4)
     @Test
     public void testCreateAccountEmailError() {
         WebElement createAccountLink = driver.findElement(By.xpath("//a[text()='Create Account']"));
@@ -115,6 +120,7 @@ public class LoginTest {
         handleAlert("This email is already in use. Please use a different email or log in.");
     }
 
+    @Order(5)
     @Test
     public void testLoginWithWrongPassword() throws InterruptedException {
         WebElement emailInput = driver.findElement(By.id("email"));
@@ -126,6 +132,7 @@ public class LoginTest {
         handleAlert("Incorrect email or password. Please check your credentials or Please sign up");
     }
 
+    @Order(6)
     @Test
     public void testForgotPasswordLink() {
         WebElement forgotPasswordLink = driver.findElement(By.xpath("//a[text()='Forgot Password?']"));
@@ -137,6 +144,7 @@ public class LoginTest {
         handleAlert("Password reset email sent! Check your inbox.");
     }
 
+    @Order(7)
     @Test
     public void testLogin() {
         WebElement emailInput = driver.findElement(By.id("email"));
