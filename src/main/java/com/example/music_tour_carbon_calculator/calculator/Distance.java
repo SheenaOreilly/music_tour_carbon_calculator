@@ -38,7 +38,7 @@ public class Distance {
                 .getJSONArray("elements");
 
         // Check if status is NOT "NOT_FOUND"
-        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND")) {
+        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND") && !elements.getJSONObject(0).getString("status").equals("ZERO_RESULTS")) {
             String distanceText = elements.getJSONObject(0)
                     .getJSONObject("distance")
                     .getString("text");
@@ -46,6 +46,12 @@ public class Distance {
             return Double.parseDouble(distanceValue);
         } else {
             System.out.println("Error: Distance information not found.");
+            if(jsonObject.getJSONArray("origin_addresses").getString(0).isEmpty()){
+                return -1.0;
+            }
+            if(jsonObject.getJSONArray("destination_addresses").getString(0).isEmpty()){
+                return -2.0;
+            }
             return 0.0;
         }
 //        String distanceText = jsonObject.getJSONArray("rows")

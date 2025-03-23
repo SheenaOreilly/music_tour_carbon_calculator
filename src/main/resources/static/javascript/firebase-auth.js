@@ -27,8 +27,10 @@ function login() {
             });
             console.log("Email set in session: ", data);
         }).catch(error => {
-        console.error("Error setting email in session: ", error);
-    });
+            if (error.code === "auth/invalid-credential") {
+                alert("Incorrect email or password. Please check your credentials or Please sign up");
+            }
+        });
 }
 
 function signup() {
@@ -64,8 +66,38 @@ function signup() {
             });
             console.log("Tours set in session: ", data);
         }).catch(error => {
-        console.error("Error setting tours in session: ", error);
-    });
+            console.error("Signup error: ", error);
+            if (error.code === "auth/email-already-in-use") {
+                alert("This email is already in use. Please use a different email or log in.");
+            } else if (error.code === "auth/weak-password" || error.code === "auth/password-does-not-meet-requirements") {
+                alert("Password should be at least 6 characters long and contain a numeric character.");
+            }
+        });
+}
+
+function resetPassword() {
+    var email = document.getElementById("email").value; // Get the email input field value
+
+    if (!email) {
+        alert("Please enter your email address before resetting the password.");
+        return;
+    }
+
+    firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Password reset email sent! Check your inbox.");
+        })
+        .catch(error => {
+            console.error("Error sending password reset email:", error);
+
+            if (error.code === "auth/user-not-found") {
+                alert("No account found with this email.");
+            } else if (error.code === "auth/invalid-email") {
+                alert("Invalid email format. Please enter a valid email.");
+            } else {
+                alert("Error sending reset email. Please try again.");
+            }
+        });
 }
 
 
@@ -82,7 +114,7 @@ function logout() {
                 "Content-Type": "application/json"
             }
         }).then(() => {
-            window.location.href = "http://localhost:8080/";
+            window.location.href = "https://eco-tours-eco-tours.azuremicroservices.io/";
         }).catch((error) => {
             console.error("Error logging out from session:", error);
         });
