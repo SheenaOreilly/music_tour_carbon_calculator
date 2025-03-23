@@ -101,6 +101,7 @@
                         <include>**/F_carTest.java</include>
                         <include>**/G_toursTest.java</include>
                         <include>**/H_OffsetTest.java</include>
+                        <include>**/I_SampleTicketTest.java</include>
                     </includes>
                 </configuration>
             </plugin>
