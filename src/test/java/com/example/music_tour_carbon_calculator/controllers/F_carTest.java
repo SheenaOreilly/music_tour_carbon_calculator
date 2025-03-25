@@ -63,7 +63,7 @@ public class F_carTest {
         ModelYear.sendKeys("2020");
         WebElement makeDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("make")));
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class F_carTest {
         specificMakeOption.click();
         WebElement modelDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("model")));
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class F_carTest {
         modelOption.click();
         WebElement tankDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("tank")));
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

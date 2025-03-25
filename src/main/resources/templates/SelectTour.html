@@ -48,6 +48,12 @@
     <img style=" margin-top: 250px;" src="images/tourImage.png" alt="LOGO" width="600" height="600">
 </form>
 
+<script th:if="${alertMessage}">
+    window.onload = function() {
+        alert("[[${alertMessage}]]");
+    }
+</script>
+
 <script>
     function toggleCollapsible() {
         var content = document.querySelector(".content");
