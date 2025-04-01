@@ -18,31 +18,16 @@ public class carObject {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getConsumption() {
         return consumption;
-    }
-
-    public void setConsumption(String consumption) {
-        this.consumption = consumption;
     }
 
     public String getFuel() {
         return fuel;
     }
 
-    public void setFuel(String fuel) {
-        this.fuel = fuel;
-    }
-
     public String getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
-    }
 }

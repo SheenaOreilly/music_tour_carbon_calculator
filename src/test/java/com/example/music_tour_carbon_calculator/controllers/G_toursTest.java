@@ -122,7 +122,7 @@ public class G_toursTest {
 
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
-            Assertions.assertEquals(8, columns.size(), "Row does not have expected 8 columns!");
+            Assertions.assertEquals(9, columns.size(), "Row does not have expected 8 columns!");
 
             for (WebElement column : columns) {
                 Assertions.assertFalse(column.getText().trim().isEmpty(), "Table contains empty fields!");
