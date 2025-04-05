@@ -65,6 +65,19 @@ public class E_newTourTest {
 
     @Test
     @Order(2)
+    public void testNoTours() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement pastToursLink = driver.findElement(By.className("pasttourp"));
+        pastToursLink.click();
+        WebElement message = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".tours-container p"))
+        );
+        Assertions.assertEquals("You have no tours.", message.getText().trim(),
+                "Expected 'You have no tours.' message when there are no tours.");
+    }
+
+    @Test
+    @Order(3)
     public void testVehicleDropdownSelection() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -147,7 +160,7 @@ public class E_newTourTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     public void addingLeg() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement vehicleDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("vehicleDropdown")));
@@ -194,7 +207,7 @@ public class E_newTourTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     public void removingLeg() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement entry = driver.findElement(By.xpath("//*[@id=\"legs\"]/table/tbody/tr[1]"));
