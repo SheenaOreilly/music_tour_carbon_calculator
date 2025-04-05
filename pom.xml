@@ -114,6 +114,11 @@
                         <include>**/TestCarInfo</include>
                         <include>**/TestFirebaseAuthService</include>
                         <include>TestObjects</include>
+                        <include>TestPlaneInfo</include>
+                        <include>TestToursController</include>
+                        <include>TestDistance</include>
+                        <include>TestOffsetsController</include>
+                        <include>TestLegOfTourController</include>
                     </includes>
                 </configuration>
             </plugin>
