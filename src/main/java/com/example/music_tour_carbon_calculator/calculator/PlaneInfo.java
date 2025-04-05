@@ -26,17 +26,19 @@ public class PlaneInfo {
             while(line != null){
                 String str = line;
                 String[] arrOfStr = str.split(":");
-                String airport = arrOfStr[2];
-                String country = arrOfStr[4];
-                String combinedString = airport + ", " + country;
-                if(airport.equalsIgnoreCase("N/A")){
-                    airport = arrOfStr[3];
+                if(arrOfStr.length == 16){
+                    String airport = arrOfStr[2];
+                    String country = arrOfStr[4];
+                    String combinedString = airport + ", " + country;
+                    if(airport.equalsIgnoreCase("N/A")){
+                        airport = arrOfStr[3];
+                    }
+                    String lat = arrOfStr[14];
+                    String lon = arrOfStr[15];
+                    String combined = lat + ":" + lon + ":" + airport;
+                    airports.put(combinedString, combined);
+                    line = reader.readLine();
                 }
-                String lat = arrOfStr[14];
-                String lon = arrOfStr[15];
-                String combined = lat + ":" + lon + ":" + airport;
-                airports.put(combinedString, combined);
-                line = reader.readLine();
             }
             reader.close();
         } catch(IOException e){

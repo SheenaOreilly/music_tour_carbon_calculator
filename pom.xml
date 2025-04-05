@@ -108,6 +108,12 @@
                         <include>**/G_toursTest.java</include>
                         <include>**/H_OffsetTest.java</include>
                         <include>**/I_SampleTicketTest.java</include>
+                        <include>**/TestBusInfo</include>
+                        <include>**/TestCalculator</include>
+                        <include>**/TestCreateTourBlock</include>
+                        <include>**/TestCarInfo</include>
+                        <include>**/TestFirebaseAuthService</include>
+                        <include>TestObjects</include>
                     </includes>
                 </configuration>
             </plugin>

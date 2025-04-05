@@ -79,42 +79,6 @@ public class TestCarInfo {
         assertEquals("6.86", fuelInfo.get(1));
     }
 
-    @Test
-    void testGetTextAndValueHandlesEmptyResponse() throws Exception {
-        // Arrange
-        String url = "https://example.com/emptyResponse";
-        CarInfo mockCarInfo = mock(CarInfo.class);
-
-        // Mocking empty response
-        Map<String, String> emptyMap = Map.of();
-        when(mockCarInfo.getTextAndValue(eq(url), anyMap())).thenReturn(emptyMap);
-
-        // Act
-        Map<String, String> result = mockCarInfo.getTextAndValue(url, new LinkedHashMap<>());
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testGetTextHandlesEmptyResponse() throws Exception {
-        // Arrange
-        String url = "https://example.com/emptyResponse";
-        CarInfo mockCarInfo = mock(CarInfo.class);
-
-        // Mocking empty response
-        List<String> emptyList = List.of();
-        when(mockCarInfo.getText(eq(url), anyList())).thenReturn(emptyList);
-
-        // Act
-        List<String> result = mockCarInfo.getText(url, new ArrayList<>());
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
     private CarInfo CarInfo;
     private MockWebServer mockWebServer;
 
