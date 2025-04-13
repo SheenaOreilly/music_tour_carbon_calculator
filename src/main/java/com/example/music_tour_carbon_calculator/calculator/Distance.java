@@ -33,11 +33,16 @@ public class Distance {
 
         JSONObject jsonObject = getJsonObject(urlString);
 
+        if (jsonObject.getJSONArray("rows").length() == 0) {
+            System.out.println("Error: No data found in 'rows'. Origin and destination may be invalid.");
+            return 0.0;
+        }
+
         JSONArray elements = jsonObject.getJSONArray("rows")
                 .getJSONObject(0)
                 .getJSONArray("elements");
 
-        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND") && !elements.getJSONObject(0).getString("status").equals("ZERO_RESULTS")) {
+        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND") && !elements.getJSONObject(0).getString("status").equals("ZERO_RESULTS") && !elements.getJSONObject(0).getString("status").equals("INVALID_REQUEST")) {
             String distanceText = elements.getJSONObject(0)
                     .getJSONObject("distance")
                     .getString("text");

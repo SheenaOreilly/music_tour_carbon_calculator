@@ -14,8 +14,8 @@ import java.io.InputStream;
 public class FirebaseConfig {
 
     @Bean
-    public FirebaseApp firebaseApp() throws IOException {
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("carbon-calculator-music-tours-firebase-adminsdk-fbsvc-0538dad743.json");
+    public static FirebaseApp firebaseApp() throws IOException {
+        InputStream serviceAccount = FirebaseConfig.class.getClassLoader().getResourceAsStream("carbon-calculator-music-tours-firebase-adminsdk-fbsvc-0538dad743.json");
 
         if (serviceAccount == null) {
             throw new IOException("Firebase service account file not found in the classpath.");

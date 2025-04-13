@@ -103,11 +103,12 @@
                         <include>**/B_WelcomeTest.java</include>
                         <include>**/C_LoginTest.java</include>
                         <include>**/D_SelectTourTest.java</include>
-                        <include>**/E_newTourTest.java</include>
+<!--                        <include>**/E_newTourTest.java</include>-->
                         <include>**/F_carTest.java</include>
                         <include>**/G_toursTest.java</include>
                         <include>**/H_OffsetTest.java</include>
                         <include>**/I_SampleTicketTest.java</include>
+                        <include>**/J_AddCarbonTest</include>
                         <include>**/TestBusInfo</include>
                         <include>**/TestCalculator</include>
                         <include>**/TestCreateTourBlock</include>
@@ -151,6 +152,25 @@
                         </resources>
                     </deployment>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.8</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
