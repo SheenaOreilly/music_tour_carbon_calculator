@@ -49,7 +49,7 @@ const firebaseConfig = {
 
 Run the following command in the root directory:
 
-'''bash
+```bash
 mvn clean package
 ```
 ## ☁️ Deploy to Azure
