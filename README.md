@@ -29,7 +29,7 @@ InputStream serviceAccount = FirebaseConfig.class
 
 ### 🌐 2. Frontend Firebase Configuration
 
-1. **In Firebase, go to **Project Settings > General**.
+1. In Firebase, go to **Project Settings > General**.
 2. Scroll to **"Your apps"** and copy the config object:
    
 ```javascript
@@ -54,9 +54,9 @@ mvn clean package
 ```
 ## ☁️ Deploy to Azure
 
-1. ** Create an Azure Spring Apps project and a resource group via your Azure portal.
+1. Create an Azure Spring Apps project and a resource group via your Azure portal.
 
-2. ** Deploy the application using the Maven wrapper:
+2. Deploy the application using the Maven wrapper:
 
 ```bash
 ./mvnw azure-spring-apps:deploy
