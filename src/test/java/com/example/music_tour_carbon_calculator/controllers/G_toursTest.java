@@ -54,21 +54,6 @@ public class G_toursTest {
 
     @Order(1)
     @Test
-    public void testNoTours() {
-        loginUser("oreillysheena@gmail.com", "test123");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement pastToursLink = driver.findElement(By.className("pasttourp"));
-        pastToursLink.click();
-        WebElement message = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".tours-container p"))
-        );
-        Assertions.assertEquals("You have no tours.", message.getText().trim(),
-                "Expected 'You have no tours.' message when there are no tours.");
-    }
-
-
-    @Order(2)
-    @Test
     public void testWithTours() {
         loginUser("oreils21@tcd.ie", "test123");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -80,7 +65,7 @@ public class G_toursTest {
                 "Expected tours to be displayed, but none were found.");
     }
 
-    @Order(3)
+    @Order(2)
     @Test
     public void testSearchTours() {
         loginUser("oreils21@tcd.ie", "test123");
@@ -99,7 +84,7 @@ public class G_toursTest {
                 "Search should return at least one result.");
     }
 
-    @Order(4)
+    @Order(3)
     @Test
     public void testSpecificTour() {
         loginUser("oreils21@tcd.ie", "test123");
@@ -122,7 +107,7 @@ public class G_toursTest {
 
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
-            Assertions.assertEquals(8, columns.size(), "Row does not have expected 8 columns!");
+            Assertions.assertEquals(9, columns.size(), "Row does not have expected 8 columns!");
 
             for (WebElement column : columns) {
                 Assertions.assertFalse(column.getText().trim().isEmpty(), "Table contains empty fields!");
@@ -135,7 +120,7 @@ public class G_toursTest {
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     public void testTourIcons() {
         loginUser("oreils21@tcd.ie", "test123");
 

@@ -33,12 +33,16 @@ public class Distance {
 
         JSONObject jsonObject = getJsonObject(urlString);
 
+        if (jsonObject.getJSONArray("rows").length() == 0) {
+            System.out.println("Error: No data found in 'rows'. Origin and destination may be invalid.");
+            return 0.0;
+        }
+
         JSONArray elements = jsonObject.getJSONArray("rows")
                 .getJSONObject(0)
                 .getJSONArray("elements");
 
-        // Check if status is NOT "NOT_FOUND"
-        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND") && !elements.getJSONObject(0).getString("status").equals("ZERO_RESULTS")) {
+        if (!elements.getJSONObject(0).getString("status").equals("NOT_FOUND") && !elements.getJSONObject(0).getString("status").equals("ZERO_RESULTS") && !elements.getJSONObject(0).getString("status").equals("INVALID_REQUEST")) {
             String distanceText = elements.getJSONObject(0)
                     .getJSONObject("distance")
                     .getString("text");
@@ -46,26 +50,17 @@ public class Distance {
             return Double.parseDouble(distanceValue);
         } else {
             System.out.println("Error: Distance information not found.");
-            if(jsonObject.getJSONArray("origin_addresses").getString(0).isEmpty()){
+            if(jsonObject.has("origin_addresses") && jsonObject.getJSONArray("origin_addresses").getString(0).isEmpty()){
                 return -1.0;
             }
-            if(jsonObject.getJSONArray("destination_addresses").getString(0).isEmpty()){
+            if(jsonObject.has("destination_addresses") && jsonObject.getJSONArray("destination_addresses").getString(0).isEmpty()){
                 return -2.0;
             }
             return 0.0;
         }
-//        String distanceText = jsonObject.getJSONArray("rows")
-//                .getJSONObject(0)
-//                .getJSONArray("elements")
-//                .getJSONObject(0)
-//                .getJSONObject("distance")
-//                .getString("text");
-//
-//        String distanceValue = distanceText.replaceAll("[^\\d.]", "");
-//        return Double.parseDouble(distanceValue);
     }
 
-    private static JSONObject getJsonObject(String urlString) throws IOException {
+    public static JSONObject getJsonObject(String urlString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");

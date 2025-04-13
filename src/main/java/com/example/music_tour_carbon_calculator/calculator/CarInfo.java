@@ -65,7 +65,7 @@ public class CarInfo {
         return getFuelandConsumption(urlString, vehicleTexts);
     }
 
-    private static List getText(String urlString, List vehicleTexts) throws IOException, ParserConfigurationException, SAXException {
+    public static List getText(String urlString, List vehicleTexts) throws IOException, ParserConfigurationException, SAXException {
         getBasicXML(urlString);
         NodeList textNodes = doc.getElementsByTagName("text");
         for (int i = 0; i < textNodes.getLength(); i++) {
@@ -104,7 +104,7 @@ public class CarInfo {
             {
                 consumption = consumptionNodesElectric.item(i).getTextContent();
                 conversion = Double.parseDouble(consumption);
-                conversion = conversion / 1.609344; // kwh per 100 miles to kwh per 100 km
+                conversion = conversion / 1.609344;
             }
             else{
                 consumption = consumptionNodes.item(i).getTextContent();
@@ -112,7 +112,7 @@ public class CarInfo {
                 if(conversion <= 0.0){
                     conversion = Double.parseDouble(consumptionNodesBackup.item(i).getTextContent());
                 }
-                conversion = 235.2145 / conversion; // miles per gallon to km per litre
+                conversion = 235.2145 / conversion;
             }
             consumption = String.format("%.2f", conversion);
             vehicleTexts.add(fuel);
@@ -136,10 +136,13 @@ public class CarInfo {
         }
         conn.disconnect();
 
-        // Parse the XML
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         doc = builder.parse(new java.io.ByteArrayInputStream(response.toString().getBytes()));
     }
 
+
+    public Document getDoc(){
+        return doc;
+    }
 }

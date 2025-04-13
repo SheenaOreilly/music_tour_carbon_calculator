@@ -73,7 +73,7 @@ public class FirebaseService {
         }
     }
 
-    private void AddData(CollectionReference collection, tourObject createTour, List<tourObject> userTours) throws InterruptedException, ExecutionException {
+    public void AddData(CollectionReference collection, tourObject createTour, List<tourObject> userTours) throws InterruptedException, ExecutionException {
         List<QueryDocumentSnapshot> documents = collection.get().get().getDocuments();
         for (QueryDocumentSnapshot document : documents) {
             String documentID = document.getId();
